@@ -1,0 +1,13 @@
+.directory
+src/ManuvrOS
+src/DataStructures
+src/FreeRTOS_Arduino
+*.o
+build
+compiler
+lib/Audio
+lib/FreeRTOS_Arduino/
+lib/ManuvrOS
+lib/i2c_t3/
+lib/mbedtls/
+tools/
