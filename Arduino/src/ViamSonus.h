@@ -30,7 +30,7 @@ Crosspoint switch is at address 0x70.
 #include <ADG2128.h>
 
 
-enum class VIAMSONUS_ERROR : int8_t {
+enum class ViamSonusError : int8_t {
   INPUT_DISPLACED = 4,   // There was no error, but a channel-routing operation has displaced a previously-routed input.
   DEVICE_DISABLED = 3,   // A caller tried to set a wiper while the device is disabled. This may work...
   PEGGED_MAX      = 2,   // There was no error, but a call to change a wiper setting pegged the wiper at its highest position.
@@ -49,41 +49,27 @@ enum class VIAMSONUS_ERROR : int8_t {
 
 // This struct defines an input pin on the PCB.
 typedef struct cps_input_channel_t {
-  char*     name;             // A name for this input.
-  uint8_t   cp_row;
+  char*    name;       // A name for this input. Not required.
+  uint8_t  cp_row;     // The row in the crosspoint switch associated with this input.
+  uint8_t  o_chan;     // A flag field indicating which columns are presently bound to this row.
+  uint8_t  deadspace;  // Structure padding.
+  uint8_t  flags;      // Flags on this channel.
 } CPInputChannel;
 
 
 // This struct defines an output pin on the PCB.
 typedef struct cps_output_channel_t {
-  char*           name;          // A name for this output.
-  uint8_t         cp_column;
-  CPInputChannel* cp_row;        // A pointer to the row that is presently bound to this column. If NULL, it is unbound.
+  char*    name;       // A name for this output. Not required.
+  uint16_t i_chan;     // A flag field indicating which rows are presently bound to this column.
+  uint8_t  cp_column;  // The column in the crosspoint switch associated with this output.
+  uint8_t  flags;      // Flags on this channel.
 } CPOutputChannel;
 
 
 
 class AudioRouter {
   public:
-    AudioRouter(uint8_t, uint8_t, uint8_t);       // Constructor needs the i2c addresses of the three chips on the PCB.
-    ~AudioRouter(void);
-
-    int8_t init(void);
     void preserveOnDestroy(bool);
-
-    int8_t route(uint8_t col, uint8_t row);       // Establish a route to the given output from the given input.
-
-    int8_t unroute(uint8_t col, uint8_t row);     // Disconnect the given output from the given input.
-    int8_t unroute(uint8_t col);                  // Disconnect the given output from all inputs.
-
-    int8_t nameInput(uint8_t row, const char*);   // Name the input channel.
-    int8_t nameOutput(uint8_t col, const char*);  // Name the output channel.
-
-    int8_t setVolume(uint8_t col, uint8_t vol);   // Set the volume coming out of a given output channel.
-
-    int8_t enable(void);      // Turn on the chips responsible for routing signals.
-    int8_t disable(void);     // Turn off the chips responsible for routing signals.
-
     int8_t status(char*);     // Write some status about the routes to the provided char buffer.
 
     // TODO: These ought to be statics...
@@ -91,14 +77,6 @@ class AudioRouter {
     void dumpInputChannel(uint8_t chan);
     void dumpOutputChannel(uint8_t chan);
 
-
-  private:
-    CPInputChannel*  inputs[12];
-    CPOutputChannel* outputs[8];
-
-    CPOutputChannel* getOutputByCol(uint8_t);
-
-    static const uint8_t col_remap[8];
 };
 
 
@@ -111,21 +89,43 @@ class AudioRouter {
 */
 class ViamSonus {
   public:
-    ViamSonus(const uint8_t address);
+    ViamSonus(const uint8_t reset_pin);
     ~ViamSonus();
 
     void printDebug();
-    VIAMSONUS_ERROR init();
+    ViamSonusError init();
+
+    ViamSonusError route(uint8_t col, uint8_t row);       // Establish a route to the given output from the given input.
+    ViamSonusError unroute(uint8_t col, uint8_t row);     // Disconnect the given output from the given input.
+    ViamSonusError unroute(uint8_t col);                  // Disconnect the given output from all inputs.
+
+    ViamSonusError nameInput(uint8_t row, const char*);   // Name the input channel.
+    ViamSonusError nameOutput(uint8_t col, const char*);  // Name the output channel.
+
+    ViamSonusError setVolume(uint8_t row, uint8_t vol);   // Set the volume of a given input channel.
+    int16_t getVolume(uint8_t row);                       // Get the volume of a given input channel.
+
+    // Save this hardware state into a buffer for later restoration.
+    ViamSonusError serialize(uint8_t* buf, unsigned int* len);
 
 
   private:
-    ADG2128 switch(0x70);
+    CPInputChannel  inputs[12];
+    CPOutputChannel outputs[8];
+
+    ADG2128 cp_switch(
+      ADG2128Opts(0x70, _rst, true, false)
+    );
     DS1881  pot0(0x28);
     DS1881  pot1(0x29);
     DS1881  pot2(0x2A);
     DS1881  pot3(0x2B);
     DS1881  pot4(0x2C);
     DS1881  pot5(0x2D);
+
+    DS1881* _getPotRef(uint8_t row);
+    inline CPOutputChannel* getInputByRow(uint8_t row) {   return &inputs[row % 12];     };
+    inline CPOutputChannel* getOutputByCol(uint8_t col) {  return &outputs[col & 0x07];  };
 };
 
 #endif   // __VIAMSONUS_DRIVER_H__

@@ -20,6 +20,7 @@
 
 
 ViamSonusOpts vs_opts(
+  0x70,
   13,      // Use this pin for reset
   true,    // Allow many columns to connect to a single row
   false    // Disallow many rows from connecting to a single column
