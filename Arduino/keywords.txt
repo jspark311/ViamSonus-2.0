@@ -1,0 +1,35 @@
+#########################################
+# Syntax Coloring Map For ViamSonus
+#########################################
+
+#########################################
+# Datatypes (KEYWORD1)
+#########################################
+
+ViamSonus         KEYWORD1
+CPInputChannel    KEYWORD1
+CPOutputChannel   KEYWORD1
+ViamSonusError    KEYWORD1
+
+
+#########################################
+# Methods and Functions (KEYWORD2)
+#########################################
+
+init               KEYWORD2
+reset              KEYWORD2
+route              KEYWORD2
+unroute            KEYWORD2
+nameInput          KEYWORD2
+nameOutput         KEYWORD2
+setVolume          KEYWORD2
+getVolume          KEYWORD2
+serialize          KEYWORD2
+printDebug         KEYWORD2
+
+
+#########################################
+# Constants (LITERAL1)
+#########################################
+
+VIAMSONUS_SERIALIZE_VERSION  LITERAL1

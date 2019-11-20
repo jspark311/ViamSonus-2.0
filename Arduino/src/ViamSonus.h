@@ -29,6 +29,8 @@ Crosspoint switch is at address 0x70.
 #include <DS1881.h>
 #include <ADG2128.h>
 
+#define VIAMSONUS_SERIALIZE_VERSION  1
+
 
 enum class ViamSonusError : int8_t {
   INPUT_DISPLACED = 4,   // There was no error, but a channel-routing operation has displaced a previously-routed input.
