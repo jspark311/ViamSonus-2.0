@@ -1,0 +1,1631 @@
+EESchema Schematic File Version 4
+LIBS:Router-Board-cache
+EELAYER 26 0
+EELAYER END
+$Descr User 11693 7087
+encoding utf-8
+Sheet 1 1
+Title "Viam Sonus 2.0"
+Date "2019-11-18"
+Rev "2"
+Comp "Manuvr"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L VianSonus2.0-parts:ADG2128 U1
+U 1 1 5D183CD4
+P 4500 2000
+F 0 "U1" H 4400 2250 60  0000 C CNN
+F 1 "ADG2128" H 4500 2100 60  0000 C CNN
+F 2 "Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.65x3.65mm" H 4050 2750 60  0001 C CNN
+F 3 "" H 4050 2750 60  0000 C CNN
+F 4 "ADG2128YCPZ-REEL7CT-ND" H 4500 2000 50  0001 C CNN "Digikey_Num"
+F 5 "ADG2128YCPZ-REEL7" H 4500 2000 50  0001 C CNN "Manu_Num"
+F 6 "Analog Devices Inc." H 4500 2000 50  0001 C CNN "Manu_Name"
+	1    4500 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L VianSonus2.0-parts:DS1881E-050+ U3
+U 1 1 5D183D42
+P 8400 1150
+F 0 "U3" H 8400 850 50  0000 C CNN
+F 1 "DS1881E-050+" H 8400 1524 50  0000 C CNN
+F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 8400 1500 50  0001 C CNN
+F 3 "" H 8400 1500 50  0001 C CNN
+F 4 "DS1881E-050+-ND" H 8400 1150 50  0001 C CNN "Digikey_Num"
+F 5 "DS1881E-050+" H 8400 1150 50  0001 C CNN "Manu_Num"
+F 6 "Maxim Integrated" H 8400 1150 50  0001 C CNN "Manu_Name"
+	1    8400 1150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8850 1000 9000 1000
+Wire Wire Line
+	8850 1100 8900 1100
+Wire Wire Line
+	8850 1200 8950 1200
+Wire Wire Line
+	8850 1700 9300 1700
+Wire Wire Line
+	8850 1900 9200 1900
+Wire Wire Line
+	9350 1800 9250 1800
+Wire Wire Line
+	8850 2350 9000 2350
+Wire Wire Line
+	8850 2550 8950 2550
+Wire Wire Line
+	9350 2450 8900 2450
+Wire Wire Line
+	8850 3700 9000 3700
+Wire Wire Line
+	8850 3900 8950 3900
+Wire Wire Line
+	9350 3800 8900 3800
+Wire Wire Line
+	8850 3050 9300 3050
+Wire Wire Line
+	8850 3250 9200 3250
+Wire Wire Line
+	9350 3150 9250 3150
+Wire Wire Line
+	8850 4400 9300 4400
+Wire Wire Line
+	8850 4600 9200 4600
+Wire Wire Line
+	9350 4500 9250 4500
+$Comp
+L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U11
+U 1 1 5D193945
+P 1550 3200
+F 0 "U11" H 1900 2900 39  0000 C CNN
+F 1 "LME49726MY/NOPB" H 1750 2800 39  0000 C CNN
+F 2 "Footprints:TSSOP-8_3x3mm_P0.65mm-EP" H 1550 3200 39  0001 C CNN
+F 3 "" H 1550 3200 39  0001 C CNN
+F 4 "LME49726MY/NOPB" H 1550 3200 50  0001 C CNN "Manu_Num"
+F 5 "Texas Instruments" H 1550 3200 50  0001 C CNN "Manu_Name"
+F 6 "LME49726MY/NOPBCT-ND" H 1550 3200 50  0001 C CNN "Digikey_Num"
+	1    1550 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 3200 1700 3150
+Text Label 1800 4050 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	1700 4050 1700 4000
+Wire Wire Line
+	1800 4050 1750 4050
+Wire Wire Line
+	1700 3150 1750 3150
+Wire Wire Line
+	1450 3350 1400 3350
+Wire Wire Line
+	1400 3350 1400 3050
+Wire Wire Line
+	1400 3050 2100 3050
+Wire Wire Line
+	2100 3050 2100 3400
+Wire Wire Line
+	2100 3400 2050 3400
+Wire Wire Line
+	2050 3800 2100 3800
+Wire Wire Line
+	2100 3800 2100 4100
+Wire Wire Line
+	2100 4100 1400 4100
+Wire Wire Line
+	1400 4100 1400 3850
+Wire Wire Line
+	1400 3850 1450 3850
+Wire Wire Line
+	2100 3800 2200 3800
+Connection ~ 2100 3800
+Wire Wire Line
+	2100 3400 2200 3400
+Connection ~ 2100 3400
+Wire Wire Line
+	8900 1100 8900 2450
+Connection ~ 8900 1100
+Wire Wire Line
+	8900 1100 9100 1100
+Connection ~ 8900 2450
+Wire Wire Line
+	8900 2450 8850 2450
+Wire Wire Line
+	8900 2450 8900 2650
+Connection ~ 8900 3800
+Wire Wire Line
+	8900 3800 8850 3800
+Wire Wire Line
+	8950 3900 8950 2850
+Connection ~ 8950 3900
+Connection ~ 8950 2550
+Wire Wire Line
+	8950 2550 9350 2550
+Wire Wire Line
+	8950 2550 8950 1500
+Connection ~ 8950 1200
+Wire Wire Line
+	8950 1200 9350 1200
+Wire Wire Line
+	9000 1000 9000 2350
+Connection ~ 9000 1000
+Wire Wire Line
+	9000 1000 9350 1000
+Connection ~ 9000 2350
+Wire Wire Line
+	9000 2350 9350 2350
+Wire Wire Line
+	9000 2350 9000 3700
+Connection ~ 9000 3700
+Wire Wire Line
+	9000 3700 9350 3700
+Connection ~ 9300 4400
+Wire Wire Line
+	9300 4400 9350 4400
+Connection ~ 9300 3050
+Wire Wire Line
+	9300 3050 9350 3050
+Wire Wire Line
+	9300 3050 9300 1700
+Connection ~ 9300 1700
+Wire Wire Line
+	9300 1700 9350 1700
+Wire Wire Line
+	9250 1800 9250 3150
+Connection ~ 9250 1800
+Wire Wire Line
+	9250 1800 8850 1800
+Connection ~ 9250 3150
+Wire Wire Line
+	9250 3150 8850 3150
+Wire Wire Line
+	9250 3150 9250 4500
+Connection ~ 9250 4500
+Wire Wire Line
+	9250 4500 8850 4500
+Connection ~ 9200 4600
+Wire Wire Line
+	9200 4600 9350 4600
+Wire Wire Line
+	9200 4600 9200 3250
+Connection ~ 9200 3250
+Wire Wire Line
+	9200 3250 9350 3250
+Wire Wire Line
+	9200 3250 9200 1900
+Connection ~ 9200 1900
+Wire Wire Line
+	9200 1900 9350 1900
+Wire Wire Line
+	8950 3900 9300 3900
+Wire Wire Line
+	9300 3050 9300 3900
+Connection ~ 9300 3900
+Wire Wire Line
+	9300 3900 9350 3900
+Wire Wire Line
+	9300 3900 9300 4400
+Text Label 9200 4850 3    39   ~ 0
+SCL
+Text Label 9250 4850 3    39   ~ 0
+SDA
+Wire Wire Line
+	7950 4650 7900 4650
+Wire Wire Line
+	7900 4650 7900 4050
+Wire Wire Line
+	7900 4050 7950 4050
+Wire Wire Line
+	7900 4050 7900 3300
+Wire Wire Line
+	7900 2700 7950 2700
+Connection ~ 7900 4050
+Wire Wire Line
+	7950 3300 7900 3300
+Connection ~ 7900 3300
+Wire Wire Line
+	7900 3300 7900 2700
+Wire Wire Line
+	7950 1350 7900 1350
+Wire Wire Line
+	7900 1350 7900 1950
+Connection ~ 7900 2700
+Wire Wire Line
+	7950 1950 7900 1950
+Connection ~ 7900 1950
+Wire Wire Line
+	7900 1950 7900 2700
+Wire Wire Line
+	10250 4650 10300 4650
+Wire Wire Line
+	10300 4650 10300 4050
+Wire Wire Line
+	10300 1950 10250 1950
+Wire Wire Line
+	10250 2700 10300 2700
+Connection ~ 10300 2700
+Wire Wire Line
+	10300 2700 10300 1950
+Wire Wire Line
+	10250 3300 10300 3300
+Connection ~ 10300 3300
+Wire Wire Line
+	10300 3300 10300 2700
+Wire Wire Line
+	10250 4050 10300 4050
+Connection ~ 10300 4050
+Wire Wire Line
+	10300 4050 10300 3300
+Wire Wire Line
+	10250 1350 10300 1350
+Wire Wire Line
+	10300 1350 10300 1950
+Connection ~ 10300 1950
+$Comp
+L Device:C C10
+U 1 1 5D1C4FBF
+P 5850 5500
+F 0 "C10" H 5850 5600 39  0000 L CNN
+F 1 "1uF" H 5850 5400 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5888 5350 50  0001 C CNN
+F 3 "~" H 5850 5500 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5850 5500 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5850 5500 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5850 5500 50  0001 C CNN "Manu_Name"
+	1    5850 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5050 5850 5050 5800
+Wire Wire Line
+	5050 5800 5250 5800
+Wire Wire Line
+	6050 5300 6050 5350
+Wire Wire Line
+	5850 5350 5850 5300
+Connection ~ 5850 5300
+Wire Wire Line
+	5850 5300 6050 5300
+Wire Wire Line
+	5650 5350 5650 5300
+Connection ~ 5650 5300
+Wire Wire Line
+	5650 5300 5850 5300
+Wire Wire Line
+	5250 5800 5250 5850
+Connection ~ 5250 5800
+Wire Wire Line
+	5250 5800 5450 5800
+Wire Wire Line
+	5450 5850 5450 5800
+Connection ~ 5450 5800
+Wire Wire Line
+	5450 5800 5650 5800
+Wire Wire Line
+	5650 5800 5650 5850
+Connection ~ 5650 5800
+Wire Wire Line
+	5650 5800 5850 5800
+Wire Wire Line
+	5850 5850 5850 5800
+Connection ~ 5850 5800
+Wire Wire Line
+	5850 5800 6050 5800
+Wire Wire Line
+	6050 5800 6050 5850
+Wire Wire Line
+	5250 5300 5250 5350
+Wire Wire Line
+	5250 5300 5450 5300
+Wire Wire Line
+	5450 5350 5450 5300
+Connection ~ 5450 5300
+Wire Wire Line
+	5450 5300 5650 5300
+Wire Wire Line
+	5050 6150 5050 6200
+Wire Wire Line
+	5050 6200 5250 6200
+Wire Wire Line
+	6050 5700 6050 5650
+Wire Wire Line
+	5850 5650 5850 5700
+Connection ~ 5850 5700
+Wire Wire Line
+	5850 5700 6050 5700
+Wire Wire Line
+	5650 5650 5650 5700
+Connection ~ 5650 5700
+Wire Wire Line
+	5650 5700 5850 5700
+Wire Wire Line
+	5250 6200 5250 6150
+Connection ~ 5250 6200
+Wire Wire Line
+	5250 6200 5450 6200
+Wire Wire Line
+	5450 6150 5450 6200
+Connection ~ 5450 6200
+Wire Wire Line
+	5450 6200 5650 6200
+Wire Wire Line
+	5650 6200 5650 6150
+Connection ~ 5650 6200
+Wire Wire Line
+	5650 6200 5850 6200
+Wire Wire Line
+	5850 6150 5850 6200
+Connection ~ 5850 6200
+Wire Wire Line
+	5850 6200 6050 6200
+Wire Wire Line
+	6050 6200 6050 6150
+Wire Wire Line
+	5250 5700 5250 5650
+Wire Wire Line
+	5250 5700 5450 5700
+Wire Wire Line
+	5450 5650 5450 5700
+Connection ~ 5450 5700
+Wire Wire Line
+	5450 5700 5650 5700
+Wire Wire Line
+	4650 5800 4650 5850
+Wire Wire Line
+	4850 5850 4850 5800
+Wire Wire Line
+	4850 5800 4650 5800
+Wire Wire Line
+	4650 6200 4650 6150
+Wire Wire Line
+	4850 6150 4850 6200
+Wire Wire Line
+	4850 6200 4650 6200
+Text Label 6150 5700 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	6150 5300 6050 5300
+Connection ~ 6050 5300
+Wire Wire Line
+	6050 5700 6150 5700
+Connection ~ 6050 5700
+Text Label 6150 5800 0    39   ~ 0
+Vcc
+Wire Wire Line
+	6150 5800 6050 5800
+Connection ~ 6050 5800
+Wire Wire Line
+	6050 6200 6150 6200
+Connection ~ 6050 6200
+Text Label 4350 2900 2    39   ~ 0
+ANAGND
+Wire Wire Line
+	4400 2900 4400 2850
+Text Label 4700 2900 0    39   ~ 0
+GND
+$Comp
+L VianSonus2.0-parts:DS1881E-050+ U4
+U 1 1 5D25BF82
+P 8400 2500
+F 0 "U4" H 8400 2200 50  0000 C CNN
+F 1 "DS1881E-050+" H 8400 2874 50  0000 C CNN
+F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 8400 2850 50  0001 C CNN
+F 3 "" H 8400 2850 50  0001 C CNN
+F 4 "DS1881E-050+-ND" H 8400 2500 50  0001 C CNN "Digikey_Num"
+F 5 "DS1881E-050+" H 8400 2500 50  0001 C CNN "Manu_Num"
+F 6 "Maxim Integrated" H 8400 2500 50  0001 C CNN "Manu_Name"
+	1    8400 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L VianSonus2.0-parts:DS1881E-050+ U5
+U 1 1 5D25C00E
+P 8400 3850
+F 0 "U5" H 8400 3550 50  0000 C CNN
+F 1 "DS1881E-050+" H 8400 4224 50  0000 C CNN
+F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 8400 4200 50  0001 C CNN
+F 3 "" H 8400 4200 50  0001 C CNN
+F 4 "DS1881E-050+-ND" H 8400 3850 50  0001 C CNN "Digikey_Num"
+F 5 "DS1881E-050+" H 8400 3850 50  0001 C CNN "Manu_Num"
+F 6 "Maxim Integrated" H 8400 3850 50  0001 C CNN "Manu_Name"
+	1    8400 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L VianSonus2.0-parts:DS1881E-050+ U6
+U 1 1 5D25C2F4
+P 9800 1150
+F 0 "U6" H 9800 850 50  0000 C CNN
+F 1 "DS1881E-050+" H 9800 1524 50  0000 C CNN
+F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 9800 1500 50  0001 C CNN
+F 3 "" H 9800 1500 50  0001 C CNN
+F 4 "DS1881E-050+-ND" H 9800 1150 50  0001 C CNN "Digikey_Num"
+F 5 "DS1881E-050+" H 9800 1150 50  0001 C CNN "Manu_Num"
+F 6 "Maxim Integrated" H 9800 1150 50  0001 C CNN "Manu_Name"
+	1    9800 1150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L VianSonus2.0-parts:DS1881E-050+ U7
+U 1 1 5D262D79
+P 9800 2500
+F 0 "U7" H 9800 2200 50  0000 C CNN
+F 1 "DS1881E-050+" H 9800 2874 50  0000 C CNN
+F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 9800 2850 50  0001 C CNN
+F 3 "" H 9800 2850 50  0001 C CNN
+F 4 "DS1881E-050+-ND" H 9800 2500 50  0001 C CNN "Digikey_Num"
+F 5 "DS1881E-050+" H 9800 2500 50  0001 C CNN "Manu_Num"
+F 6 "Maxim Integrated" H 9800 2500 50  0001 C CNN "Manu_Name"
+	1    9800 2500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L VianSonus2.0-parts:DS1881E-050+ U8
+U 1 1 5D262F49
+P 9800 3850
+F 0 "U8" H 9800 3550 50  0000 C CNN
+F 1 "DS1881E-050+" H 9800 4224 50  0000 C CNN
+F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 9800 4200 50  0001 C CNN
+F 3 "" H 9800 4200 50  0001 C CNN
+F 4 "DS1881E-050+-ND" H 9800 3850 50  0001 C CNN "Digikey_Num"
+F 5 "DS1881E-050+" H 9800 3850 50  0001 C CNN "Manu_Num"
+F 6 "Maxim Integrated" H 9800 3850 50  0001 C CNN "Manu_Name"
+	1    9800 3850
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	10300 4650 10300 4800
+Wire Wire Line
+	7900 4800 7900 4650
+Connection ~ 10300 4650
+Connection ~ 7900 4650
+Text Label 9100 4850 3    39   ~ 0
+VccDiv2
+Wire Wire Line
+	9250 4500 9250 4850
+Wire Wire Line
+	9200 4600 9200 4850
+Wire Wire Line
+	7900 4800 9100 4800
+Wire Wire Line
+	9100 4850 9100 4800
+Connection ~ 9100 4800
+Wire Wire Line
+	9100 4800 10300 4800
+Text Label 8900 3550 1    39   ~ 0
+Vcc
+Text Label 9000 3500 1    39   ~ 0
+ANAVcc
+Text Label 8950 3400 3    39   ~ 0
+GND
+Text Label 5700 1250 0    39   ~ 0
+Switch-In-L-0
+Text Label 5700 1450 0    39   ~ 0
+Switch-In-L-1
+Text Label 5700 1650 0    39   ~ 0
+Switch-In-L-2
+Text Label 5700 1850 0    39   ~ 0
+Switch-In-L-3
+Text Label 5700 2050 0    39   ~ 0
+Switch-In-L-4
+Text Label 5700 2250 0    39   ~ 0
+Switch-In-L-5
+Text Label 5700 1350 0    39   ~ 0
+Switch-In-R-0
+Text Label 5700 1550 0    39   ~ 0
+Switch-In-R-1
+Text Label 5700 1750 0    39   ~ 0
+Switch-In-R-2
+Text Label 5700 1950 0    39   ~ 0
+Switch-In-R-3
+Text Label 5700 2150 0    39   ~ 0
+Switch-In-R-4
+Text Label 5700 2350 0    39   ~ 0
+Switch-In-R-5
+Text Label 3900 2000 2    39   ~ 0
+Switch-Out-L-0
+Text Label 3900 2200 2    39   ~ 0
+Switch-Out-L-1
+Text Label 3900 2400 2    39   ~ 0
+Switch-Out-L-2
+Text Label 3900 2600 2    39   ~ 0
+Switch-Out-L-3
+Text Label 3900 2100 2    39   ~ 0
+Switch-Out-R-0
+Text Label 3900 2300 2    39   ~ 0
+Switch-Out-R-1
+Text Label 3900 2500 2    39   ~ 0
+Switch-Out-R-2
+Text Label 3900 2700 2    39   ~ 0
+Switch-Out-R-3
+Text Label 5750 4100 0    39   ~ 0
+Out-L-0
+Text Label 5750 4300 0    39   ~ 0
+Out-L-1
+Text Label 5750 4500 0    39   ~ 0
+Out-L-2
+Text Label 5750 4700 0    39   ~ 0
+Out-L-3
+Text Label 5750 4200 0    39   ~ 0
+Out-R-0
+Text Label 5750 4400 0    39   ~ 0
+Out-R-1
+Text Label 5750 4600 0    39   ~ 0
+Out-R-2
+Text Label 5750 4800 0    39   ~ 0
+Out-R-3
+Wire Wire Line
+	3950 1800 3900 1800
+Wire Wire Line
+	3900 1800 3900 1700
+Wire Wire Line
+	3900 1600 3950 1600
+Wire Wire Line
+	3950 1700 3900 1700
+Connection ~ 3900 1700
+Wire Wire Line
+	3900 1700 3900 1600
+Text Label 3900 1350 2    39   ~ 0
+SDA
+Text Label 3900 1450 2    39   ~ 0
+SCL
+Text Label 3700 1700 2    39   ~ 0
+GND
+Wire Wire Line
+	3700 1700 3900 1700
+Text Label 3900 1200 2    39   ~ 0
+~RESET
+Text Label 5750 3700 0    39   ~ 0
+~RESET
+Text Label 4700 950  1    39   ~ 0
+Vcc
+Wire Wire Line
+	4700 950  4700 1000
+Text Label 4550 950  1    39   ~ 0
+ANAVcc
+Wire Wire Line
+	4550 950  4550 1000
+$Comp
+L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U10
+U 1 1 5D6A3513
+P 1550 2050
+F 0 "U10" H 1900 1750 39  0000 C CNN
+F 1 "LME49726MY/NOPB" H 1750 1650 39  0000 C CNN
+F 2 "Footprints:TSSOP-8_3x3mm_P0.65mm-EP" H 1550 2050 39  0001 C CNN
+F 3 "" H 1550 2050 39  0001 C CNN
+F 4 "LME49726MY/NOPB" H 1550 2050 50  0001 C CNN "Manu_Num"
+F 5 "Texas Instruments" H 1550 2050 50  0001 C CNN "Manu_Name"
+F 6 "LME49726MY/NOPBCT-ND" H 1550 2050 50  0001 C CNN "Digikey_Num"
+	1    1550 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 2050 1700 2000
+Text Label 1800 2900 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	1700 2900 1700 2850
+Wire Wire Line
+	1800 2900 1750 2900
+Wire Wire Line
+	1700 2000 1750 2000
+Wire Wire Line
+	1450 2200 1400 2200
+Wire Wire Line
+	1400 2200 1400 1900
+Wire Wire Line
+	1400 1900 2100 1900
+Wire Wire Line
+	2100 1900 2100 2250
+Wire Wire Line
+	2100 2250 2050 2250
+Wire Wire Line
+	2050 2650 2100 2650
+Wire Wire Line
+	2100 2650 2100 2950
+Wire Wire Line
+	2100 2950 1400 2950
+Wire Wire Line
+	1400 2950 1400 2700
+Wire Wire Line
+	1400 2700 1450 2700
+Wire Wire Line
+	2100 2650 2200 2650
+Connection ~ 2100 2650
+Wire Wire Line
+	2100 2250 2200 2250
+Connection ~ 2100 2250
+$Comp
+L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U9
+U 1 1 5D6B380A
+P 1550 900
+F 0 "U9" H 1900 600 39  0000 C CNN
+F 1 "LME49726MY/NOPB" H 1750 500 39  0000 C CNN
+F 2 "Footprints:TSSOP-8_3x3mm_P0.65mm-EP" H 1550 900 39  0001 C CNN
+F 3 "" H 1550 900 39  0001 C CNN
+F 4 "LME49726MY/NOPB" H 1550 900 50  0001 C CNN "Manu_Num"
+F 5 "Texas Instruments" H 1550 900 50  0001 C CNN "Manu_Name"
+F 6 "LME49726MY/NOPBCT-ND" H 1550 900 50  0001 C CNN "Digikey_Num"
+	1    1550 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 900  1700 850 
+Text Label 1800 1750 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	1700 1750 1700 1700
+Wire Wire Line
+	1800 1750 1750 1750
+Wire Wire Line
+	1700 850  1750 850 
+Wire Wire Line
+	1450 1050 1400 1050
+Wire Wire Line
+	1400 1050 1400 750 
+Wire Wire Line
+	1400 750  2100 750 
+Wire Wire Line
+	2100 750  2100 1100
+Wire Wire Line
+	2100 1100 2050 1100
+Wire Wire Line
+	2050 1500 2100 1500
+Wire Wire Line
+	2100 1500 2100 1800
+Wire Wire Line
+	2100 1800 1400 1800
+Wire Wire Line
+	1400 1800 1400 1550
+Wire Wire Line
+	1400 1550 1450 1550
+Wire Wire Line
+	2100 1500 2200 1500
+Connection ~ 2100 1500
+Wire Wire Line
+	2100 1100 2200 1100
+Connection ~ 2100 1100
+$Comp
+L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U12
+U 1 1 5D6ECE41
+P 1550 4350
+F 0 "U12" H 1900 4050 39  0000 C CNN
+F 1 "LME49726MY/NOPB" H 1750 3950 39  0000 C CNN
+F 2 "Footprints:TSSOP-8_3x3mm_P0.65mm-EP" H 1550 4350 39  0001 C CNN
+F 3 "" H 1550 4350 39  0001 C CNN
+F 4 "LME49726MY/NOPB" H 1550 4350 50  0001 C CNN "Manu_Num"
+F 5 "Texas Instruments" H 1550 4350 50  0001 C CNN "Manu_Name"
+F 6 "LME49726MY/NOPBCT-ND" H 1550 4350 50  0001 C CNN "Digikey_Num"
+	1    1550 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 4350 1700 4300
+Text Label 1850 5200 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	1700 5200 1700 5150
+Wire Wire Line
+	1850 5200 1750 5200
+Wire Wire Line
+	1700 4300 1750 4300
+Wire Wire Line
+	1450 4500 1400 4500
+Wire Wire Line
+	1400 4500 1400 4200
+Wire Wire Line
+	1400 4200 2100 4200
+Wire Wire Line
+	2100 4200 2100 4550
+Wire Wire Line
+	2100 4550 2050 4550
+Wire Wire Line
+	2050 4950 2100 4950
+Wire Wire Line
+	2100 4950 2100 5250
+Wire Wire Line
+	2100 5250 1400 5250
+Wire Wire Line
+	1400 5250 1400 5000
+Wire Wire Line
+	1400 5000 1450 5000
+Wire Wire Line
+	2100 4950 2200 4950
+Connection ~ 2100 4950
+Wire Wire Line
+	2100 4550 2200 4550
+Connection ~ 2100 4550
+Text Label 1450 1450 2    39   ~ 0
+Switch-Out-L-0
+Text Label 1450 2600 2    39   ~ 0
+Switch-Out-L-1
+Text Label 1450 3750 2    39   ~ 0
+Switch-Out-L-2
+Text Label 1450 4900 2    39   ~ 0
+Switch-Out-L-3
+Text Label 1450 1150 2    39   ~ 0
+Switch-Out-R-0
+Text Label 1450 2300 2    39   ~ 0
+Switch-Out-R-1
+Text Label 1450 3450 2    39   ~ 0
+Switch-Out-R-2
+Text Label 1450 4600 2    39   ~ 0
+Switch-Out-R-3
+Text Label 2200 1500 0    39   ~ 0
+Out-L-0
+Text Label 2200 2650 0    39   ~ 0
+Out-L-1
+Text Label 2200 3800 0    39   ~ 0
+Out-L-2
+Text Label 2200 4950 0    39   ~ 0
+Out-L-3
+Text Label 2200 1100 0    39   ~ 0
+Out-R-0
+Text Label 2200 2250 0    39   ~ 0
+Out-R-1
+Text Label 2200 3400 0    39   ~ 0
+Out-R-2
+Text Label 2200 4550 0    39   ~ 0
+Out-R-3
+Text Label 7800 1150 2    39   ~ 0
+Switch-In-L-0
+Text Label 7800 2500 2    39   ~ 0
+Switch-In-L-1
+Text Label 7800 3850 2    39   ~ 0
+Switch-In-L-2
+Text Label 10400 1150 0    39   ~ 0
+Switch-In-L-3
+Text Label 10400 2500 0    39   ~ 0
+Switch-In-L-4
+Text Label 10400 3850 0    39   ~ 0
+Switch-In-L-5
+Text Label 7800 1750 2    39   ~ 0
+Switch-In-R-0
+Text Label 7800 3100 2    39   ~ 0
+Switch-In-R-1
+Text Label 7800 4450 2    39   ~ 0
+Switch-In-R-2
+Text Label 10400 1750 0    39   ~ 0
+Switch-In-R-3
+Text Label 10400 3100 0    39   ~ 0
+Switch-In-R-4
+Text Label 10400 4450 0    39   ~ 0
+Switch-In-R-5
+Wire Wire Line
+	7950 1150 7800 1150
+Wire Wire Line
+	7950 1750 7800 1750
+Wire Wire Line
+	7950 2500 7800 2500
+Wire Wire Line
+	7950 3100 7800 3100
+Wire Wire Line
+	7950 3850 7800 3850
+Wire Wire Line
+	7950 4450 7800 4450
+Wire Wire Line
+	10250 1150 10400 1150
+Wire Wire Line
+	10250 1750 10400 1750
+Wire Wire Line
+	10250 2500 10400 2500
+Wire Wire Line
+	10250 3100 10400 3100
+Wire Wire Line
+	10250 3850 10400 3850
+Wire Wire Line
+	10250 4450 10400 4450
+Text Label 5750 3600 0    39   ~ 0
+SCL
+Text Label 5750 3500 0    39   ~ 0
+SDA
+Text Label 4100 3700 0    39   ~ 0
+ANAVcc
+Text Label 6600 3500 2    39   ~ 0
+Vcc
+Text Label 6600 3600 2    39   ~ 0
+GND
+Text Label 5750 4000 0    39   ~ 0
+ANAGND
+$Comp
+L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U2
+U 1 1 5D9DA108
+P 3900 3750
+F 0 "U2" H 4250 3450 39  0000 C CNN
+F 1 "LME49726MY/NOPB" H 4100 3350 39  0000 C CNN
+F 2 "Footprints:TSSOP-8_3x3mm_P0.65mm-EP" H 3900 3750 39  0001 C CNN
+F 3 "" H 3900 3750 39  0001 C CNN
+F 4 "LME49726MY/NOPB" H 3900 3750 50  0001 C CNN "Manu_Num"
+F 5 "Texas Instruments" H 3900 3750 50  0001 C CNN "Manu_Name"
+F 6 "LME49726MY/NOPBCT-ND" H 3900 3750 50  0001 C CNN "Digikey_Num"
+	1    3900 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4050 3750 4050 3700
+Text Label 4150 4600 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	4050 4600 4050 4550
+Wire Wire Line
+	4150 4600 4100 4600
+Wire Wire Line
+	4050 3700 4100 3700
+Wire Wire Line
+	4400 4350 4450 4350
+Wire Wire Line
+	4450 4350 4450 4650
+Wire Wire Line
+	4450 4350 4550 4350
+Connection ~ 4450 4350
+Text Label 1750 4300 0    39   ~ 0
+ANAVcc
+Text Label 1750 3150 0    39   ~ 0
+ANAVcc
+Text Label 1750 2000 0    39   ~ 0
+ANAVcc
+Text Label 1750 850  0    39   ~ 0
+ANAVcc
+NoConn ~ 4400 3950
+Wire Wire Line
+	3800 4000 3700 4000
+$Comp
+L Device:R R1
+U 1 1 5DA1D9E8
+P 3550 4450
+F 0 "R1" V 3450 4400 50  0000 L CNN
+F 1 "51k" V 3550 4400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3480 4450 50  0001 C CNN
+F 3 "~" H 3550 4450 50  0001 C CNN
+F 4 "RMCF0603FT51K0CT-ND" V 3550 4450 50  0001 C CNN "Digikey_Num"
+F 5 "Stackpole Electronics Inc" V 3550 4450 50  0001 C CNN "Manu_Num"
+F 6 "Stackpole Electronics Inc" V 3550 4450 50  0001 C CNN "Manu_Name"
+	1    3550 4450
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3700 4000 3700 4600
+Wire Wire Line
+	3700 4600 4050 4600
+Connection ~ 4050 4600
+Connection ~ 4050 3700
+Wire Wire Line
+	3800 4300 3550 4300
+Wire Wire Line
+	3550 4600 3700 4600
+Connection ~ 3700 4600
+Text Label 4550 4350 0    39   ~ 0
+VccDiv2
+$Comp
+L Device:R R3
+U 1 1 5DACCC8A
+P 5250 1250
+F 0 "R3" V 5350 1200 50  0000 L CNN
+F 1 "330" V 5250 1200 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5180 1250 50  0001 C CNN
+F 3 "~" H 5250 1250 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5250 1250 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5250 1250 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5250 1250 50  0001 C CNN "Manu_Name"
+	1    5250 1250
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5400 1250 5700 1250
+Wire Wire Line
+	5700 1450 5400 1450
+Wire Wire Line
+	5650 1350 5700 1350
+Wire Wire Line
+	5100 1450 5050 1450
+Wire Wire Line
+	5050 1250 5100 1250
+Wire Wire Line
+	5050 1350 5350 1350
+Wire Wire Line
+	5350 1550 5050 1550
+Wire Wire Line
+	5650 1550 5700 1550
+Wire Wire Line
+	5400 1650 5700 1650
+Wire Wire Line
+	5700 1850 5400 1850
+Wire Wire Line
+	5650 1750 5700 1750
+Wire Wire Line
+	5100 1850 5050 1850
+Wire Wire Line
+	5050 1650 5100 1650
+Wire Wire Line
+	5050 1750 5350 1750
+Wire Wire Line
+	5350 1950 5050 1950
+Wire Wire Line
+	5650 1950 5700 1950
+Wire Wire Line
+	5400 2050 5700 2050
+Wire Wire Line
+	5700 2250 5400 2250
+Wire Wire Line
+	5650 2150 5700 2150
+Wire Wire Line
+	5100 2250 5050 2250
+Wire Wire Line
+	5050 2050 5100 2050
+Wire Wire Line
+	5050 2150 5350 2150
+Wire Wire Line
+	5350 2350 5050 2350
+Wire Wire Line
+	5650 2350 5700 2350
+Text Label 5750 3900 0    39   ~ 0
+ANAVcc
+Text Label 6150 5300 0    39   ~ 0
+ANAVcc
+Text Label 6150 6200 0    39   ~ 0
+GND
+Wire Wire Line
+	8850 1500 8950 1500
+Connection ~ 8950 1500
+Wire Wire Line
+	8950 1500 8950 1400
+Wire Wire Line
+	8850 1400 8950 1400
+Connection ~ 8950 1400
+Wire Wire Line
+	8950 1400 8950 1300
+Wire Wire Line
+	8850 1300 8950 1300
+Connection ~ 8950 1300
+Wire Wire Line
+	8950 1300 8950 1200
+Wire Wire Line
+	8850 2650 8900 2650
+Connection ~ 8900 2650
+Wire Wire Line
+	8900 2650 8900 3800
+Wire Wire Line
+	8850 2750 8950 2750
+Connection ~ 8950 2750
+Wire Wire Line
+	8950 2750 8950 2650
+Wire Wire Line
+	8850 2850 8950 2850
+Connection ~ 8950 2850
+Wire Wire Line
+	8950 2850 8950 2750
+Wire Wire Line
+	8850 4100 8900 4100
+Wire Wire Line
+	8900 4100 8900 3800
+Wire Wire Line
+	8850 4000 8950 4000
+Wire Wire Line
+	8950 4000 8950 3900
+Wire Wire Line
+	8850 4200 8950 4200
+Wire Wire Line
+	8950 4200 8950 4100
+Connection ~ 8950 4000
+Wire Wire Line
+	9350 1300 9100 1300
+Wire Wire Line
+	9100 1300 9100 1100
+Connection ~ 9100 1100
+Wire Wire Line
+	9100 1100 9350 1100
+Wire Wire Line
+	9350 1400 9100 1400
+Wire Wire Line
+	9100 1400 9100 1300
+Connection ~ 9100 1300
+Wire Wire Line
+	9350 1500 8950 1500
+Wire Wire Line
+	9350 2850 9100 2850
+Wire Wire Line
+	9100 2850 9100 1400
+Connection ~ 9100 1400
+Wire Wire Line
+	9100 2850 9100 4000
+Wire Wire Line
+	9100 4000 9350 4000
+Connection ~ 9100 2850
+Wire Wire Line
+	9350 4200 9100 4200
+Wire Wire Line
+	9100 4200 9100 4000
+Connection ~ 9100 4000
+Wire Wire Line
+	9350 4100 8950 4100
+Connection ~ 8950 4100
+Wire Wire Line
+	8950 4100 8950 4000
+Wire Wire Line
+	9350 2750 8950 2750
+Wire Wire Line
+	9350 2650 8950 2650
+Connection ~ 8950 2650
+Wire Wire Line
+	8950 2650 8950 2550
+Text Label 7800 1550 2    39   ~ 0
+Biased-In-R-0
+Text Label 7800 2900 2    39   ~ 0
+Biased-In-R-1
+Text Label 7800 4250 2    39   ~ 0
+Biased-In-R-2
+Text Label 10400 1550 0    39   ~ 0
+Biased-In-R-3
+Text Label 10400 2900 0    39   ~ 0
+Biased-In-R-4
+Text Label 10400 4250 0    39   ~ 0
+Biased-In-R-5
+Text Label 7800 950  2    39   ~ 0
+Biased-In-L-0
+Text Label 7800 2300 2    39   ~ 0
+Biased-In-L-1
+Text Label 7800 3650 2    39   ~ 0
+Biased-In-L-2
+Text Label 10400 950  0    39   ~ 0
+Biased-In-L-3
+Text Label 10400 2300 0    39   ~ 0
+Biased-In-L-4
+Text Label 10400 3650 0    39   ~ 0
+Biased-In-L-5
+Wire Wire Line
+	7800 950  7950 950 
+Wire Wire Line
+	7800 2300 7950 2300
+Wire Wire Line
+	7800 3650 7950 3650
+Wire Wire Line
+	10400 950  10250 950 
+Wire Wire Line
+	10400 2300 10250 2300
+Wire Wire Line
+	10400 3650 10250 3650
+Wire Wire Line
+	10250 2900 10400 2900
+Wire Wire Line
+	10400 4250 10250 4250
+Wire Wire Line
+	10400 1550 10250 1550
+Wire Wire Line
+	7800 4250 7950 4250
+Wire Wire Line
+	7800 2900 7950 2900
+Wire Wire Line
+	7800 1550 7950 1550
+Wire Wire Line
+	4850 5800 5050 5800
+Connection ~ 4850 5800
+Connection ~ 5050 5800
+Wire Wire Line
+	4850 6200 5050 6200
+Connection ~ 4850 6200
+Connection ~ 5050 6200
+Text Label 5750 3800 0    39   ~ 0
+VccDiv2
+$Comp
+L Connector:Conn_01x14_Male J2
+U 1 1 5F7D73BF
+P 6850 4100
+F 0 "J2" V 6800 3450 50  0000 C CNN
+F 1 "Conn_01x14_Male" V 6800 4400 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x14_P2.54mm_Vertical" H 6850 4100 50  0001 C CNN
+F 3 "~" H 6850 4100 50  0001 C CNN
+	1    6850 4100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x14_Male J3
+U 1 1 5F7D7655
+P 5500 4100
+F 0 "J3" V 5450 3450 50  0000 C CNN
+F 1 "Conn_01x14_Male" V 5450 4400 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x14_P2.54mm_Vertical" H 5500 4100 50  0001 C CNN
+F 3 "~" H 5500 4100 50  0001 C CNN
+	1    5500 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 5150 1750 5200
+Connection ~ 1750 5200
+Wire Wire Line
+	1750 5200 1700 5200
+Wire Wire Line
+	4100 4550 4100 4600
+Connection ~ 4100 4600
+Wire Wire Line
+	4100 4600 4050 4600
+Wire Wire Line
+	1750 4000 1750 4050
+Connection ~ 1750 4050
+Wire Wire Line
+	1750 4050 1700 4050
+Wire Wire Line
+	1750 2850 1750 2900
+Connection ~ 1750 2900
+Wire Wire Line
+	1750 2900 1700 2900
+Wire Wire Line
+	1750 1700 1750 1750
+Connection ~ 1750 1750
+Wire Wire Line
+	1750 1750 1700 1750
+Wire Wire Line
+	4350 2900 4400 2900
+Wire Wire Line
+	4400 2900 4500 2900
+Wire Wire Line
+	4500 2900 4500 2850
+Connection ~ 4400 2900
+Wire Wire Line
+	4600 2850 4600 2900
+Wire Wire Line
+	4600 2900 4700 2900
+Wire Wire Line
+	3900 2000 3950 2000
+Wire Wire Line
+	3900 2100 3950 2100
+Wire Wire Line
+	3900 2200 3950 2200
+Wire Wire Line
+	3900 2300 3950 2300
+Wire Wire Line
+	3900 2400 3950 2400
+Wire Wire Line
+	3900 2500 3950 2500
+Wire Wire Line
+	3900 2600 3950 2600
+Wire Wire Line
+	3900 2700 3950 2700
+Wire Wire Line
+	6650 3500 6600 3500
+Wire Wire Line
+	6650 3600 6600 3600
+Wire Wire Line
+	6650 3700 6600 3700
+Wire Wire Line
+	6650 3800 6600 3800
+Wire Wire Line
+	6650 3900 6600 3900
+Wire Wire Line
+	6650 4000 6600 4000
+Wire Wire Line
+	6650 4100 6600 4100
+Wire Wire Line
+	6650 4200 6600 4200
+Wire Wire Line
+	6650 4300 6600 4300
+Wire Wire Line
+	6650 4400 6600 4400
+Wire Wire Line
+	6650 4500 6600 4500
+Wire Wire Line
+	6650 4600 6600 4600
+Wire Wire Line
+	6650 4700 6600 4700
+Wire Wire Line
+	6650 4800 6600 4800
+Wire Wire Line
+	5700 3500 5750 3500
+Wire Wire Line
+	5700 3600 5750 3600
+Wire Wire Line
+	5700 3700 5750 3700
+Wire Wire Line
+	5700 3800 5750 3800
+Wire Wire Line
+	5700 3900 5750 3900
+Wire Wire Line
+	5700 4000 5750 4000
+Wire Wire Line
+	5700 4100 5750 4100
+Wire Wire Line
+	5700 4200 5750 4200
+Wire Wire Line
+	5700 4300 5750 4300
+Wire Wire Line
+	5700 4400 5750 4400
+Wire Wire Line
+	5700 4500 5750 4500
+Wire Wire Line
+	5700 4600 5750 4600
+Wire Wire Line
+	5700 4700 5750 4700
+Wire Wire Line
+	5700 4800 5750 4800
+Wire Wire Line
+	3900 1200 3950 1200
+Wire Wire Line
+	3950 1350 3900 1350
+Wire Wire Line
+	3900 1450 3950 1450
+Text Label 6600 3800 2    39   ~ 0
+Biased-In-R-0
+Text Label 6600 4000 2    39   ~ 0
+Biased-In-R-1
+Text Label 6600 4200 2    39   ~ 0
+Biased-In-R-2
+Text Label 6600 3700 2    39   ~ 0
+Biased-In-L-0
+Text Label 6600 3900 2    39   ~ 0
+Biased-In-L-1
+Text Label 6600 4100 2    39   ~ 0
+Biased-In-L-2
+Text Label 6600 4400 2    39   ~ 0
+Biased-In-R-3
+Text Label 6600 4600 2    39   ~ 0
+Biased-In-R-4
+Text Label 6600 4800 2    39   ~ 0
+Biased-In-R-5
+Text Label 6600 4300 2    39   ~ 0
+Biased-In-L-3
+Text Label 6600 4500 2    39   ~ 0
+Biased-In-L-4
+Text Label 6600 4700 2    39   ~ 0
+Biased-In-L-5
+Wire Wire Line
+	3550 4300 3550 4200
+Connection ~ 3550 4300
+Wire Wire Line
+	3550 3900 3550 3700
+Wire Wire Line
+	3550 3700 4050 3700
+Text Notes 3450 4850 0    50   ~ 0
+NOTE: Tight-tolerance on \nthis divider. 1% or better.
+Wire Wire Line
+	3700 4000 3700 3900
+Wire Wire Line
+	3700 3900 3800 3900
+Connection ~ 3700 4000
+Wire Wire Line
+	3750 4650 3750 4400
+Wire Wire Line
+	3750 4400 3800 4400
+Wire Wire Line
+	3750 4650 4450 4650
+$Comp
+L Device:C C8
+U 1 1 5DDF7C0C
+P 5650 5500
+F 0 "C8" H 5650 5600 39  0000 L CNN
+F 1 "1uF" H 5650 5400 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5688 5350 50  0001 C CNN
+F 3 "~" H 5650 5500 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5650 5500 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5650 5500 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5650 5500 50  0001 C CNN "Manu_Name"
+	1    5650 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C6
+U 1 1 5DDF7C7E
+P 5450 5500
+F 0 "C6" H 5450 5600 39  0000 L CNN
+F 1 "1uF" H 5450 5400 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5488 5350 50  0001 C CNN
+F 3 "~" H 5450 5500 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5450 5500 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5450 5500 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5450 5500 50  0001 C CNN "Manu_Name"
+	1    5450 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C4
+U 1 1 5DDF7CEE
+P 5250 5500
+F 0 "C4" H 5250 5600 39  0000 L CNN
+F 1 "1uF" H 5250 5400 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5288 5350 50  0001 C CNN
+F 3 "~" H 5250 5500 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5250 5500 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5250 5500 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5250 5500 50  0001 C CNN "Manu_Name"
+	1    5250 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C12
+U 1 1 5DDF7D60
+P 6050 5500
+F 0 "C12" H 6050 5600 39  0000 L CNN
+F 1 "1uF" H 6050 5400 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6088 5350 50  0001 C CNN
+F 3 "~" H 6050 5500 50  0001 C CNN
+F 4 "445-13228-1-ND" H 6050 5500 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 6050 5500 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 6050 5500 50  0001 C CNN "Manu_Name"
+	1    6050 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C1
+U 1 1 5DE21CE0
+P 4650 6000
+F 0 "C1" H 4650 6100 39  0000 L CNN
+F 1 "1uF" H 4650 5900 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 4688 5850 50  0001 C CNN
+F 3 "~" H 4650 6000 50  0001 C CNN
+F 4 "445-13228-1-ND" H 4650 6000 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 4650 6000 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 4650 6000 50  0001 C CNN "Manu_Name"
+	1    4650 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C2
+U 1 1 5DE21D7E
+P 4850 6000
+F 0 "C2" H 4850 6100 39  0000 L CNN
+F 1 "1uF" H 4850 5900 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 4888 5850 50  0001 C CNN
+F 3 "~" H 4850 6000 50  0001 C CNN
+F 4 "445-13228-1-ND" H 4850 6000 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 4850 6000 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 4850 6000 50  0001 C CNN "Manu_Name"
+	1    4850 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C3
+U 1 1 5DE21DF6
+P 5050 6000
+F 0 "C3" H 5050 6100 39  0000 L CNN
+F 1 "1uF" H 5050 5900 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5088 5850 50  0001 C CNN
+F 3 "~" H 5050 6000 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5050 6000 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5050 6000 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5050 6000 50  0001 C CNN "Manu_Name"
+	1    5050 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C5
+U 1 1 5DE22032
+P 5250 6000
+F 0 "C5" H 5250 6100 39  0000 L CNN
+F 1 "1uF" H 5250 5900 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5288 5850 50  0001 C CNN
+F 3 "~" H 5250 6000 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5250 6000 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5250 6000 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5250 6000 50  0001 C CNN "Manu_Name"
+	1    5250 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C7
+U 1 1 5DE2203B
+P 5450 6000
+F 0 "C7" H 5450 6100 39  0000 L CNN
+F 1 "1uF" H 5450 5900 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5488 5850 50  0001 C CNN
+F 3 "~" H 5450 6000 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5450 6000 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5450 6000 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5450 6000 50  0001 C CNN "Manu_Name"
+	1    5450 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C9
+U 1 1 5DE22044
+P 5650 6000
+F 0 "C9" H 5650 6100 39  0000 L CNN
+F 1 "1uF" H 5650 5900 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5688 5850 50  0001 C CNN
+F 3 "~" H 5650 6000 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5650 6000 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5650 6000 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5650 6000 50  0001 C CNN "Manu_Name"
+	1    5650 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C11
+U 1 1 5DE4BE28
+P 5850 6000
+F 0 "C11" H 5850 6100 39  0000 L CNN
+F 1 "1uF" H 5850 5900 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5888 5850 50  0001 C CNN
+F 3 "~" H 5850 6000 50  0001 C CNN
+F 4 "445-13228-1-ND" H 5850 6000 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 5850 6000 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 5850 6000 50  0001 C CNN "Manu_Name"
+	1    5850 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C13
+U 1 1 5DE4BEAA
+P 6050 6000
+F 0 "C13" H 6050 6100 39  0000 L CNN
+F 1 "1uF" H 6050 5900 39  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6088 5850 50  0001 C CNN
+F 3 "~" H 6050 6000 50  0001 C CNN
+F 4 "445-13228-1-ND" H 6050 6000 50  0001 C CNN "Digikey_Num"
+F 5 "CGB3B1X7R1A105K055AC" H 6050 6000 50  0001 C CNN "Manu_Num"
+F 6 "TDK Corporation" H 6050 6000 50  0001 C CNN "Manu_Name"
+	1    6050 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5DEF4BB9
+P 3550 4050
+F 0 "R2" V 3450 4000 50  0000 L CNN
+F 1 "51k" V 3550 4000 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3480 4050 50  0001 C CNN
+F 3 "~" H 3550 4050 50  0001 C CNN
+F 4 "RMCF0603FT51K0CT-ND" V 3550 4050 50  0001 C CNN "Digikey_Num"
+F 5 "Stackpole Electronics Inc" V 3550 4050 50  0001 C CNN "Manu_Num"
+F 6 "Stackpole Electronics Inc" V 3550 4050 50  0001 C CNN "Manu_Name"
+	1    3550 4050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 5DEF506A
+P 5500 1350
+F 0 "R9" V 5600 1300 50  0000 L CNN
+F 1 "330" V 5500 1300 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5430 1350 50  0001 C CNN
+F 3 "~" H 5500 1350 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5500 1350 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5500 1350 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5500 1350 50  0001 C CNN "Manu_Name"
+	1    5500 1350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5DF7336F
+P 5500 1550
+F 0 "R10" V 5600 1500 50  0000 L CNN
+F 1 "330" V 5500 1500 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5430 1550 50  0001 C CNN
+F 3 "~" H 5500 1550 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5500 1550 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5500 1550 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5500 1550 50  0001 C CNN "Manu_Name"
+	1    5500 1550
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R11
+U 1 1 5DF733E3
+P 5500 1750
+F 0 "R11" V 5600 1700 50  0000 L CNN
+F 1 "330" V 5500 1700 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5430 1750 50  0001 C CNN
+F 3 "~" H 5500 1750 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5500 1750 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5500 1750 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5500 1750 50  0001 C CNN "Manu_Name"
+	1    5500 1750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R12
+U 1 1 5DF73455
+P 5500 1950
+F 0 "R12" V 5600 1900 50  0000 L CNN
+F 1 "330" V 5500 1900 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5430 1950 50  0001 C CNN
+F 3 "~" H 5500 1950 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5500 1950 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5500 1950 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5500 1950 50  0001 C CNN "Manu_Name"
+	1    5500 1950
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R13
+U 1 1 5DF734C9
+P 5500 2150
+F 0 "R13" V 5600 2100 50  0000 L CNN
+F 1 "330" V 5500 2100 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5430 2150 50  0001 C CNN
+F 3 "~" H 5500 2150 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5500 2150 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5500 2150 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5500 2150 50  0001 C CNN "Manu_Name"
+	1    5500 2150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R14
+U 1 1 5DF73543
+P 5500 2350
+F 0 "R14" V 5600 2300 50  0000 L CNN
+F 1 "330" V 5500 2300 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5430 2350 50  0001 C CNN
+F 3 "~" H 5500 2350 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5500 2350 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5500 2350 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5500 2350 50  0001 C CNN "Manu_Name"
+	1    5500 2350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 5DF735BB
+P 5250 2250
+F 0 "R8" V 5350 2200 50  0000 L CNN
+F 1 "330" V 5250 2200 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5180 2250 50  0001 C CNN
+F 3 "~" H 5250 2250 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5250 2250 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5250 2250 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5250 2250 50  0001 C CNN "Manu_Name"
+	1    5250 2250
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 5DF7363F
+P 5250 2050
+F 0 "R7" V 5350 2000 50  0000 L CNN
+F 1 "330" V 5250 2000 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5180 2050 50  0001 C CNN
+F 3 "~" H 5250 2050 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5250 2050 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5250 2050 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5250 2050 50  0001 C CNN "Manu_Name"
+	1    5250 2050
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 5DF736BB
+P 5250 1850
+F 0 "R6" V 5350 1800 50  0000 L CNN
+F 1 "330" V 5250 1800 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5180 1850 50  0001 C CNN
+F 3 "~" H 5250 1850 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5250 1850 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5250 1850 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5250 1850 50  0001 C CNN "Manu_Name"
+	1    5250 1850
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5DF73739
+P 5250 1650
+F 0 "R5" V 5350 1600 50  0000 L CNN
+F 1 "330" V 5250 1600 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5180 1650 50  0001 C CNN
+F 3 "~" H 5250 1650 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5250 1650 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5250 1650 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5250 1650 50  0001 C CNN "Manu_Name"
+	1    5250 1650
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5DF737B9
+P 5250 1450
+F 0 "R4" V 5350 1400 50  0000 L CNN
+F 1 "330" V 5250 1400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5180 1450 50  0001 C CNN
+F 3 "~" H 5250 1450 50  0001 C CNN
+F 4 "2019-RK73H1ETTP3300FCT-ND" V 5250 1450 50  0001 C CNN "Digikey_Num"
+F 5 "RK73H1ETTP3300F" V 5250 1450 50  0001 C CNN "Manu_Num"
+F 6 "KOA Speer Electronics, Inc." V 5250 1450 50  0001 C CNN "Manu_Name"
+	1    5250 1450
+	0    1    1    0   
+$EndComp
+$EndSCHEMATC
