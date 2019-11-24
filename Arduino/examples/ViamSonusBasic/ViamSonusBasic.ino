@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include <ViamSonus.h>
+#include <StringBuilder.h>
 
 #define TEST_PROG_VERSION "v1.0"
 
@@ -17,16 +18,7 @@
 * Globals
 *******************************************************************************/
 
-
-
-ViamSonusOpts vs_opts(
-  0x70,
-  13,      // Use this pin for reset
-  true,    // Allow many columns to connect to a single row
-  false    // Disallow many rows from connecting to a single column
-);
-
-ViamSonus vs(&vs_opts);
+ViamSonus vs(VS_RESET_PIN);
 
 
 /*******************************************************************************
@@ -68,21 +60,22 @@ void setup() {
 *******************************************************************************/
 
 void loop() {
+  StringBuilder output;
   if (Serial.available()) {
     char c = Serial.read();
     switch (c) {
       case 'I':
-        if (VIAMSONUS_ERROR::NO_ERROR == vs.init()) {
+        if (ViamSonusError::NO_ERROR == vs.init()) {
           Serial.println("Device initialized.");
         }
         break;
       case 'R':
-        if (VIAMSONUS_ERROR::NO_ERROR == vs.reset()) {
+        if (ViamSonusError::NO_ERROR == vs.reset()) {
           Serial.println("Device reset.");
         }
         break;
       case 'i':
-        vs.printDebug();
+        vs.printDebug(&output);
         break;
     }
   }

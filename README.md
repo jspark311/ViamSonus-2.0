@@ -29,6 +29,7 @@ In order to use this driver, you also need the Arduino drivers for the elements 
 
 [DS1881 Driver](https://github.com/jspark311/DS1881-Breakout/tree/master/Arduino)
 [ADG2128 Driver](https://github.com/jspark311/ADG2128-Breakout/tree/master/Arduino)
+[StringBuilder](https://github.com/jspark311/CppPotpourri)
 
 After you've done that, you ought to be able to include the ViamSonus driver.
 
