@@ -1,0 +1,1183 @@
+EESchema Schematic File Version 4
+LIBS:VianSonus2.0-cache
+EELAYER 26 0
+EELAYER END
+$Descr User 9843 7087
+encoding utf-8
+Sheet 1 1
+Title "ViamSonus-2.0 Example Connector Board"
+Date "2019-11-23"
+Rev "1"
+Comp "Manuvr"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Label 1650 1000 0    39   ~ 0
+Out-L-0
+Text Label 1650 2100 0    39   ~ 0
+Out-L-1
+Text Label 3500 1000 0    39   ~ 0
+Out-L-2
+Text Label 3500 2100 0    39   ~ 0
+Out-L-3
+Text Label 1650 1200 0    39   ~ 0
+Out-R-0
+Text Label 1650 2300 0    39   ~ 0
+Out-R-1
+Text Label 3500 1200 0    39   ~ 0
+Out-R-2
+Text Label 3500 2300 0    39   ~ 0
+Out-R-3
+Text Label 6050 1500 0    39   ~ 0
+~RESET
+Text Label 6050 1400 0    39   ~ 0
+SCL
+Text Label 6050 1300 0    39   ~ 0
+SDA
+Text Label 5250 1000 0    39   ~ 0
+Vcc
+Text Label 5250 1100 0    39   ~ 0
+GND
+Text Label 6050 1100 0    39   ~ 0
+ANAGND
+Text Label 6050 1000 0    39   ~ 0
+ANAVcc
+Text Label 1850 6000 0    39   ~ 0
+Biased-In-R-2
+Text Label 3700 3700 0    39   ~ 0
+Biased-In-R-3
+Text Label 3700 4850 0    39   ~ 0
+Biased-In-R-4
+Text Label 3700 6000 0    39   ~ 0
+Biased-In-R-5
+Text Label 6050 1200 0    39   ~ 0
+VccDiv2
+$Comp
+L Connector:Conn_01x14_Male J11
+U 1 1 5F7D73BF
+P 5050 1600
+F 0 "J11" H 5150 2350 50  0000 C CNN
+F 1 "Conn_01x14_Male" V 5000 1600 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x14_P2.54mm_Vertical" H 5050 1600 50  0001 C CNN
+F 3 "~" H 5050 1600 50  0001 C CNN
+	1    5050 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x14_Male J12
+U 1 1 5F7D7655
+P 5850 1600
+F 0 "J12" H 5950 2350 50  0000 C CNN
+F 1 "Conn_01x14_Male" V 5800 1600 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x14_P2.54mm_Vertical" H 5850 1600 50  0001 C CNN
+F 3 "~" H 5850 1600 50  0001 C CNN
+	1    5850 1600
+	1    0    0    -1  
+$EndComp
+Text Label 5250 1200 0    39   ~ 0
+Biased-In-L-0
+Text Label 5250 1400 0    39   ~ 0
+Biased-In-L-1
+Text Label 5250 1600 0    39   ~ 0
+Biased-In-L-2
+Text Label 5250 1800 0    39   ~ 0
+Biased-In-L-3
+Text Label 5250 2000 0    39   ~ 0
+Biased-In-L-4
+Text Label 5250 2200 0    39   ~ 0
+Biased-In-L-5
+Text Label 5250 1300 0    39   ~ 0
+Biased-In-R-0
+Text Label 5250 1500 0    39   ~ 0
+Biased-In-R-1
+Text Label 5250 1700 0    39   ~ 0
+Biased-In-R-2
+Text Label 5250 1900 0    39   ~ 0
+Biased-In-R-3
+Text Label 5250 2100 0    39   ~ 0
+Biased-In-R-4
+Text Label 5250 2300 0    39   ~ 0
+Biased-In-R-5
+$Comp
+L Connector:AudioJack3_Ground_Switch J5
+U 1 1 5DFB666B
+P 900 6000
+F 0 "J5" H 850 6250 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 650 6000 50  0000 C CNN
+F 2 "" H 900 6000 50  0001 C CNN
+F 3 "~" H 900 6000 50  0001 C CNN
+	1    900  6000
+	1    0    0    1   
+$EndComp
+Text Label 6050 1600 0    39   ~ 0
+Out-L-0
+Text Label 6050 1800 0    39   ~ 0
+Out-L-1
+Text Label 6050 2000 0    39   ~ 0
+Out-L-2
+Text Label 6050 2200 0    39   ~ 0
+Out-L-3
+Text Label 6050 1700 0    39   ~ 0
+Out-R-0
+Text Label 6050 1900 0    39   ~ 0
+Out-R-1
+Text Label 6050 2100 0    39   ~ 0
+Out-R-2
+Text Label 6050 2300 0    39   ~ 0
+Out-R-3
+$Comp
+L Device:CP1 C10
+U 1 1 5E13A1E8
+P 1450 6000
+F 0 "C10" V 1500 5900 39  0000 C CNN
+F 1 "2.2uF" V 1500 6150 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 6000 50  0001 C CNN
+F 3 "~" H 1450 6000 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 6000 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 6000 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 6000 50  0001 C CNN "Manu_Name"
+	1    1450 6000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 5E13A1F1
+P 1650 6200
+F 0 "R6" V 1700 6300 50  0000 L CNN
+F 1 "20k" V 1650 6150 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1580 6200 50  0001 C CNN
+F 3 "~" H 1650 6200 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1650 6200 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1650 6200 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1650 6200 50  0001 C CNN "Manu_Name"
+	1    1650 6200
+	-1   0    0    1   
+$EndComp
+Text Label 1500 6400 2    39   ~ 0
+ANAGND
+Text Label 1600 5400 2    39   ~ 0
+ANAVcc
+$Comp
+L Device:CP1 C9
+U 1 1 5E13A20B
+P 1450 5800
+F 0 "C9" V 1500 5700 39  0000 C CNN
+F 1 "2.2uF" V 1500 5950 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 5800 50  0001 C CNN
+F 3 "~" H 1450 5800 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 5800 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 5800 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 5800 50  0001 C CNN "Manu_Name"
+	1    1450 5800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5E13A214
+P 1650 5600
+F 0 "R5" V 1700 5700 50  0000 L CNN
+F 1 "20k" V 1650 5550 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1580 5600 50  0001 C CNN
+F 3 "~" H 1650 5600 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1650 5600 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1650 5600 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1650 5600 50  0001 C CNN "Manu_Name"
+	1    1650 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R12
+U 1 1 5E13A21D
+P 1750 6200
+F 0 "R12" V 1800 6300 50  0000 L CNN
+F 1 "20k" V 1750 6150 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1680 6200 50  0001 C CNN
+F 3 "~" H 1750 6200 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1750 6200 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1750 6200 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1750 6200 50  0001 C CNN "Manu_Name"
+	1    1750 6200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R11
+U 1 1 5E13A226
+P 1750 5600
+F 0 "R11" V 1800 5700 50  0000 L CNN
+F 1 "20k" V 1750 5550 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1680 5600 50  0001 C CNN
+F 3 "~" H 1750 5600 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1750 5600 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1750 5600 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1750 5600 50  0001 C CNN "Manu_Name"
+	1    1750 5600
+	1    0    0    -1  
+$EndComp
+Text Label 3700 5800 0    39   ~ 0
+Biased-In-L-5
+Text Label 3700 4650 0    39   ~ 0
+Biased-In-L-4
+Text Label 3700 3500 0    39   ~ 0
+Biased-In-L-3
+Text Label 1850 5800 0    39   ~ 0
+Biased-In-L-2
+Text Label 1850 4650 0    39   ~ 0
+Biased-In-L-1
+Text Label 1850 3500 0    39   ~ 0
+Biased-In-L-0
+Text Label 1850 4850 0    39   ~ 0
+Biased-In-R-1
+Text Label 1850 3700 0    39   ~ 0
+Biased-In-R-0
+Wire Wire Line
+	1100 6000 1300 6000
+Wire Wire Line
+	1100 5800 1300 5800
+Wire Wire Line
+	1600 6000 1750 6000
+Wire Wire Line
+	1600 5800 1650 5800
+Wire Wire Line
+	1650 5750 1650 5800
+Connection ~ 1650 5800
+Wire Wire Line
+	1650 5800 1850 5800
+Wire Wire Line
+	1650 5800 1650 6050
+Wire Wire Line
+	1750 6050 1750 6000
+Connection ~ 1750 6000
+Wire Wire Line
+	1750 6000 1850 6000
+Wire Wire Line
+	1750 5750 1750 6000
+Wire Wire Line
+	1600 5400 1650 5400
+Wire Wire Line
+	1750 5400 1750 5450
+Wire Wire Line
+	1650 5450 1650 5400
+Connection ~ 1650 5400
+Wire Wire Line
+	1650 5400 1750 5400
+Wire Wire Line
+	1750 6350 1750 6400
+Wire Wire Line
+	1750 6400 1150 6400
+Wire Wire Line
+	1150 6400 1150 6100
+Wire Wire Line
+	1150 6100 1100 6100
+$Comp
+L Connector:AudioJack3_Ground_Switch J4
+U 1 1 5E2010F1
+P 900 4850
+F 0 "J4" H 850 5100 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 650 4850 50  0000 C CNN
+F 2 "" H 900 4850 50  0001 C CNN
+F 3 "~" H 900 4850 50  0001 C CNN
+	1    900  4850
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:CP1 C8
+U 1 1 5E2010FB
+P 1450 4850
+F 0 "C8" V 1500 4750 39  0000 C CNN
+F 1 "2.2uF" V 1500 5000 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 4850 50  0001 C CNN
+F 3 "~" H 1450 4850 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 4850 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 4850 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 4850 50  0001 C CNN "Manu_Name"
+	1    1450 4850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5E201105
+P 1650 5050
+F 0 "R4" V 1700 5150 50  0000 L CNN
+F 1 "20k" V 1650 5000 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1580 5050 50  0001 C CNN
+F 3 "~" H 1650 5050 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1650 5050 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1650 5050 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1650 5050 50  0001 C CNN "Manu_Name"
+	1    1650 5050
+	-1   0    0    1   
+$EndComp
+Text Label 1500 5250 2    39   ~ 0
+ANAGND
+Text Label 1600 4250 2    39   ~ 0
+ANAVcc
+$Comp
+L Device:CP1 C7
+U 1 1 5E201111
+P 1450 4650
+F 0 "C7" V 1500 4550 39  0000 C CNN
+F 1 "2.2uF" V 1500 4800 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 4650 50  0001 C CNN
+F 3 "~" H 1450 4650 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 4650 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 4650 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 4650 50  0001 C CNN "Manu_Name"
+	1    1450 4650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5E20111B
+P 1650 4450
+F 0 "R3" V 1700 4550 50  0000 L CNN
+F 1 "20k" V 1650 4400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1580 4450 50  0001 C CNN
+F 3 "~" H 1650 4450 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1650 4450 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1650 4450 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1650 4450 50  0001 C CNN "Manu_Name"
+	1    1650 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5E201125
+P 1750 5050
+F 0 "R10" V 1800 5150 50  0000 L CNN
+F 1 "20k" V 1750 5000 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1680 5050 50  0001 C CNN
+F 3 "~" H 1750 5050 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1750 5050 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1750 5050 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1750 5050 50  0001 C CNN "Manu_Name"
+	1    1750 5050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 5E20112F
+P 1750 4450
+F 0 "R9" V 1800 4550 50  0000 L CNN
+F 1 "20k" V 1750 4400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1680 4450 50  0001 C CNN
+F 3 "~" H 1750 4450 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1750 4450 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1750 4450 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1750 4450 50  0001 C CNN "Manu_Name"
+	1    1750 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1100 4850 1300 4850
+Wire Wire Line
+	1100 4650 1300 4650
+Wire Wire Line
+	1600 4850 1750 4850
+Wire Wire Line
+	1600 4650 1650 4650
+Wire Wire Line
+	1650 4600 1650 4650
+Connection ~ 1650 4650
+Wire Wire Line
+	1650 4650 1850 4650
+Wire Wire Line
+	1650 4650 1650 4900
+Wire Wire Line
+	1750 4900 1750 4850
+Connection ~ 1750 4850
+Wire Wire Line
+	1750 4850 1850 4850
+Wire Wire Line
+	1750 4600 1750 4850
+Wire Wire Line
+	1600 4250 1650 4250
+Wire Wire Line
+	1750 4250 1750 4300
+Wire Wire Line
+	1650 4300 1650 4250
+Connection ~ 1650 4250
+Wire Wire Line
+	1650 4250 1750 4250
+Wire Wire Line
+	1750 5200 1750 5250
+Wire Wire Line
+	1750 5250 1150 5250
+Wire Wire Line
+	1150 5250 1150 4950
+Wire Wire Line
+	1150 4950 1100 4950
+$Comp
+L Connector:AudioJack3_Ground_Switch J3
+U 1 1 5E203AE3
+P 900 3700
+F 0 "J3" H 850 3950 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 650 3700 50  0000 C CNN
+F 2 "" H 900 3700 50  0001 C CNN
+F 3 "~" H 900 3700 50  0001 C CNN
+	1    900  3700
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:CP1 C6
+U 1 1 5E203AED
+P 1450 3700
+F 0 "C6" V 1500 3600 39  0000 C CNN
+F 1 "2.2uF" V 1500 3850 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 3700 50  0001 C CNN
+F 3 "~" H 1450 3700 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 3700 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 3700 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 3700 50  0001 C CNN "Manu_Name"
+	1    1450 3700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5E203AF7
+P 1650 3900
+F 0 "R2" V 1700 4000 50  0000 L CNN
+F 1 "20k" V 1650 3850 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1580 3900 50  0001 C CNN
+F 3 "~" H 1650 3900 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1650 3900 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1650 3900 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1650 3900 50  0001 C CNN "Manu_Name"
+	1    1650 3900
+	-1   0    0    1   
+$EndComp
+Text Label 1500 4100 2    39   ~ 0
+ANAGND
+Text Label 1600 3100 2    39   ~ 0
+ANAVcc
+$Comp
+L Device:CP1 C5
+U 1 1 5E203B03
+P 1450 3500
+F 0 "C5" V 1500 3400 39  0000 C CNN
+F 1 "2.2uF" V 1500 3650 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 3500 50  0001 C CNN
+F 3 "~" H 1450 3500 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 3500 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 3500 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 3500 50  0001 C CNN "Manu_Name"
+	1    1450 3500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5E203B0D
+P 1650 3300
+F 0 "R1" V 1700 3400 50  0000 L CNN
+F 1 "20k" V 1650 3250 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1580 3300 50  0001 C CNN
+F 3 "~" H 1650 3300 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1650 3300 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1650 3300 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1650 3300 50  0001 C CNN "Manu_Name"
+	1    1650 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 5E203B17
+P 1750 3900
+F 0 "R8" V 1800 4000 50  0000 L CNN
+F 1 "20k" V 1750 3850 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1680 3900 50  0001 C CNN
+F 3 "~" H 1750 3900 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1750 3900 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1750 3900 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1750 3900 50  0001 C CNN "Manu_Name"
+	1    1750 3900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 5E203B21
+P 1750 3300
+F 0 "R7" V 1800 3400 50  0000 L CNN
+F 1 "20k" V 1750 3250 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1680 3300 50  0001 C CNN
+F 3 "~" H 1750 3300 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 1750 3300 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 1750 3300 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 1750 3300 50  0001 C CNN "Manu_Name"
+	1    1750 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1100 3700 1300 3700
+Wire Wire Line
+	1100 3500 1300 3500
+Wire Wire Line
+	1600 3700 1750 3700
+Wire Wire Line
+	1600 3500 1650 3500
+Wire Wire Line
+	1650 3450 1650 3500
+Connection ~ 1650 3500
+Wire Wire Line
+	1650 3500 1850 3500
+Wire Wire Line
+	1650 3500 1650 3750
+Wire Wire Line
+	1750 3750 1750 3700
+Connection ~ 1750 3700
+Wire Wire Line
+	1750 3700 1850 3700
+Wire Wire Line
+	1750 3450 1750 3700
+Wire Wire Line
+	1600 3100 1650 3100
+Wire Wire Line
+	1750 3100 1750 3150
+Wire Wire Line
+	1650 3150 1650 3100
+Connection ~ 1650 3100
+Wire Wire Line
+	1650 3100 1750 3100
+Wire Wire Line
+	1750 4050 1750 4100
+Wire Wire Line
+	1750 4100 1150 4100
+Wire Wire Line
+	1150 4100 1150 3800
+Wire Wire Line
+	1150 3800 1100 3800
+$Comp
+L Connector:AudioJack3_Ground_Switch J10
+U 1 1 5E2075CF
+P 2750 6000
+F 0 "J10" H 2700 6250 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 2500 6000 50  0000 C CNN
+F 2 "" H 2750 6000 50  0001 C CNN
+F 3 "~" H 2750 6000 50  0001 C CNN
+	1    2750 6000
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:CP1 C20
+U 1 1 5E2075D9
+P 3300 6000
+F 0 "C20" V 3350 5900 39  0000 C CNN
+F 1 "2.2uF" V 3350 6150 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 6000 50  0001 C CNN
+F 3 "~" H 3300 6000 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 6000 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 6000 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 6000 50  0001 C CNN "Manu_Name"
+	1    3300 6000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R18
+U 1 1 5E2075E3
+P 3500 6200
+F 0 "R18" V 3550 6300 50  0000 L CNN
+F 1 "20k" V 3500 6150 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3430 6200 50  0001 C CNN
+F 3 "~" H 3500 6200 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3500 6200 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3500 6200 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3500 6200 50  0001 C CNN "Manu_Name"
+	1    3500 6200
+	-1   0    0    1   
+$EndComp
+Text Label 3350 6400 2    39   ~ 0
+ANAGND
+Text Label 3450 5400 2    39   ~ 0
+ANAVcc
+$Comp
+L Device:CP1 C19
+U 1 1 5E2075EF
+P 3300 5800
+F 0 "C19" V 3350 5700 39  0000 C CNN
+F 1 "2.2uF" V 3350 5950 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 5800 50  0001 C CNN
+F 3 "~" H 3300 5800 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 5800 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 5800 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 5800 50  0001 C CNN "Manu_Name"
+	1    3300 5800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R17
+U 1 1 5E2075F9
+P 3500 5600
+F 0 "R17" V 3550 5700 50  0000 L CNN
+F 1 "20k" V 3500 5550 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3430 5600 50  0001 C CNN
+F 3 "~" H 3500 5600 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3500 5600 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3500 5600 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3500 5600 50  0001 C CNN "Manu_Name"
+	1    3500 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R24
+U 1 1 5E207603
+P 3600 6200
+F 0 "R24" V 3650 6300 50  0000 L CNN
+F 1 "20k" V 3600 6150 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3530 6200 50  0001 C CNN
+F 3 "~" H 3600 6200 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3600 6200 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3600 6200 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3600 6200 50  0001 C CNN "Manu_Name"
+	1    3600 6200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R23
+U 1 1 5E20760D
+P 3600 5600
+F 0 "R23" V 3650 5700 50  0000 L CNN
+F 1 "20k" V 3600 5550 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3530 5600 50  0001 C CNN
+F 3 "~" H 3600 5600 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3600 5600 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3600 5600 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3600 5600 50  0001 C CNN "Manu_Name"
+	1    3600 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 6000 3150 6000
+Wire Wire Line
+	2950 5800 3150 5800
+Wire Wire Line
+	3450 6000 3600 6000
+Wire Wire Line
+	3450 5800 3500 5800
+Wire Wire Line
+	3500 5750 3500 5800
+Connection ~ 3500 5800
+Wire Wire Line
+	3500 5800 3700 5800
+Wire Wire Line
+	3500 5800 3500 6050
+Wire Wire Line
+	3600 6050 3600 6000
+Connection ~ 3600 6000
+Wire Wire Line
+	3600 6000 3700 6000
+Wire Wire Line
+	3600 5750 3600 6000
+Wire Wire Line
+	3450 5400 3500 5400
+Wire Wire Line
+	3600 5400 3600 5450
+Wire Wire Line
+	3500 5450 3500 5400
+Connection ~ 3500 5400
+Wire Wire Line
+	3500 5400 3600 5400
+Wire Wire Line
+	3600 6350 3600 6400
+Wire Wire Line
+	3600 6400 3000 6400
+Wire Wire Line
+	3000 6400 3000 6100
+Wire Wire Line
+	3000 6100 2950 6100
+$Comp
+L Connector:AudioJack3_Ground_Switch J9
+U 1 1 5E20C3E5
+P 2750 4850
+F 0 "J9" H 2700 5100 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 2500 4850 50  0000 C CNN
+F 2 "" H 2750 4850 50  0001 C CNN
+F 3 "~" H 2750 4850 50  0001 C CNN
+	1    2750 4850
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:CP1 C18
+U 1 1 5E20C3EF
+P 3300 4850
+F 0 "C18" V 3350 4750 39  0000 C CNN
+F 1 "2.2uF" V 3350 5000 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 4850 50  0001 C CNN
+F 3 "~" H 3300 4850 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 4850 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 4850 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 4850 50  0001 C CNN "Manu_Name"
+	1    3300 4850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R16
+U 1 1 5E20C3F9
+P 3500 5050
+F 0 "R16" V 3550 5150 50  0000 L CNN
+F 1 "20k" V 3500 5000 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3430 5050 50  0001 C CNN
+F 3 "~" H 3500 5050 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3500 5050 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3500 5050 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3500 5050 50  0001 C CNN "Manu_Name"
+	1    3500 5050
+	-1   0    0    1   
+$EndComp
+Text Label 3350 5250 2    39   ~ 0
+ANAGND
+Text Label 3450 4250 2    39   ~ 0
+ANAVcc
+$Comp
+L Device:CP1 C17
+U 1 1 5E20C405
+P 3300 4650
+F 0 "C17" V 3350 4550 39  0000 C CNN
+F 1 "2.2uF" V 3350 4800 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 4650 50  0001 C CNN
+F 3 "~" H 3300 4650 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 4650 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 4650 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 4650 50  0001 C CNN "Manu_Name"
+	1    3300 4650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R15
+U 1 1 5E20C40F
+P 3500 4450
+F 0 "R15" V 3550 4550 50  0000 L CNN
+F 1 "20k" V 3500 4400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3430 4450 50  0001 C CNN
+F 3 "~" H 3500 4450 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3500 4450 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3500 4450 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3500 4450 50  0001 C CNN "Manu_Name"
+	1    3500 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R22
+U 1 1 5E20C419
+P 3600 5050
+F 0 "R22" V 3650 5150 50  0000 L CNN
+F 1 "20k" V 3600 5000 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3530 5050 50  0001 C CNN
+F 3 "~" H 3600 5050 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3600 5050 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3600 5050 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3600 5050 50  0001 C CNN "Manu_Name"
+	1    3600 5050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R21
+U 1 1 5E20C423
+P 3600 4450
+F 0 "R21" V 3650 4550 50  0000 L CNN
+F 1 "20k" V 3600 4400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3530 4450 50  0001 C CNN
+F 3 "~" H 3600 4450 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3600 4450 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3600 4450 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3600 4450 50  0001 C CNN "Manu_Name"
+	1    3600 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 4850 3150 4850
+Wire Wire Line
+	2950 4650 3150 4650
+Wire Wire Line
+	3450 4850 3600 4850
+Wire Wire Line
+	3450 4650 3500 4650
+Wire Wire Line
+	3500 4600 3500 4650
+Connection ~ 3500 4650
+Wire Wire Line
+	3500 4650 3700 4650
+Wire Wire Line
+	3500 4650 3500 4900
+Wire Wire Line
+	3600 4900 3600 4850
+Connection ~ 3600 4850
+Wire Wire Line
+	3600 4850 3700 4850
+Wire Wire Line
+	3600 4600 3600 4850
+Wire Wire Line
+	3450 4250 3500 4250
+Wire Wire Line
+	3600 4250 3600 4300
+Wire Wire Line
+	3500 4300 3500 4250
+Connection ~ 3500 4250
+Wire Wire Line
+	3500 4250 3600 4250
+Wire Wire Line
+	3600 5200 3600 5250
+Wire Wire Line
+	3600 5250 3000 5250
+Wire Wire Line
+	3000 5250 3000 4950
+Wire Wire Line
+	3000 4950 2950 4950
+$Comp
+L Connector:AudioJack3_Ground_Switch J8
+U 1 1 5E212601
+P 2750 3700
+F 0 "J8" H 2700 3950 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 2500 3700 50  0000 C CNN
+F 2 "" H 2750 3700 50  0001 C CNN
+F 3 "~" H 2750 3700 50  0001 C CNN
+	1    2750 3700
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:CP1 C16
+U 1 1 5E21260B
+P 3300 3700
+F 0 "C16" V 3350 3600 39  0000 C CNN
+F 1 "2.2uF" V 3350 3850 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 3700 50  0001 C CNN
+F 3 "~" H 3300 3700 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 3700 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 3700 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 3700 50  0001 C CNN "Manu_Name"
+	1    3300 3700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R14
+U 1 1 5E212615
+P 3500 3900
+F 0 "R14" V 3550 4000 50  0000 L CNN
+F 1 "20k" V 3500 3850 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3430 3900 50  0001 C CNN
+F 3 "~" H 3500 3900 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3500 3900 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3500 3900 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3500 3900 50  0001 C CNN "Manu_Name"
+	1    3500 3900
+	-1   0    0    1   
+$EndComp
+Text Label 3350 4100 2    39   ~ 0
+ANAGND
+Text Label 3450 3100 2    39   ~ 0
+ANAVcc
+$Comp
+L Device:CP1 C15
+U 1 1 5E212621
+P 3300 3500
+F 0 "C15" V 3350 3400 39  0000 C CNN
+F 1 "2.2uF" V 3350 3650 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 3500 50  0001 C CNN
+F 3 "~" H 3300 3500 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 3500 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 3500 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 3500 50  0001 C CNN "Manu_Name"
+	1    3300 3500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R13
+U 1 1 5E21262B
+P 3500 3300
+F 0 "R13" V 3550 3400 50  0000 L CNN
+F 1 "20k" V 3500 3250 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3430 3300 50  0001 C CNN
+F 3 "~" H 3500 3300 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3500 3300 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3500 3300 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3500 3300 50  0001 C CNN "Manu_Name"
+	1    3500 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R20
+U 1 1 5E212635
+P 3600 3900
+F 0 "R20" V 3650 4000 50  0000 L CNN
+F 1 "20k" V 3600 3850 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3530 3900 50  0001 C CNN
+F 3 "~" H 3600 3900 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3600 3900 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3600 3900 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3600 3900 50  0001 C CNN "Manu_Name"
+	1    3600 3900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R19
+U 1 1 5E21263F
+P 3600 3300
+F 0 "R19" V 3650 3400 50  0000 L CNN
+F 1 "20k" V 3600 3250 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3530 3300 50  0001 C CNN
+F 3 "~" H 3600 3300 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 3600 3300 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 3600 3300 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 3600 3300 50  0001 C CNN "Manu_Name"
+	1    3600 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 3700 3150 3700
+Wire Wire Line
+	2950 3500 3150 3500
+Wire Wire Line
+	3450 3700 3600 3700
+Wire Wire Line
+	3450 3500 3500 3500
+Wire Wire Line
+	3500 3450 3500 3500
+Connection ~ 3500 3500
+Wire Wire Line
+	3500 3500 3700 3500
+Wire Wire Line
+	3500 3500 3500 3750
+Wire Wire Line
+	3600 3750 3600 3700
+Connection ~ 3600 3700
+Wire Wire Line
+	3600 3700 3700 3700
+Wire Wire Line
+	3600 3450 3600 3700
+Wire Wire Line
+	3450 3100 3500 3100
+Wire Wire Line
+	3600 3100 3600 3150
+Wire Wire Line
+	3500 3150 3500 3100
+Connection ~ 3500 3100
+Wire Wire Line
+	3500 3100 3600 3100
+Wire Wire Line
+	3600 4050 3600 4100
+Wire Wire Line
+	3600 4100 3000 4100
+Wire Wire Line
+	3000 4100 3000 3800
+Wire Wire Line
+	3000 3800 2950 3800
+$Comp
+L Device:CP1 C13
+U 1 1 5E29B219
+P 3300 2100
+F 0 "C13" V 3350 2000 39  0000 C CNN
+F 1 "2.2uF" V 3350 2250 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 2100 50  0001 C CNN
+F 3 "~" H 3300 2100 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 2100 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 2100 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 2100 50  0001 C CNN "Manu_Name"
+	1    3300 2100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C14
+U 1 1 5E2CAB3B
+P 3300 2300
+F 0 "C14" V 3350 2200 39  0000 C CNN
+F 1 "2.2uF" V 3350 2450 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 2300 50  0001 C CNN
+F 3 "~" H 3300 2300 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 2300 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 2300 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 2300 50  0001 C CNN "Manu_Name"
+	1    3300 2300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:AudioJack3_Ground_Switch J7
+U 1 1 5E2CB01D
+P 2750 2300
+F 0 "J7" H 2700 2550 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 2500 2300 50  0000 C CNN
+F 2 "" H 2750 2300 50  0001 C CNN
+F 3 "~" H 2750 2300 50  0001 C CNN
+	1    2750 2300
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	2950 2100 3150 2100
+Wire Wire Line
+	3150 2300 2950 2300
+Text Label 3050 2450 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	3050 2450 3000 2450
+Wire Wire Line
+	3000 2450 3000 2400
+Wire Wire Line
+	3000 2400 2950 2400
+Wire Wire Line
+	3450 2100 3500 2100
+Wire Wire Line
+	3500 2300 3450 2300
+$Comp
+L Device:CP1 C11
+U 1 1 5E301688
+P 3300 1000
+F 0 "C11" V 3350 900 39  0000 C CNN
+F 1 "2.2uF" V 3350 1150 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 1000 50  0001 C CNN
+F 3 "~" H 3300 1000 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 1000 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 1000 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 1000 50  0001 C CNN "Manu_Name"
+	1    3300 1000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C12
+U 1 1 5E301692
+P 3300 1200
+F 0 "C12" V 3350 1100 39  0000 C CNN
+F 1 "2.2uF" V 3350 1350 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 1200 50  0001 C CNN
+F 3 "~" H 3300 1200 50  0001 C CNN
+F 4 "493-17492-1-ND" V 3300 1200 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 3300 1200 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 1200 50  0001 C CNN "Manu_Name"
+	1    3300 1200
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:AudioJack3_Ground_Switch J6
+U 1 1 5E301699
+P 2750 1200
+F 0 "J6" H 2700 1450 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 2500 1200 50  0000 C CNN
+F 2 "" H 2750 1200 50  0001 C CNN
+F 3 "~" H 2750 1200 50  0001 C CNN
+	1    2750 1200
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	2950 1000 3150 1000
+Wire Wire Line
+	3150 1200 2950 1200
+Text Label 3050 1350 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	3050 1350 3000 1350
+Wire Wire Line
+	3000 1350 3000 1300
+Wire Wire Line
+	3000 1300 2950 1300
+Wire Wire Line
+	3450 1000 3500 1000
+Wire Wire Line
+	3500 1200 3450 1200
+$Comp
+L Device:CP1 C3
+U 1 1 5E308FAF
+P 1450 2100
+F 0 "C3" V 1500 2000 39  0000 C CNN
+F 1 "2.2uF" V 1500 2250 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 2100 50  0001 C CNN
+F 3 "~" H 1450 2100 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 2100 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 2100 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 2100 50  0001 C CNN "Manu_Name"
+	1    1450 2100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C4
+U 1 1 5E308FB9
+P 1450 2300
+F 0 "C4" V 1500 2200 39  0000 C CNN
+F 1 "2.2uF" V 1500 2450 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 2300 50  0001 C CNN
+F 3 "~" H 1450 2300 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 2300 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 2300 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 2300 50  0001 C CNN "Manu_Name"
+	1    1450 2300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:AudioJack3_Ground_Switch J2
+U 1 1 5E308FC0
+P 900 2300
+F 0 "J2" H 850 2550 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 650 2300 50  0000 C CNN
+F 2 "" H 900 2300 50  0001 C CNN
+F 3 "~" H 900 2300 50  0001 C CNN
+	1    900  2300
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	1100 2100 1300 2100
+Wire Wire Line
+	1300 2300 1100 2300
+Text Label 1200 2450 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	1200 2450 1150 2450
+Wire Wire Line
+	1150 2450 1150 2400
+Wire Wire Line
+	1150 2400 1100 2400
+Wire Wire Line
+	1600 2100 1650 2100
+Wire Wire Line
+	1650 2300 1600 2300
+$Comp
+L Device:CP1 C1
+U 1 1 5E311716
+P 1450 1000
+F 0 "C1" V 1500 900 39  0000 C CNN
+F 1 "2.2uF" V 1500 1150 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 1000 50  0001 C CNN
+F 3 "~" H 1450 1000 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 1000 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 1000 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 1000 50  0001 C CNN "Manu_Name"
+	1    1450 1000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C2
+U 1 1 5E311720
+P 1450 1200
+F 0 "C2" V 1500 1100 39  0000 C CNN
+F 1 "2.2uF" V 1500 1350 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 1200 50  0001 C CNN
+F 3 "~" H 1450 1200 50  0001 C CNN
+F 4 "493-17492-1-ND" V 1450 1200 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H2R2MCL1GB" V 1450 1200 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 1200 50  0001 C CNN "Manu_Name"
+	1    1450 1200
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:AudioJack3_Ground_Switch J1
+U 1 1 5E311727
+P 900 1200
+F 0 "J1" H 850 1450 50  0000 C CNN
+F 1 "AudioJack3_Ground_Switch" V 650 1200 50  0000 C CNN
+F 2 "" H 900 1200 50  0001 C CNN
+F 3 "~" H 900 1200 50  0001 C CNN
+	1    900  1200
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	1100 1000 1300 1000
+Wire Wire Line
+	1300 1200 1100 1200
+Text Label 1200 1350 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	1200 1350 1150 1350
+Wire Wire Line
+	1150 1350 1150 1300
+Wire Wire Line
+	1150 1300 1100 1300
+Wire Wire Line
+	1600 1000 1650 1000
+Wire Wire Line
+	1650 1200 1600 1200
+$EndSCHEMATC
