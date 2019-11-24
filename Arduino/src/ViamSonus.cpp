@@ -24,6 +24,28 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <string.h>
 
 
+const char* const ViamSonus::errorToStr(ViamSonusError err) {
+  switch (err) {
+    case ViamSonusError::INPUT_DISPLACED:   return "INPUT_DISPLACED";
+    case ViamSonusError::DEVICE_DISABLED:   return "DEVICE_DISABLED";
+    case ViamSonusError::PEGGED_MAX:        return "PEGGED_MAX";
+    case ViamSonusError::PEGGED_MIN:        return "PEGGED_MIN";
+    case ViamSonusError::NO_ERROR:          return "NO_ERROR";
+    case ViamSonusError::ABSENT:            return "ABSENT";
+    case ViamSonusError::BUS:               return "BUS";
+    case ViamSonusError::ALREADY_AT_MAX:    return "ALREADY_AT_MAX";
+    case ViamSonusError::ALREADY_AT_MIN:    return "ALREADY_AT_MIN";
+    case ViamSonusError::INVALID_POT:       return "INVALID_POT";
+    case ViamSonusError::UNROUTE_FAILED:    return "UNROUTE_FAILED";
+    case ViamSonusError::BAD_COLUMN:        return "BAD_COLUMN";
+    case ViamSonusError::BAD_ROW:           return "BAD_ROW";
+    case ViamSonusError::SWITCH_COLLISION:  return "SWITCH_COLLISION";
+    case ViamSonusError::GEN_SWITCH_FAULT:  return "GEN_SWITCH_FAULT";
+    default:                                return "UNKNOWN";
+  }
+}
+
+
 /*
 * Constructor. Here is all of the setup work. Takes the i2c addresses of the hardware as arguments.
 */

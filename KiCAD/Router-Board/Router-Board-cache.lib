@@ -92,11 +92,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# VianSonus2.0-parts:ADG2128
+# ViamSonus2.0-parts:ADG2128
 #
-DEF VianSonus2.0-parts:ADG2128 U 0 40 Y Y 1 F N
+DEF ViamSonus2.0-parts:ADG2128 U 0 40 Y Y 1 F N
 F0 "U" 150 100 60 H V C CNN
-F1 "VianSonus2.0-parts:ADG2128" 0 200 60 H V C CNN
+F1 "ViamSonus2.0-parts:ADG2128" 0 200 60 H V C CNN
 F2 "" 150 100 60 H V C CNN
 F3 "" 150 100 60 H V C CNN
 DRAW
@@ -137,11 +137,11 @@ X Y0 9 -550 0 100 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# VianSonus2.0-parts:DS1881E-050+
+# ViamSonus2.0-parts:DS1881E-050+
 #
-DEF VianSonus2.0-parts:DS1881E-050+ U 0 40 Y Y 1 F N
+DEF ViamSonus2.0-parts:DS1881E-050+ U 0 40 Y Y 1 F N
 F0 "U" 0 350 50 H V C CNN
-F1 "VianSonus2.0-parts:DS1881E-050+" 0 450 50 H V C CNN
+F1 "ViamSonus2.0-parts:DS1881E-050+" 0 450 50 H V C CNN
 F2 "" 0 350 50 H I C CNN
 F3 "" 0 350 50 H I C CNN
 DRAW
@@ -177,11 +177,11 @@ X L1 9 -450 -800 100 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# VianSonus2.0-parts:OpAmp-Dual-Single-Symbol
+# ViamSonus2.0-parts:OpAmp-Dual-Single-Symbol
 #
-DEF VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U 0 40 Y Y 1 F N
+DEF ViamSonus2.0-parts:OpAmp-Dual-Single-Symbol U 0 40 Y Y 1 F N
 F0 "U" 350 -300 39 H V C CNN
-F1 "VianSonus2.0-parts:OpAmp-Dual-Single-Symbol" 200 -400 39 H V C CNN
+F1 "ViamSonus2.0-parts:OpAmp-Dual-Single-Symbol" 200 -400 39 H V C CNN
 F2 "" 0 0 39 H I C CNN
 F3 "" 0 0 39 H I C CNN
 DRAW

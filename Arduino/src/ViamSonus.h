@@ -73,17 +73,6 @@ typedef struct cps_output_channel_t {
 
 
 
-class AudioRouter {
-  public:
-    void preserveOnDestroy(bool);
-    int8_t status(char*);     // Write some status about the routes to the provided char buffer.
-
-    // TODO: These ought to be statics...
-};
-
-
-
-
 /*
 * This class represents a complete Viam Sonus board.
 * The 8-pin group are the outputs, and the 12-pin group are inputs. Please see
@@ -115,6 +104,11 @@ class ViamSonus {
     void dumpInputChannel(uint8_t chan, StringBuilder*);
     void dumpOutputChannel(uint8_t chan, StringBuilder*);
 
+    inline CPInputChannel*  getInputByRow(uint8_t row) {   return &inputs[row % 12];     };
+    inline CPOutputChannel* getOutputByCol(uint8_t col) {  return &outputs[col & 0x07];  };
+
+    static const char* const errorToStr(ViamSonusError);
+
 
   private:
     CPInputChannel  inputs[12];
@@ -129,8 +123,6 @@ class ViamSonus {
     DS1881  pot5;
 
     DS1881* _getPotRef(uint8_t row);
-    inline CPInputChannel*  getInputByRow(uint8_t row) {   return &inputs[row % 12];     };
-    inline CPOutputChannel* getOutputByCol(uint8_t col) {  return &outputs[col & 0x07];  };
 };
 
 #endif   // __VIAMSONUS_DRIVER_H__

@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L VianSonus2.0-parts:ADG2128 U1
+L ViamSonus2.0-parts:ADG2128 U1
 U 1 1 5D183CD4
 P 4500 2000
 F 0 "U1" H 4400 2250 60  0000 C CNN
@@ -29,7 +29,7 @@ F 6 "Analog Devices Inc." H 4500 2000 50  0001 C CNN "Manu_Name"
 	1    0    0    -1  
 $EndComp
 $Comp
-L VianSonus2.0-parts:DS1881E-050+ U3
+L ViamSonus2.0-parts:DS1881E-050+ U3
 U 1 1 5D183D42
 P 8400 1150
 F 0 "U3" H 8400 850 50  0000 C CNN
@@ -79,7 +79,7 @@ Wire Wire Line
 Wire Wire Line
 	9350 4500 9250 4500
 $Comp
-L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U11
+L ViamSonus2.0-parts:OpAmp-Dual-Single-Symbol U11
 U 1 1 5D193945
 P 1550 3200
 F 0 "U11" H 1900 2900 39  0000 C CNN
@@ -410,7 +410,7 @@ Wire Wire Line
 Text Label 4700 2900 0    39   ~ 0
 GND
 $Comp
-L VianSonus2.0-parts:DS1881E-050+ U4
+L ViamSonus2.0-parts:DS1881E-050+ U4
 U 1 1 5D25BF82
 P 8400 2500
 F 0 "U4" H 8400 2200 50  0000 C CNN
@@ -424,7 +424,7 @@ F 6 "Maxim Integrated" H 8400 2500 50  0001 C CNN "Manu_Name"
 	1    0    0    -1  
 $EndComp
 $Comp
-L VianSonus2.0-parts:DS1881E-050+ U5
+L ViamSonus2.0-parts:DS1881E-050+ U5
 U 1 1 5D25C00E
 P 8400 3850
 F 0 "U5" H 8400 3550 50  0000 C CNN
@@ -438,7 +438,7 @@ F 6 "Maxim Integrated" H 8400 3850 50  0001 C CNN "Manu_Name"
 	1    0    0    -1  
 $EndComp
 $Comp
-L VianSonus2.0-parts:DS1881E-050+ U6
+L ViamSonus2.0-parts:DS1881E-050+ U6
 U 1 1 5D25C2F4
 P 9800 1150
 F 0 "U6" H 9800 850 50  0000 C CNN
@@ -452,7 +452,7 @@ F 6 "Maxim Integrated" H 9800 1150 50  0001 C CNN "Manu_Name"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L VianSonus2.0-parts:DS1881E-050+ U7
+L ViamSonus2.0-parts:DS1881E-050+ U7
 U 1 1 5D262D79
 P 9800 2500
 F 0 "U7" H 9800 2200 50  0000 C CNN
@@ -466,7 +466,7 @@ F 6 "Maxim Integrated" H 9800 2500 50  0001 C CNN "Manu_Name"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L VianSonus2.0-parts:DS1881E-050+ U8
+L ViamSonus2.0-parts:DS1881E-050+ U8
 U 1 1 5D262F49
 P 9800 3850
 F 0 "U8" H 9800 3550 50  0000 C CNN
@@ -592,7 +592,7 @@ ANAVcc
 Wire Wire Line
 	4550 950  4550 1000
 $Comp
-L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U10
+L ViamSonus2.0-parts:OpAmp-Dual-Single-Symbol U10
 U 1 1 5D6A3513
 P 1550 2050
 F 0 "U10" H 1900 1750 39  0000 C CNN
@@ -642,7 +642,7 @@ Wire Wire Line
 	2100 2250 2200 2250
 Connection ~ 2100 2250
 $Comp
-L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U9
+L ViamSonus2.0-parts:OpAmp-Dual-Single-Symbol U9
 U 1 1 5D6B380A
 P 1550 900
 F 0 "U9" H 1900 600 39  0000 C CNN
@@ -692,7 +692,7 @@ Wire Wire Line
 	2100 1100 2200 1100
 Connection ~ 2100 1100
 $Comp
-L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U12
+L ViamSonus2.0-parts:OpAmp-Dual-Single-Symbol U12
 U 1 1 5D6ECE41
 P 1550 4350
 F 0 "U12" H 1900 4050 39  0000 C CNN
@@ -834,7 +834,7 @@ GND
 Text Label 5750 4000 0    39   ~ 0
 ANAGND
 $Comp
-L VianSonus2.0-parts:OpAmp-Dual-Single-Symbol U2
+L ViamSonus2.0-parts:OpAmp-Dual-Single-Symbol U2
 U 1 1 5D9DA108
 P 3900 3750
 F 0 "U2" H 4250 3450 39  0000 C CNN
