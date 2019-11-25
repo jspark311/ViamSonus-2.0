@@ -34,6 +34,18 @@ Crosspoint switch is at address 0x70.
 #define VIAMSONUS_SERIALIZE_VERSION  1
 
 
+#define VIAMSONUS_FLAG_FOUND_SWITCH   0x02000000  //
+#define VIAMSONUS_FLAG_FOUND_POT_0    0x04000000  //
+#define VIAMSONUS_FLAG_FOUND_POT_1    0x08000000  //
+#define VIAMSONUS_FLAG_FOUND_POT_2    0x10000000  //
+#define VIAMSONUS_FLAG_FOUND_POT_3    0x20000000  //
+#define VIAMSONUS_FLAG_FOUND_POT_4    0x40000000  //
+#define VIAMSONUS_FLAG_FOUND_POT_5    0x80000000  //
+
+#define VIAMSONUS_FLAG_RESET_MASK     0x00000000  // Bits to preserve through reset.
+#define VIAMSONUS_FLAG_ALL_DEVS_MASK  0xFE000000  // All devices found.
+
+
 enum class ViamSonusError : int8_t {
   INPUT_DISPLACED  = 4,   // There was no error, but a channel-routing operation has displaced a previously-routed input.
   DEVICE_DISABLED  = 3,   // A caller tried to set a wiper while the device is disabled. This may work...
@@ -85,6 +97,7 @@ class ViamSonus {
 
     ViamSonusError init();
     ViamSonusError reset();
+    ViamSonusError refresh();
 
     ViamSonusError route(uint8_t col, uint8_t row);       // Establish a route to the given output from the given input.
     ViamSonusError unroute(uint8_t col, uint8_t row);     // Disconnect the given output from the given input.
@@ -107,12 +120,17 @@ class ViamSonus {
     inline CPInputChannel*  getInputByRow(uint8_t row) {   return &inputs[row % 12];     };
     inline CPOutputChannel* getOutputByCol(uint8_t col) {  return &outputs[col & 0x07];  };
 
+    inline bool allDevsFound() {
+      return (VIAMSONUS_FLAG_ALL_DEVS_MASK == (_flags & VIAMSONUS_FLAG_ALL_DEVS_MASK));
+    };
+
     static const char* const errorToStr(ViamSonusError);
 
 
   private:
     CPInputChannel  inputs[12];
     CPOutputChannel outputs[8];
+    uint32_t _flags = 0;
 
     ADG2128 cp_switch;
     DS1881  pot0;
@@ -122,7 +140,19 @@ class ViamSonus {
     DS1881  pot4;
     DS1881  pot5;
 
+
     DS1881* _getPotRef(uint8_t row);
+
+    /* Flag manipulation inlines */
+    inline uint32_t _vs_flags() {                return _flags;           };
+    inline bool _vs_flag(uint32_t _flag) {       return (_flags & _flag); };
+    inline void _vs_flip_flag(uint32_t _flag) {  _flags ^= _flag;         };
+    inline void _vs_clear_flag(uint32_t _flag) { _flags &= ~_flag;        };
+    inline void _vs_set_flag(uint32_t _flag) {   _flags |= _flag;         };
+    inline void _vs_set_flag(uint32_t _flag, bool nu) {
+      if (nu) _flags |= _flag;
+      else    _flags &= ~_flag;
+    };
 };
 
 #endif   // __VIAMSONUS_DRIVER_H__

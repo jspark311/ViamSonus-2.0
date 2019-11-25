@@ -51,6 +51,15 @@ void printHelp() {
   output.concat("I     Reinitialize\n");
   output.concat("S     Store device settings in flash\n");
   output.concat("R     Reset\n");
+
+  output.concat("!     Bind selected input to output 0\n");
+  output.concat("@     Bind selected input to output 1\n");
+  output.concat("#     Bind selected input to output 2\n");
+  output.concat("$     Bind selected input to output 3\n");
+  output.concat("%     Bind selected input to output 4\n");
+  output.concat("^     Bind selected input to output 5\n");
+  output.concat("&     Bind selected input to output 6\n");
+  output.concat("*     Bind selected input to output 7\n");
   Serial.println((char*) output.string());
 }
 
@@ -66,6 +75,32 @@ void setup() {
   Wire.setSCL(SCL_PIN);
   Wire.begin();
   vs.init();
+
+  // "Input 1", while descriptive, is also not terribly helpful for keeping
+  //   track of what is being routed. So we can name them if we like. Making
+  //   them reflect the silkscreen lables seems like a good start...
+  // This is completely optional. If not done, default names for channels will
+  //   be used in any case calling for a label.
+  vs.nameInput(0,  "In-L-0");
+  vs.nameInput(1,  "In-R-0");
+  vs.nameInput(2,  "In-L-1");
+  vs.nameInput(3,  "In-R-1");
+  vs.nameInput(4,  "In-L-2");
+  vs.nameInput(5,  "In-R-2");
+  vs.nameInput(6,  "In-L-3");
+  vs.nameInput(7,  "In-R-3");
+  vs.nameInput(8,  "In-L-4");
+  vs.nameInput(9,  "In-R-4");
+  vs.nameInput(10, "In-L-5");
+  vs.nameInput(11, "In-R-5");
+  vs.nameOutput(0, "Out-L-0");
+  vs.nameOutput(1, "Out-R-0");
+  vs.nameOutput(2, "Out-L-1");
+  vs.nameOutput(3, "Out-R-1");
+  vs.nameOutput(4, "Out-L-2");
+  vs.nameOutput(5, "Out-R-2");
+  vs.nameOutput(6, "Out-L-3");
+  vs.nameOutput(7, "Out-R-3");
 }
 
 
@@ -86,15 +121,15 @@ void loop() {
         break;
       case 'I':
         ret = vs.init();
-        if (ViamSonusError::NO_ERROR == ret) {
-          output.concatf("init() returns %s.\n", ViamSonus::errorToStr(ret));
-        }
+        output.concatf("init() returns %s.\n", ViamSonus::errorToStr(ret));
+        break;
+      case 'x':
+        ret = vs.refresh();
+        output.concatf("refresh() returns %s.\n", ViamSonus::errorToStr(ret));
         break;
       case 'R':
         ret = vs.reset();
-        if (ViamSonusError::NO_ERROR == ret) {
-          output.concatf("reset() returns %s.\n", ViamSonus::errorToStr(ret));
-        }
+        output.concatf("reset() returns %s.\n", ViamSonus::errorToStr(ret));
         break;
 
       case '0':
@@ -113,12 +148,48 @@ void loop() {
         vs.dumpInputChannel(in_chan, &output);
         break;
 
+      case '!':
+      case '@':
+      case '#':
+      case '$':
+      case '%':
+      case '^':
+      case '&':
+      case '*':
+        if (nullptr != in_chan) {
+          uint8_t out_num = 7;
+          switch (c) {
+            case '!':  out_num--;
+            case '@':  out_num--;
+            case '#':  out_num--;
+            case '$':  out_num--;
+            case '%':  out_num--;
+            case '^':  out_num--;
+            case '&':  out_num--;
+            case '*':  break;
+          }
+          ret = vs.route(out_num, in_chan->i_chan);
+          if (ViamSonusError::NO_ERROR != ret) {
+            output.concatf("route() returns %s.\n", ViamSonus::errorToStr(ret));
+          }
+          else {
+            output.concatf("Channel %u is now routed to output %u.\n", in_chan->i_chan, out_num);
+          }
+        }
+        else {
+          output.concat("No input channel selected.\n");
+        }
+        break;
+
       case '+':
       case '-':
         if (nullptr != in_chan) {
           ret = vs.setVolume(in_chan->i_chan, vs.getVolume(in_chan->i_chan) + (c == '+') ? 1 : -1);
-          if (ViamSonusError::NO_ERROR == ret) {
+          if (ViamSonusError::NO_ERROR != ret) {
             output.concatf("setVolume() returns %s.\n", ViamSonus::errorToStr(ret));
+          }
+          else {
+            output.concatf("Channel %u volume is now %u.\n", in_chan->i_chan, vs.getVolume(in_chan->i_chan));
           }
         }
         else {

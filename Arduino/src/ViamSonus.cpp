@@ -91,34 +91,35 @@ ViamSonus::~ViamSonus() {
 * Do all the bus-related init.
 */
 ViamSonusError ViamSonus::init() {
-  for (uint8_t i = 0; i < 6; i++) {
-    DIGITALPOT_ERROR result = _getPotRef(i)->init();
-    if (result != DIGITALPOT_ERROR::NO_ERROR) {
-      //local_log.concatf("Failed to init() pot %u with cause (%d).\n", i, result);
-      return ViamSonusError::ABSENT;
-    }
-  }
-  int8_t result = (int8_t) cp_switch.init();
-  if (result != 0) {
-    //local_log.concatf("Failed to init() cp_switch with cause (%d).\n", result);
-    return ViamSonusError::ABSENT;
-  }
-
-  // If we are this far, it means we've successfully refreshed all the device classes
-  //   to reflect the state of the hardware. Now to parse that data into structs that
-  //   mean something to us at this level...
-  for (uint8_t i = 0; i < 12; i++) {  // Routes...
-    uint8_t temp_byte = cp_switch.getValue(inputs[i].i_chan);
-    for (uint8_t j = 0; j < 8; j++) {
-      if (0x01 & temp_byte) {
-        CPOutputChannel* temp_output = getOutputByCol(j);
-        temp_output->i_chans |= 1 << i;
+  ViamSonusError ret = ViamSonusError::ABSENT;
+  _vs_clear_flag(VIAMSONUS_FLAG_ALL_DEVS_MASK);
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_0, (DIGITALPOT_ERROR::NO_ERROR == pot0.init()));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_1, (DIGITALPOT_ERROR::NO_ERROR == pot1.init()));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_2, (DIGITALPOT_ERROR::NO_ERROR == pot2.init()));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_3, (DIGITALPOT_ERROR::NO_ERROR == pot3.init()));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_4, (DIGITALPOT_ERROR::NO_ERROR == pot4.init()));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_5, (DIGITALPOT_ERROR::NO_ERROR == pot5.init()));
+  if (0 == (int8_t) cp_switch.init()) {
+    _vs_set_flag(VIAMSONUS_FLAG_FOUND_SWITCH);
+    // If we are this far, it means we've successfully refreshed all the device classes
+    //   to reflect the state of the hardware. Now to parse that data into structs that
+    //   mean something to us at this level...
+    for (uint8_t i = 0; i < 12; i++) {  // Routes...
+      uint8_t temp_byte = cp_switch.getValue(inputs[i].i_chan);
+      for (uint8_t j = 0; j < 8; j++) {
+        if (0x01 & temp_byte) {
+          CPOutputChannel* temp_output = getOutputByCol(j);
+          temp_output->i_chans |= 1 << i;
+        }
+        temp_byte = temp_byte >> 1;
       }
-      temp_byte = temp_byte >> 1;
     }
   }
 
-  return ViamSonusError::NO_ERROR;
+  if (allDevsFound()) {
+    ret = ViamSonusError::NO_ERROR;
+  }
+  return ret;
 }
 
 
@@ -126,6 +127,25 @@ ViamSonusError ViamSonus::reset() {
   ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
   ADG2128_ERROR res = cp_switch.reset();
   if (ADG2128_ERROR::NO_ERROR == res) {
+    // Clear out our local records of what is connected where.
+    for (uint8_t i = 0; i < 8; i++) {
+      inputs[i].o_chans  = 0;
+      outputs[i].i_chans = 0;
+    }
+    for (uint8_t i = 8; i < 12; i++) {
+      inputs[i].o_chans  = 0;
+    }
+    ret = ViamSonusError::NO_ERROR;
+  }
+  return ret;
+}
+
+
+ViamSonusError ViamSonus::refresh() {
+  ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
+  ADG2128_ERROR res = cp_switch.refresh();
+  if (ADG2128_ERROR::NO_ERROR == res) {
+    // TODO: refresh on the pots, also.
     ret = ViamSonusError::NO_ERROR;
   }
   return ret;
@@ -136,13 +156,18 @@ ViamSonusError ViamSonus::reset() {
 */
 ViamSonusError ViamSonus::nameInput(uint8_t row, const char* name) {
   if (row > 11) return ViamSonusError::BAD_ROW;
+  ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
   int len = strlen(name);
   if (inputs[row].name) {
     free(inputs[row].name);
   }
   inputs[row].name = (char *) malloc(len + 1);
-  for (int i = 0; i < len; i++) *(inputs[row].name + i) = *(name + i);
-  return ViamSonusError::NO_ERROR;
+  if (nullptr != inputs[row].name) {
+    *(inputs[row].name + len) = 0;
+    for (int i = 0; i < len; i++) *(inputs[row].name + i) = *(name + i);
+    ret = ViamSonusError::NO_ERROR;
+  }
+  return ret;
 }
 
 
@@ -150,13 +175,18 @@ ViamSonusError ViamSonus::nameInput(uint8_t row, const char* name) {
 */
 ViamSonusError ViamSonus::nameOutput(uint8_t col, const char* name) {
   if (col > 7) return ViamSonusError::BAD_COLUMN;
+  ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
   int len = strlen(name);
   if (outputs[col].name) {
     free(outputs[col].name);
   }
   outputs[col].name = (char *) malloc(len + 1);
-  for (int i = 0; i < len; i++) *(outputs[col].name + i) = *(name + i);
-  return ViamSonusError::NO_ERROR;
+  if (nullptr != outputs[col].name) {
+    *(outputs[col].name + len) = 0;
+    for (int i = 0; i < len; i++) *(outputs[col].name + i) = *(name + i);
+    ret = ViamSonusError::NO_ERROR;
+  }
+  return ret;
 }
 
 
@@ -164,13 +194,11 @@ ViamSonusError ViamSonus::nameOutput(uint8_t col, const char* name) {
 ViamSonusError ViamSonus::unroute(uint8_t col, uint8_t row) {
   if (col > 7)  return ViamSonusError::BAD_COLUMN;
   if (row > 11) return ViamSonusError::BAD_ROW;
-  bool remove_link = (outputs[col].i_chans & (1 << row));
-  ViamSonusError ret = ViamSonusError::NO_ERROR;
-  if (ADG2128_ERROR::NO_ERROR != cp_switch.unsetRoute(outputs[col].o_chan, row)) {
-    ret = ViamSonusError::UNROUTE_FAILED;
-  }
-  if (remove_link) {
+  ViamSonusError ret = ViamSonusError::UNROUTE_FAILED;
+  if (ADG2128_ERROR::NO_ERROR == cp_switch.unsetRoute(col, row)) {
     outputs[col].i_chans &= ~(1 << row);
+    inputs[row].o_chans  &= ~(1 << col);
+    ret = ViamSonusError::NO_ERROR;
   }
   return ret;
 }
@@ -180,8 +208,12 @@ ViamSonusError ViamSonus::unroute(uint8_t col) {
   if (col > 7)  return ViamSonusError::BAD_COLUMN;
   ViamSonusError ret = ViamSonusError::NO_ERROR;
   for (int i = 0; i < 12; i++) {
-    if (unroute(col, i) != ViamSonusError::NO_ERROR) {
-      return ViamSonusError::UNROUTE_FAILED;
+    if (ADG2128_ERROR::NO_ERROR == cp_switch.unsetRoute(col, i, (11 == i))) {
+      outputs[col].i_chans &= ~(1 << i);
+      inputs[i].o_chans    &= ~(1 << col);
+    }
+    else {
+      ret = ViamSonusError::UNROUTE_FAILED;
     }
   }
   return ret;
@@ -202,21 +234,28 @@ ViamSonusError ViamSonus::route(uint8_t col, uint8_t row) {
 
   ViamSonusError ret = ViamSonusError::NO_ERROR;
   if (0 != outputs[col].i_chans) {
-    ViamSonusError result = unroute(col);
-    if (result == ViamSonusError::NO_ERROR) {
-      ret = ViamSonusError::INPUT_DISPLACED;
-      outputs[col].i_chans &= ~(1 << row);
+    // We already have channels bound.
+    if (0 != (outputs[col].i_chans & ~(1 << row))) {
+      // There are routes attached beyond the one requested.
+      // TODO: Implications for mix after this line.
+      if (ViamSonusError::NO_ERROR == unroute(col)) {
+        ret = ViamSonusError::INPUT_DISPLACED;
+      }
+      else {
+        ret = ViamSonusError::UNROUTE_FAILED;
+      }
     }
     else {
-      ret = ViamSonusError::UNROUTE_FAILED;
+      // The requested route already exists.
     }
   }
 
-  if (((uint8_t)ret) >= 0) {
+  if (((int8_t)ret) >= 0) {
     ADG2128_ERROR result = cp_switch.setRoute(outputs[col].o_chan, row);
     switch (result) {
       case ADG2128_ERROR::NO_ERROR:
         outputs[col].i_chans |= (1 << row);
+        inputs[row].o_chans  |= (1 << col);
         ret = ViamSonusError::NO_ERROR;
         break;
       case ADG2128_ERROR::ABSENT:
@@ -261,6 +300,16 @@ int16_t ViamSonus::getVolume(uint8_t row) {
 
 void ViamSonus::printDebug(StringBuilder* output) {
   output->concat("ViamSonus 2.0\n");
+  cp_switch.printDebug();
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_0)) {   pot0.printDebug();   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_1)) {   pot1.printDebug();   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_2)) {   pot2.printDebug();   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_3)) {   pot3.printDebug();   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {   pot4.printDebug();   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {   pot5.printDebug();   }
+  for (uint8_t i = 0; i < 8; i++) {
+    dumpOutputChannel(i, output);
+  }
 }
 
 
@@ -269,22 +318,31 @@ void ViamSonus::dumpOutputChannel(uint8_t chan, StringBuilder* output) {
     output->concat("dumpOutputChannel() was passed an out-of-bounds id.\n");
     return;
   }
-  output->concatf("Output channel %u\n", chan);
 
   if (outputs[chan].name) {
-    output->concatf("%s\n", outputs[chan].name);
-  }
-  output->concatf("Switch column %u\n", outputs[chan].o_chan);
-  if (outputs[chan].i_chans == 0) {
-    output->concatf("Output channel %u is presently unbound.\n", chan);
+    output->concatf("    Output: %s\n", outputs[chan].name);
   }
   else {
-    output->concatf("Output channel %u is presently bound to the following inputs...\n", chan);
+    output->concatf("    Output channel %u\n", chan);
+  }
+
+  if (outputs[chan].i_chans == 0) {
+    output->concat("\tPresently unbound\n");
+  }
+  else {
+    output->concat("\tBound to inputs ");
     for (uint8_t i = 0; i < 12; i++) {
       if ((1 << i) & outputs[chan].i_chans) {
-        dumpInputChannel(&inputs[i], output);
+        //dumpInputChannel(&inputs[i], output);
+        if (nullptr != inputs[i].name) {
+          output->concatf("\"%s\", ", inputs[i].name);
+        }
+        else {
+          output->concatf("%u, ", i);
+        }
       }
     }
+    output->concat("\n");
   }
 }
 
@@ -295,14 +353,13 @@ void ViamSonus::dumpInputChannel(CPInputChannel *chan, StringBuilder* output) {
     return;
   }
   if (chan->name) {
-    output->concatf("%s\n", chan->name);
+    output->concatf("    Input: %s", chan->name);
   }
   else {
-    output->concatf("Input channel %u\n", chan);
+    output->concatf("    Input channel %u", chan->i_chan);
   }
-  output->concatf("Switch row: %u\n", chan->i_chan);
   DS1881* pot = _getPotRef(chan->i_chan);
-  output->concatf("Potentiometer value:      %u\n", pot->getValue(chan->i_chan & 1));
+  output->concatf("\tVolume:  %u\n", pot->getValue(chan->i_chan & 1));
 }
 
 
