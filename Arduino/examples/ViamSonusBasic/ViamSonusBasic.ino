@@ -184,7 +184,8 @@ void loop() {
       case '+':
       case '-':
         if (nullptr != in_chan) {
-          ret = vs.setVolume(in_chan->i_chan, vs.getVolume(in_chan->i_chan) + (c == '+') ? 1 : -1);
+          uint8_t vol = vs.getVolume(in_chan->i_chan) + ((c == '+') ? -1 : 1);
+          ret = vs.setVolume(in_chan->i_chan, vol);
           if (ViamSonusError::NO_ERROR != ret) {
             output.concatf("setVolume() returns %s.\n", ViamSonus::errorToStr(ret));
           }

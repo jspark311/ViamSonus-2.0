@@ -99,6 +99,15 @@ ViamSonusError ViamSonus::init() {
   _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_3, (DIGITALPOT_ERROR::NO_ERROR == pot3.init()));
   _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_4, (DIGITALPOT_ERROR::NO_ERROR == pot4.init()));
   _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_5, (DIGITALPOT_ERROR::NO_ERROR == pot5.init()));
+
+  // TODO: Migrate this assurance into DS1881 driver.
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_0)) {   pot0.setRange(63);   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_1)) {   pot1.setRange(63);   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_2)) {   pot2.setRange(63);   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_3)) {   pot3.setRange(63);   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {   pot4.setRange(63);   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {   pot5.setRange(63);   }
+
   if (0 == (int8_t) cp_switch.init()) {
     _vs_set_flag(VIAMSONUS_FLAG_FOUND_SWITCH);
     // If we are this far, it means we've successfully refreshed all the device classes
@@ -145,8 +154,14 @@ ViamSonusError ViamSonus::refresh() {
   ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
   ADG2128_ERROR res = cp_switch.refresh();
   if (ADG2128_ERROR::NO_ERROR == res) {
-    // TODO: refresh on the pots, also.
-    ret = ViamSonusError::NO_ERROR;
+    DIGITALPOT_ERROR dp_ret = DIGITALPOT_ERROR::NO_ERROR;
+    if ((DIGITALPOT_ERROR::NO_ERROR == dp_ret) & _vs_flag(VIAMSONUS_FLAG_FOUND_POT_0)) {  dp_ret = pot0.refresh();  }
+    if ((DIGITALPOT_ERROR::NO_ERROR == dp_ret) & _vs_flag(VIAMSONUS_FLAG_FOUND_POT_1)) {  dp_ret = pot1.refresh();  }
+    if ((DIGITALPOT_ERROR::NO_ERROR == dp_ret) & _vs_flag(VIAMSONUS_FLAG_FOUND_POT_2)) {  dp_ret = pot2.refresh();  }
+    if ((DIGITALPOT_ERROR::NO_ERROR == dp_ret) & _vs_flag(VIAMSONUS_FLAG_FOUND_POT_3)) {  dp_ret = pot3.refresh();  }
+    if ((DIGITALPOT_ERROR::NO_ERROR == dp_ret) & _vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {  dp_ret = pot4.refresh();  }
+    if ((DIGITALPOT_ERROR::NO_ERROR == dp_ret) & _vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {  dp_ret = pot5.refresh();  }
+    ret = (DIGITALPOT_ERROR::NO_ERROR != dp_ret) ? ViamSonusError::BUS : ViamSonusError::NO_ERROR;
   }
   return ret;
 }
@@ -270,12 +285,8 @@ ViamSonusError ViamSonus::route(uint8_t col, uint8_t row) {
       case ADG2128_ERROR::BAD_ROW:
         ret = ViamSonusError::BAD_ROW;
         break;
-      case ADG2128_ERROR::NO_MEM:
-      ret = ViamSonusError::GEN_SWITCH_FAULT;
-        break;
-      case ADG2128_ERROR::CARD_VIOLATION_COL:
-      case ADG2128_ERROR::CARD_VIOLATION_ROW:
-        ret = ViamSonusError::SWITCH_COLLISION;
+      default:
+        ret = ViamSonusError::GEN_SWITCH_FAULT;
         break;
     }
   }
@@ -284,9 +295,8 @@ ViamSonusError ViamSonus::route(uint8_t col, uint8_t row) {
 
 
 ViamSonusError ViamSonus::setVolume(uint8_t row, uint8_t vol) {
-  ViamSonusError ret = ViamSonusError::NO_ERROR;
   if (row > 11)  return ViamSonusError::BAD_ROW;
-  ret = (ViamSonusError) _getPotRef(row)->setValue(row & 0x01, vol);
+  ViamSonusError ret = (ViamSonusError) _getPotRef(row)->setValue(row & 0x01, vol);
   return ret;
 }
 
