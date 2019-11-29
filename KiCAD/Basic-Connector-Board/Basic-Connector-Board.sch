@@ -30,19 +30,19 @@ Text Label 7250 1100 0    39   ~ 0
 Out-R-2
 Text Label 7250 2200 0    39   ~ 0
 Out-R-3
-Text Label 8800 1450 0    39   ~ 0
+Text Label 8800 1150 0    39   ~ 0
 ~RESET
-Text Label 8800 1350 0    39   ~ 0
+Text Label 8800 1050 0    39   ~ 0
 SCL
-Text Label 8800 1250 0    39   ~ 0
+Text Label 8800 950  0    39   ~ 0
 SDA
 Text Label 8000 950  0    39   ~ 0
 Vcc
 Text Label 8000 1050 0    39   ~ 0
 GND
-Text Label 8800 1050 0    39   ~ 0
+Text Label 8800 1450 0    39   ~ 0
 ANAGND
-Text Label 8800 950  0    39   ~ 0
+Text Label 8800 1350 0    39   ~ 0
 ANAVcc
 Text Label 1850 3600 0    39   ~ 0
 Biased-In-R-2
@@ -52,7 +52,7 @@ Text Label 3700 2450 0    39   ~ 0
 Biased-In-R-4
 Text Label 3700 3600 0    39   ~ 0
 Biased-In-R-5
-Text Label 8800 1150 0    39   ~ 0
+Text Label 8800 1250 0    39   ~ 0
 VccDiv2
 $Comp
 L Connector:Conn_01x14_Male J11
@@ -128,20 +128,6 @@ Out-R-2
 Text Label 8800 2250 0    39   ~ 0
 Out-R-3
 $Comp
-L Device:CP1 C10
-U 1 1 5E13A1E8
-P 1450 3600
-F 0 "C10" V 1500 3500 39  0000 C CNN
-F 1 "2.2uF" V 1500 3750 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 3600 50  0001 C CNN
-F 3 "~" H 1450 3600 50  0001 C CNN
-F 4 "493-17492-1-ND" V 1450 3600 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 1450 3600 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 1450 3600 50  0001 C CNN "Manu_Name"
-	1    1450 3600
-	0    -1   -1   0   
-$EndComp
-$Comp
 L Device:R R6
 U 1 1 5E13A1F1
 P 1650 3800
@@ -159,20 +145,6 @@ Text Label 1500 4000 2    39   ~ 0
 ANAGND
 Text Label 1600 3000 2    39   ~ 0
 ANAVcc
-$Comp
-L Device:CP1 C9
-U 1 1 5E13A20B
-P 1450 3400
-F 0 "C9" V 1500 3300 39  0000 C CNN
-F 1 "2.2uF" V 1500 3550 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 3400 50  0001 C CNN
-F 3 "~" H 1450 3400 50  0001 C CNN
-F 4 "493-17492-1-ND" V 1450 3400 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 1450 3400 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 1450 3400 50  0001 C CNN "Manu_Name"
-	1    1450 3400
-	0    -1   -1   0   
-$EndComp
 $Comp
 L Device:R R5
 U 1 1 5E13A214
@@ -265,7 +237,7 @@ Wire Wire Line
 Wire Wire Line
 	1750 3950 1750 4000
 Wire Wire Line
-	1750 4000 1150 4000
+	1750 4000 1650 4000
 Wire Wire Line
 	1150 4000 1150 3700
 Wire Wire Line
@@ -280,20 +252,6 @@ F 2 "" H 900 2450 50  0001 C CNN
 F 3 "~" H 900 2450 50  0001 C CNN
 	1    900  2450
 	1    0    0    1   
-$EndComp
-$Comp
-L Device:CP1 C8
-U 1 1 5E2010FB
-P 1450 2450
-F 0 "C8" V 1500 2350 39  0000 C CNN
-F 1 "2.2uF" V 1500 2600 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 2450 50  0001 C CNN
-F 3 "~" H 1450 2450 50  0001 C CNN
-F 4 "493-17492-1-ND" V 1450 2450 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 1450 2450 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 1450 2450 50  0001 C CNN "Manu_Name"
-	1    1450 2450
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R R4
@@ -313,20 +271,6 @@ Text Label 1500 2850 2    39   ~ 0
 ANAGND
 Text Label 1600 1850 2    39   ~ 0
 ANAVcc
-$Comp
-L Device:CP1 C7
-U 1 1 5E201111
-P 1450 2250
-F 0 "C7" V 1500 2150 39  0000 C CNN
-F 1 "2.2uF" V 1500 2400 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 2250 50  0001 C CNN
-F 3 "~" H 1450 2250 50  0001 C CNN
-F 4 "493-17492-1-ND" V 1450 2250 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 1450 2250 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 1450 2250 50  0001 C CNN "Manu_Name"
-	1    1450 2250
-	0    -1   -1   0   
-$EndComp
 $Comp
 L Device:R R3
 U 1 1 5E20111B
@@ -403,7 +347,7 @@ Wire Wire Line
 Wire Wire Line
 	1750 2800 1750 2850
 Wire Wire Line
-	1750 2850 1150 2850
+	1750 2850 1650 2850
 Wire Wire Line
 	1150 2850 1150 2550
 Wire Wire Line
@@ -418,20 +362,6 @@ F 2 "" H 900 1300 50  0001 C CNN
 F 3 "~" H 900 1300 50  0001 C CNN
 	1    900  1300
 	1    0    0    1   
-$EndComp
-$Comp
-L Device:CP1 C6
-U 1 1 5E203AED
-P 1450 1300
-F 0 "C6" V 1500 1200 39  0000 C CNN
-F 1 "2.2uF" V 1500 1450 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 1300 50  0001 C CNN
-F 3 "~" H 1450 1300 50  0001 C CNN
-F 4 "493-17492-1-ND" V 1450 1300 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 1450 1300 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 1450 1300 50  0001 C CNN "Manu_Name"
-	1    1450 1300
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R R2
@@ -451,20 +381,6 @@ Text Label 1500 1700 2    39   ~ 0
 ANAGND
 Text Label 1600 700  2    39   ~ 0
 ANAVcc
-$Comp
-L Device:CP1 C5
-U 1 1 5E203B03
-P 1450 1100
-F 0 "C5" V 1500 1000 39  0000 C CNN
-F 1 "2.2uF" V 1500 1250 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 1450 1100 50  0001 C CNN
-F 3 "~" H 1450 1100 50  0001 C CNN
-F 4 "493-17492-1-ND" V 1450 1100 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 1450 1100 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 1450 1100 50  0001 C CNN "Manu_Name"
-	1    1450 1100
-	0    -1   -1   0   
-$EndComp
 $Comp
 L Device:R R1
 U 1 1 5E203B0D
@@ -541,7 +457,7 @@ Wire Wire Line
 Wire Wire Line
 	1750 1650 1750 1700
 Wire Wire Line
-	1750 1700 1150 1700
+	1750 1700 1650 1700
 Wire Wire Line
 	1150 1700 1150 1400
 Wire Wire Line
@@ -562,11 +478,11 @@ L Device:CP1 C20
 U 1 1 5E2075D9
 P 3300 3600
 F 0 "C20" V 3350 3500 39  0000 C CNN
-F 1 "2.2uF" V 3350 3750 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 3600 50  0001 C CNN
+F 1 "3.3uF" V 3350 3750 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 3300 3600 50  0001 C CNN
 F 3 "~" H 3300 3600 50  0001 C CNN
-F 4 "493-17492-1-ND" V 3300 3600 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 3300 3600 50  0001 C CNN "Manu_Number"
+F 4 "493-17493-1-ND" V 3300 3600 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 3300 3600 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 3300 3600 50  0001 C CNN "Manu_Name"
 	1    3300 3600
 	0    -1   -1   0   
@@ -589,20 +505,6 @@ Text Label 3350 4000 2    39   ~ 0
 ANAGND
 Text Label 3450 3000 2    39   ~ 0
 ANAVcc
-$Comp
-L Device:CP1 C19
-U 1 1 5E2075EF
-P 3300 3400
-F 0 "C19" V 3350 3300 39  0000 C CNN
-F 1 "2.2uF" V 3350 3550 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 3400 50  0001 C CNN
-F 3 "~" H 3300 3400 50  0001 C CNN
-F 4 "493-17492-1-ND" V 3300 3400 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 3300 3400 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 3300 3400 50  0001 C CNN "Manu_Name"
-	1    3300 3400
-	0    -1   -1   0   
-$EndComp
 $Comp
 L Device:R R17
 U 1 1 5E2075F9
@@ -679,7 +581,7 @@ Wire Wire Line
 Wire Wire Line
 	3600 3950 3600 4000
 Wire Wire Line
-	3600 4000 3000 4000
+	3600 4000 3500 4000
 Wire Wire Line
 	3000 4000 3000 3700
 Wire Wire Line
@@ -694,20 +596,6 @@ F 2 "" H 2750 2450 50  0001 C CNN
 F 3 "~" H 2750 2450 50  0001 C CNN
 	1    2750 2450
 	1    0    0    1   
-$EndComp
-$Comp
-L Device:CP1 C18
-U 1 1 5E20C3EF
-P 3300 2450
-F 0 "C18" V 3350 2350 39  0000 C CNN
-F 1 "2.2uF" V 3350 2600 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 2450 50  0001 C CNN
-F 3 "~" H 3300 2450 50  0001 C CNN
-F 4 "493-17492-1-ND" V 3300 2450 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 3300 2450 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 3300 2450 50  0001 C CNN "Manu_Name"
-	1    3300 2450
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R R16
@@ -727,20 +615,6 @@ Text Label 3350 2850 2    39   ~ 0
 ANAGND
 Text Label 3450 1850 2    39   ~ 0
 ANAVcc
-$Comp
-L Device:CP1 C17
-U 1 1 5E20C405
-P 3300 2250
-F 0 "C17" V 3350 2150 39  0000 C CNN
-F 1 "2.2uF" V 3350 2400 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 2250 50  0001 C CNN
-F 3 "~" H 3300 2250 50  0001 C CNN
-F 4 "493-17492-1-ND" V 3300 2250 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 3300 2250 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 3300 2250 50  0001 C CNN "Manu_Name"
-	1    3300 2250
-	0    -1   -1   0   
-$EndComp
 $Comp
 L Device:R R15
 U 1 1 5E20C40F
@@ -817,7 +691,7 @@ Wire Wire Line
 Wire Wire Line
 	3600 2800 3600 2850
 Wire Wire Line
-	3600 2850 3000 2850
+	3600 2850 3500 2850
 Wire Wire Line
 	3000 2850 3000 2550
 Wire Wire Line
@@ -832,20 +706,6 @@ F 2 "" H 2750 1300 50  0001 C CNN
 F 3 "~" H 2750 1300 50  0001 C CNN
 	1    2750 1300
 	1    0    0    1   
-$EndComp
-$Comp
-L Device:CP1 C16
-U 1 1 5E21260B
-P 3300 1300
-F 0 "C16" V 3350 1200 39  0000 C CNN
-F 1 "2.2uF" V 3350 1450 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 1300 50  0001 C CNN
-F 3 "~" H 3300 1300 50  0001 C CNN
-F 4 "493-17492-1-ND" V 3300 1300 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 3300 1300 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 3300 1300 50  0001 C CNN "Manu_Name"
-	1    3300 1300
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R R14
@@ -865,20 +725,6 @@ Text Label 3350 1700 2    39   ~ 0
 ANAGND
 Text Label 3450 700  2    39   ~ 0
 ANAVcc
-$Comp
-L Device:CP1 C15
-U 1 1 5E212621
-P 3300 1100
-F 0 "C15" V 3350 1000 39  0000 C CNN
-F 1 "2.2uF" V 3350 1250 39  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 3300 1100 50  0001 C CNN
-F 3 "~" H 3300 1100 50  0001 C CNN
-F 4 "493-17492-1-ND" V 3300 1100 50  0001 C CNN "Digikey_Number"
-F 5 "UUQ1H2R2MCL1GB" V 3300 1100 50  0001 C CNN "Manu_Number"
-F 6 "Nichicon" V 3300 1100 50  0001 C CNN "Manu_Name"
-	1    3300 1100
-	0    -1   -1   0   
-$EndComp
 $Comp
 L Device:R R13
 U 1 1 5E21262B
@@ -955,7 +801,7 @@ Wire Wire Line
 Wire Wire Line
 	3600 1650 3600 1700
 Wire Wire Line
-	3600 1700 3000 1700
+	3600 1700 3500 1700
 Wire Wire Line
 	3000 1700 3000 1400
 Wire Wire Line
@@ -1026,7 +872,7 @@ F 4 "493-16090-1-ND" V 5500 2000 50  0001 C CNN "Digikey_Number"
 F 5 "UUQ0J101MCL1GB" V 5500 2000 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 5500 2000 50  0001 C CNN "Manu_Name"
 	1    5500 2000
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Connector:AudioJack3_Ground_Switch J2
@@ -1083,23 +929,23 @@ Wire Wire Line
 Wire Wire Line
 	5700 1100 5650 1100
 $Comp
-L Connector_Generic:Conn_01x04 J?
+L Connector_Generic:Conn_01x04 J13
 U 1 1 5DDDD87E
 P 7900 2900
-F 0 "J?" H 7900 2600 50  0000 C CNN
+F 0 "J13" H 7900 2600 50  0000 C CNN
 F 1 "Conn_01x04" V 8000 2850 50  0000 C CNN
-F 2 "" H 7900 2900 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Horizontal" H 7900 2900 50  0001 C CNN
 F 3 "~" H 7900 2900 50  0001 C CNN
 	1    7900 2900
 	-1   0    0    1   
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x04 J?
+L Connector_Generic:Conn_01x04 J14
 U 1 1 5DDDDA2F
 P 8700 2900
-F 0 "J?" H 8700 2600 50  0000 C CNN
+F 0 "J14" H 8700 2600 50  0000 C CNN
 F 1 "Conn_01x04" V 8800 2850 50  0000 C CNN
-F 2 "" H 8700 2900 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Horizontal" H 8700 2900 50  0001 C CNN
 F 3 "~" H 8700 2900 50  0001 C CNN
 	1    8700 2900
 	-1   0    0    1   
@@ -1121,10 +967,10 @@ SDA
 Text Label 8900 2900 0    39   ~ 0
 SCL
 $Comp
-L Device:CP1 C?
+L Device:CP1 C4
 U 1 1 5DE02DB2
 P 5500 2200
-F 0 "C?" V 5550 2100 39  0000 C CNN
+F 0 "C4" V 5550 2100 39  0000 C CNN
 F 1 "100uF" V 5550 2350 39  0000 C CNN
 F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 5500 2200 50  0001 C CNN
 F 3 "~" H 5500 2200 50  0001 C CNN
@@ -1132,13 +978,13 @@ F 4 "493-16090-1-ND" V 5500 2200 50  0001 C CNN "Digikey_Number"
 F 5 "UUQ0J101MCL1GB" V 5500 2200 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 5500 2200 50  0001 C CNN "Manu_Name"
 	1    5500 2200
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP1 C?
+L Device:CP1 C2
 U 1 1 5DE02E3C
 P 5500 1100
-F 0 "C?" V 5550 1000 39  0000 C CNN
+F 0 "C2" V 5550 1000 39  0000 C CNN
 F 1 "100uF" V 5550 1250 39  0000 C CNN
 F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 5500 1100 50  0001 C CNN
 F 3 "~" H 5500 1100 50  0001 C CNN
@@ -1146,13 +992,13 @@ F 4 "493-16090-1-ND" V 5500 1100 50  0001 C CNN "Digikey_Number"
 F 5 "UUQ0J101MCL1GB" V 5500 1100 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 5500 1100 50  0001 C CNN "Manu_Name"
 	1    5500 1100
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP1 C?
+L Device:CP1 C1
 U 1 1 5DE02EE8
 P 5500 900
-F 0 "C?" V 5550 800 39  0000 C CNN
+F 0 "C1" V 5550 800 39  0000 C CNN
 F 1 "100uF" V 5550 1050 39  0000 C CNN
 F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 5500 900 50  0001 C CNN
 F 3 "~" H 5500 900 50  0001 C CNN
@@ -1160,13 +1006,13 @@ F 4 "493-16090-1-ND" V 5500 900 50  0001 C CNN "Digikey_Number"
 F 5 "UUQ0J101MCL1GB" V 5500 900 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 5500 900 50  0001 C CNN "Manu_Name"
 	1    5500 900 
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP1 C?
+L Device:CP1 C11
 U 1 1 5DE02F72
 P 7050 900
-F 0 "C?" V 7100 800 39  0000 C CNN
+F 0 "C11" V 7100 800 39  0000 C CNN
 F 1 "100uF" V 7100 1050 39  0000 C CNN
 F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 7050 900 50  0001 C CNN
 F 3 "~" H 7050 900 50  0001 C CNN
@@ -1174,13 +1020,13 @@ F 4 "493-16090-1-ND" V 7050 900 50  0001 C CNN "Digikey_Number"
 F 5 "UUQ0J101MCL1GB" V 7050 900 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 7050 900 50  0001 C CNN "Manu_Name"
 	1    7050 900 
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP1 C?
+L Device:CP1 C12
 U 1 1 5DE03038
 P 7050 1100
-F 0 "C?" V 7100 1000 39  0000 C CNN
+F 0 "C12" V 7100 1000 39  0000 C CNN
 F 1 "100uF" V 7100 1250 39  0000 C CNN
 F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 7050 1100 50  0001 C CNN
 F 3 "~" H 7050 1100 50  0001 C CNN
@@ -1188,13 +1034,13 @@ F 4 "493-16090-1-ND" V 7050 1100 50  0001 C CNN "Digikey_Number"
 F 5 "UUQ0J101MCL1GB" V 7050 1100 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 7050 1100 50  0001 C CNN "Manu_Name"
 	1    7050 1100
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP1 C?
+L Device:CP1 C13
 U 1 1 5DE030C2
 P 7050 2000
-F 0 "C?" V 7100 1900 39  0000 C CNN
+F 0 "C13" V 7100 1900 39  0000 C CNN
 F 1 "100uF" V 7100 2150 39  0000 C CNN
 F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 7050 2000 50  0001 C CNN
 F 3 "~" H 7050 2000 50  0001 C CNN
@@ -1202,13 +1048,13 @@ F 4 "493-16090-1-ND" V 7050 2000 50  0001 C CNN "Digikey_Number"
 F 5 "UUQ0J101MCL1GB" V 7050 2000 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 7050 2000 50  0001 C CNN "Manu_Name"
 	1    7050 2000
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP1 C?
+L Device:CP1 C14
 U 1 1 5DE03172
 P 7050 2200
-F 0 "C?" V 7100 2100 39  0000 C CNN
+F 0 "C14" V 7100 2100 39  0000 C CNN
 F 1 "100uF" V 7100 2350 39  0000 C CNN
 F 2 "Capacitor_SMD:CP_Elec_6.3x5.4_Nichicon" H 7050 2200 50  0001 C CNN
 F 3 "~" H 7050 2200 50  0001 C CNN
@@ -1216,6 +1062,322 @@ F 4 "493-16090-1-ND" V 7050 2200 50  0001 C CNN "Digikey_Number"
 F 5 "UUQ0J101MCL1GB" V 7050 2200 50  0001 C CNN "Manu_Number"
 F 6 "Nichicon" V 7050 2200 50  0001 C CNN "Manu_Name"
 	1    7050 2200
+	0    1    1    0   
+$EndComp
+Text Label 8950 3450 0    39   ~ 0
+SCL
+Text Label 8950 3350 0    39   ~ 0
+SDA
+Text Label 8650 3350 2    39   ~ 0
+Vcc
+$Comp
+L Device:R R25
+U 1 1 5DE62C76
+P 8800 3350
+F 0 "R25" V 8900 3300 50  0000 L CNN
+F 1 "2k2" V 8800 3300 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 8730 3350 50  0001 C CNN
+F 3 "~" H 8800 3350 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 8800 3350 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 8800 3350 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 8800 3350 50  0001 C CNN "Manu_Name"
+	1    8800 3350
 	0    -1   -1   0   
 $EndComp
+$Comp
+L Device:R R26
+U 1 1 5DE6324E
+P 8800 3450
+F 0 "R26" V 8700 3400 50  0000 L CNN
+F 1 "2k2" V 8800 3400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 8730 3450 50  0001 C CNN
+F 3 "~" H 8800 3450 50  0001 C CNN
+F 4 "RNCP0603FTD20K0CT-ND" V 8800 3450 50  0001 C CNN "Digikey_Number"
+F 5 "RNCP0603FTD20K0" V 8800 3450 50  0001 C CNN "Manu_Number"
+F 6 "Stackpole Electronics Inc" V 8800 3450 50  0001 C CNN "Manu_Name"
+	1    8800 3450
+	0    -1   -1   0   
+$EndComp
+Text Label 8650 3450 2    39   ~ 0
+Vcc
+$Comp
+L Device:CP1 C19
+U 1 1 5DE6CCDB
+P 3300 3400
+F 0 "C19" V 3350 3300 39  0000 C CNN
+F 1 "3.3uF" V 3350 3550 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 3300 3400 50  0001 C CNN
+F 3 "~" H 3300 3400 50  0001 C CNN
+F 4 "493-17493-1-ND" V 3300 3400 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 3300 3400 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 3400 50  0001 C CNN "Manu_Name"
+	1    3300 3400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C18
+U 1 1 5DE6D297
+P 3300 2450
+F 0 "C18" V 3350 2350 39  0000 C CNN
+F 1 "3.3uF" V 3350 2600 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 3300 2450 50  0001 C CNN
+F 3 "~" H 3300 2450 50  0001 C CNN
+F 4 "493-17493-1-ND" V 3300 2450 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 3300 2450 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 2450 50  0001 C CNN "Manu_Name"
+	1    3300 2450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C17
+U 1 1 5DE6D2A0
+P 3300 2250
+F 0 "C17" V 3350 2150 39  0000 C CNN
+F 1 "3.3uF" V 3350 2400 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 3300 2250 50  0001 C CNN
+F 3 "~" H 3300 2250 50  0001 C CNN
+F 4 "493-17493-1-ND" V 3300 2250 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 3300 2250 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 2250 50  0001 C CNN "Manu_Name"
+	1    3300 2250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C16
+U 1 1 5DE71B5F
+P 3300 1300
+F 0 "C16" V 3350 1200 39  0000 C CNN
+F 1 "3.3uF" V 3350 1450 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 3300 1300 50  0001 C CNN
+F 3 "~" H 3300 1300 50  0001 C CNN
+F 4 "493-17493-1-ND" V 3300 1300 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 3300 1300 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 1300 50  0001 C CNN "Manu_Name"
+	1    3300 1300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C15
+U 1 1 5DE71B69
+P 3300 1100
+F 0 "C15" V 3350 1000 39  0000 C CNN
+F 1 "3.3uF" V 3350 1250 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 3300 1100 50  0001 C CNN
+F 3 "~" H 3300 1100 50  0001 C CNN
+F 4 "493-17493-1-ND" V 3300 1100 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 3300 1100 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 3300 1100 50  0001 C CNN "Manu_Name"
+	1    3300 1100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C10
+U 1 1 5DE762CE
+P 1450 3600
+F 0 "C10" V 1500 3500 39  0000 C CNN
+F 1 "3.3uF" V 1500 3750 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 1450 3600 50  0001 C CNN
+F 3 "~" H 1450 3600 50  0001 C CNN
+F 4 "493-17493-1-ND" V 1450 3600 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 1450 3600 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 3600 50  0001 C CNN "Manu_Name"
+	1    1450 3600
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C9
+U 1 1 5DE762D8
+P 1450 3400
+F 0 "C9" V 1500 3300 39  0000 C CNN
+F 1 "3.3uF" V 1500 3550 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 1450 3400 50  0001 C CNN
+F 3 "~" H 1450 3400 50  0001 C CNN
+F 4 "493-17493-1-ND" V 1450 3400 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 1450 3400 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 3400 50  0001 C CNN "Manu_Name"
+	1    1450 3400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C8
+U 1 1 5DE7A910
+P 1450 2450
+F 0 "C8" V 1500 2350 39  0000 C CNN
+F 1 "3.3uF" V 1500 2600 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 1450 2450 50  0001 C CNN
+F 3 "~" H 1450 2450 50  0001 C CNN
+F 4 "493-17493-1-ND" V 1450 2450 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 1450 2450 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 2450 50  0001 C CNN "Manu_Name"
+	1    1450 2450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C7
+U 1 1 5DE7A91A
+P 1450 2250
+F 0 "C7" V 1500 2150 39  0000 C CNN
+F 1 "3.3uF" V 1500 2400 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 1450 2250 50  0001 C CNN
+F 3 "~" H 1450 2250 50  0001 C CNN
+F 4 "493-17493-1-ND" V 1450 2250 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 1450 2250 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 2250 50  0001 C CNN "Manu_Name"
+	1    1450 2250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C6
+U 1 1 5DE7EF46
+P 1450 1300
+F 0 "C6" V 1500 1200 39  0000 C CNN
+F 1 "3.3uF" V 1500 1450 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 1450 1300 50  0001 C CNN
+F 3 "~" H 1450 1300 50  0001 C CNN
+F 4 "493-17493-1-ND" V 1450 1300 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 1450 1300 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 1300 50  0001 C CNN "Manu_Name"
+	1    1450 1300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP1 C5
+U 1 1 5DE7EF50
+P 1450 1100
+F 0 "C5" V 1500 1000 39  0000 C CNN
+F 1 "3.3uF" V 1500 1250 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 1450 1100 50  0001 C CNN
+F 3 "~" H 1450 1100 50  0001 C CNN
+F 4 "493-17493-1-ND" V 1450 1100 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ1H3R3MCL1GB" V 1450 1100 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 1450 1100 50  0001 C CNN "Manu_Name"
+	1    1450 1100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L ViamSonus2.0-parts:LM1085 U1
+U 1 1 5DE887A1
+P 6650 3100
+F 0 "U1" H 6650 3365 50  0000 C CNN
+F 1 "LM1085" H 6650 3274 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TO-263-3_TabPin2" H 6650 3100 50  0001 C CNN
+F 3 "" H 6650 3100 50  0001 C CNN
+F 4 "296-35391-1-ND" H 6650 3100 50  0001 C CNN "Digikey_Number"
+F 5 "LM1085ISX-5.0/NOPB" H 6650 3100 50  0001 C CNN "Manu_Number"
+F 6 "Texas Instruments" H 6650 3100 50  0001 C CNN "Manu_Name"
+	1    6650 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Barrel_Jack J15
+U 1 1 5DE88EDC
+P 5550 3300
+F 0 "J15" H 5605 3625 50  0000 C CNN
+F 1 "Barrel_Jack" H 5605 3534 50  0000 C CNN
+F 2 "" H 5600 3260 50  0001 C CNN
+F 3 "~" H 5600 3260 50  0001 C CNN
+	1    5550 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP1 C21
+U 1 1 5DE895B1
+P 6150 3300
+F 0 "C21" V 6200 3200 39  0000 C CNN
+F 1 "10uF" V 6300 3300 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 6150 3300 50  0001 C CNN
+F 3 "~" H 6150 3300 50  0001 C CNN
+F 4 "493-14558-1-ND" V 6150 3300 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ11C100MCL1GB" V 6150 3300 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 6150 3300 50  0001 C CNN "Manu_Name"
+	1    6150 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP1 C22
+U 1 1 5DE89C62
+P 7100 3300
+F 0 "C22" V 7150 3200 39  0000 C CNN
+F 1 "10uF" V 7250 3300 39  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 7100 3300 50  0001 C CNN
+F 3 "~" H 7100 3300 50  0001 C CNN
+F 4 "493-14558-1-ND" V 7100 3300 50  0001 C CNN "Digikey_Number"
+F 5 "UUQ11C100MCL1GB" V 7100 3300 50  0001 C CNN "Manu_Number"
+F 6 "Nichicon" V 7100 3300 50  0001 C CNN "Manu_Name"
+	1    7100 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 3150 6150 3100
+Wire Wire Line
+	6150 3100 6300 3100
+Wire Wire Line
+	7000 3100 7100 3100
+Wire Wire Line
+	7100 3100 7100 3150
+Wire Wire Line
+	6650 3350 6650 3500
+Wire Wire Line
+	6650 3500 6150 3500
+Wire Wire Line
+	6150 3500 6150 3450
+Wire Wire Line
+	6650 3500 7100 3500
+Wire Wire Line
+	7100 3500 7100 3450
+Connection ~ 6650 3500
+Wire Wire Line
+	5850 3200 5900 3200
+Wire Wire Line
+	5900 3200 5900 3100
+Wire Wire Line
+	5900 3100 6150 3100
+Connection ~ 6150 3100
+Wire Wire Line
+	5850 3400 5900 3400
+Wire Wire Line
+	5900 3400 5900 3500
+Wire Wire Line
+	5900 3500 6150 3500
+Connection ~ 6150 3500
+Text Label 7200 3100 0    39   ~ 0
+ANAVcc
+Wire Wire Line
+	7200 3100 7100 3100
+Connection ~ 7100 3100
+Text Label 7200 3500 0    39   ~ 0
+ANAGND
+Wire Wire Line
+	7200 3500 7100 3500
+Connection ~ 7100 3500
+Wire Wire Line
+	3500 3950 3500 4000
+Connection ~ 3500 4000
+Wire Wire Line
+	3500 4000 3000 4000
+Wire Wire Line
+	3500 2800 3500 2850
+Connection ~ 3500 2850
+Wire Wire Line
+	3500 2850 3000 2850
+Wire Wire Line
+	3500 1650 3500 1700
+Connection ~ 3500 1700
+Wire Wire Line
+	3500 1700 3000 1700
+Wire Wire Line
+	1650 3950 1650 4000
+Connection ~ 1650 4000
+Wire Wire Line
+	1650 4000 1150 4000
+Wire Wire Line
+	1650 2800 1650 2850
+Connection ~ 1650 2850
+Wire Wire Line
+	1650 2850 1150 2850
+Wire Wire Line
+	1650 1650 1650 1700
+Connection ~ 1650 1700
+Wire Wire Line
+	1650 1700 1150 1700
 $EndSCHEMATC
