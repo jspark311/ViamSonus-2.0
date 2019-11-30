@@ -119,6 +119,7 @@ class ViamSonus {
 
     // Save this hardware state into a buffer for later restoration.
     uint32_t serialize(uint8_t* buf, unsigned int len);
+    int8_t   unserialize(const uint8_t* buf, const unsigned int len);
     ViamSonusError preserveOnDestroy(bool);
 
     void printDebug(StringBuilder*);
@@ -140,17 +141,15 @@ class ViamSonus {
     CPInputChannel  inputs[12];
     CPOutputChannel outputs[8];
     uint32_t _flags = 0;
-
-    ADG2128 cp_switch;
-    DS1881  pot0;
-    DS1881  pot1;
-    DS1881  pot2;
-    DS1881  pot3;
-    DS1881  pot4;
-    DS1881  pot5;
+    ADG2128  cp_switch;
+    DS1881   pot0;
+    DS1881   pot1;
+    DS1881   pot2;
+    DS1881   pot3;
+    DS1881   pot4;
+    DS1881   pot5;
 
     DS1881* _getPotRef(uint8_t row);
-    int8_t _unserialize(const uint8_t* buf, const unsigned int len);
 
     inline bool _preserve_on_destroy() {
       return _vs_flag(VIAMSONUS_FLAG_PRESERVE_STATE);

@@ -68,6 +68,30 @@ ViamSonus::ViamSonus(const uint8_t reset_pin) :
 }
 
 /*
+* Constructor. Here is all of the setup work. Takes the i2c addresses of the hardware as arguments.
+*/
+ViamSonus::ViamSonus(const uint8_t* buf, const unsigned int len) :
+  cp_switch((buf+5), (len-5)),
+  pot0(0x28), pot1(0x29), pot2(0x2A), pot3(0x2B), pot4(0x2C), pot5(0x2D)
+{
+  for (uint8_t i = 0; i < 12; i++) {   // Setup our input channels.
+    inputs[i].name      = nullptr;
+    inputs[i].i_chan    = i;
+    inputs[i].o_chans   = 0;
+    inputs[i].flags     = 0;
+  }
+  for (uint8_t i = 0; i < 8; i++) {    // Setup our output channels.
+    outputs[i].name      = nullptr;
+    outputs[i].i_chans   = 0;
+    outputs[i].o_chan    = i;
+    outputs[i].flags     = 0;
+  }
+  unserialize(buf, len);
+}
+
+
+
+/*
 * Destructor
 */
 ViamSonus::~ViamSonus() {
@@ -323,13 +347,13 @@ int16_t ViamSonus::getVolume(uint8_t row) {
 
 void ViamSonus::printDebug(StringBuilder* output) {
   output->concat("ViamSonus 2.0\n");
-  cp_switch.printDebug();
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_0)) {   pot0.printDebug();   }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_1)) {   pot1.printDebug();   }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_2)) {   pot2.printDebug();   }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_3)) {   pot3.printDebug();   }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {   pot4.printDebug();   }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {   pot5.printDebug();   }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_SWITCH)) {  cp_switch.printDebug();  }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_0)) {   pot0.printDebug();       }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_1)) {   pot1.printDebug();       }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_2)) {   pot2.printDebug();       }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_3)) {   pot3.printDebug();       }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {   pot4.printDebug();       }
+  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {   pot5.printDebug();       }
   for (uint8_t i = 0; i < 8; i++) {
     dumpOutputChannel(i, output);
   }
@@ -439,4 +463,30 @@ uint32_t ViamSonus::serialize(uint8_t* buf, unsigned int len) {
     }
   }
   return offset;
+}
+
+
+
+int8_t ViamSonus::unserialize(const uint8_t* buf, const unsigned int len) {
+  uint8_t offset = 0;
+  uint32_t expected_sz = 255;
+  if (len >= VIAMSONUS_SERIALIZE_SIZE) {  // The minimum length.
+    uint32_t f = (*(buf + 1) << 24) | (*(buf + 2) << 16) | (*(buf + 3) << 8) | *(buf + 4);
+    switch (*(buf + offset++)) {
+      case VIAMSONUS_SERIALIZE_VERSION:
+        expected_sz = VIAMSONUS_SERIALIZE_SIZE;
+        offset += ADG2128_SERIALIZE_SIZE;  // We'll have already constructed with _ADDR.
+        _flags = (_flags & ~VIAMSONUS_FLAG_SERIAL_MASK) | (f & VIAMSONUS_FLAG_SERIAL_MASK);
+        for (uint8_t i = 0; i < 6; i++) {
+          if (0 != _getPotRef(i)->unserialize((buf + offset), len-offset)) {
+            return -4;
+          }
+          offset += DS1881_SERIALIZE_SIZE;
+        }
+        break;
+      default:  // Unhandled serializer version.
+        return -3;
+    }
+  }
+  return (expected_sz == offset) ? 0 : -1;
 }
