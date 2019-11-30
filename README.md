@@ -1,9 +1,4 @@
-     __     ___                 ____                        
-     \ \   / (_) __ _ _ __ ___ / ___|  ___  _ __  _   _ ___
-      \ \ / /| |/ _` | '_ ` _ \\___ \ / _ \| '_ \| | | / __|
-       \ V / | | (_| | | | | | |___) | (_) | | | | |_| \__ \
-        \_/  |_|\__,_|_| |_| |_|____/ \___/|_| |_|\__,_|___/
-
+# Viam Sonus 2.0
 
 An audio router board with integrated volume control and buffered output.
 
@@ -28,7 +23,9 @@ An audio router board with integrated volume control and buffered output.
 In order to use this driver, you also need the Arduino drivers for the elements on the board. Clone the following repos into your user libraries (wherever you keep them):
 
 [DS1881 Driver](https://github.com/jspark311/DS1881-Breakout/tree/master/Arduino)
+
 [ADG2128 Driver](https://github.com/jspark311/ADG2128-Breakout/tree/master/Arduino)
+
 [StringBuilder](https://github.com/jspark311/CppPotpourri)
 
 After you've done that, you ought to be able to include the ViamSonus driver.

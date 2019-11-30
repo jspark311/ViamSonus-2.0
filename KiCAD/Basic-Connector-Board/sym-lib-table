@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name ViamSonus2.0-parts)(type Legacy)(uri "$(KIPRJMOD)/../ViamSonus2.0-parts.lib")(options "")(descr ""))
+  (lib (name bd33gc0mefj-me2)(type Legacy)(uri "$(KIPRJMOD)/../bd33gc0mefj-me2.lib")(options "")(descr ""))
 )
