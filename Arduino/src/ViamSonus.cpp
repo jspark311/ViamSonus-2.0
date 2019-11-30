@@ -57,7 +57,6 @@ ViamSonus::ViamSonus(const uint8_t reset_pin) :
     inputs[i].name      = nullptr;
     inputs[i].i_chan    = i;
     inputs[i].o_chans   = 0;
-    inputs[i].deadspace = 0;
     inputs[i].flags     = 0;
   }
   for (uint8_t i = 0; i < 8; i++) {    // Setup our output channels.
@@ -145,6 +144,20 @@ ViamSonusError ViamSonus::reset() {
       inputs[i].o_chans  = 0;
     }
     ret = ViamSonusError::NO_ERROR;
+  }
+  return ret;
+}
+
+
+ViamSonusError ViamSonus::preserveOnDestroy(bool preserve) {
+  ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
+  cp_switch.preserveOnDestroy(preserve);
+  for (uint8_t i = 0; i < 6; i++) {
+    if (DIGITALPOT_ERROR::NO_ERROR != _getPotRef(i)->storeWipers()) {
+      return ret;
+    }
+    ret = ViamSonusError::NO_ERROR;
+    _vs_set_flag(VIAMSONUS_FLAG_PRESERVE_STATE);
   }
   return ret;
 }
@@ -388,4 +401,17 @@ void ViamSonus::dumpInputChannel(uint8_t chan, StringBuilder* output) {
 DS1881* ViamSonus::_getPotRef(uint8_t row) {
   DS1881* refs[] = {&pot0, &pot1, &pot2, &pot3, &pot4, &pot5};
   return refs[row >> 1];
+}
+
+
+/*
+* No bounds-checking.
+*/
+ViamSonusError serialize(uint8_t* buf, unsigned int* len) {
+  ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
+  if (*len >= VIAMSONUS_SERIALIZE_SIZE) {
+
+    ret = ViamSonusError::NO_ERROR;
+  }
+  return ret;
 }

@@ -32,18 +32,25 @@ Crosspoint switch is at address 0x70.
 
 
 #define VIAMSONUS_SERIALIZE_VERSION  1
+#define VIAMSONUS_SERIALIZE_SIZE     128
 
-
-#define VIAMSONUS_FLAG_FOUND_SWITCH   0x02000000  //
-#define VIAMSONUS_FLAG_FOUND_POT_0    0x04000000  //
-#define VIAMSONUS_FLAG_FOUND_POT_1    0x08000000  //
-#define VIAMSONUS_FLAG_FOUND_POT_2    0x10000000  //
-#define VIAMSONUS_FLAG_FOUND_POT_3    0x20000000  //
-#define VIAMSONUS_FLAG_FOUND_POT_4    0x40000000  //
-#define VIAMSONUS_FLAG_FOUND_POT_5    0x80000000  //
+/* ViamSonus class flags */
+#define VIAMSONUS_FLAG_PRESERVE_STATE 0x01000000  // Preserve hardware states.
+#define VIAMSONUS_FLAG_FOUND_SWITCH   0x02000000  // Found the switch.
+#define VIAMSONUS_FLAG_FOUND_POT_0    0x04000000  // Found this potentiometer.
+#define VIAMSONUS_FLAG_FOUND_POT_1    0x08000000  // Found this potentiometer.
+#define VIAMSONUS_FLAG_FOUND_POT_2    0x10000000  // Found this potentiometer.
+#define VIAMSONUS_FLAG_FOUND_POT_3    0x20000000  // Found this potentiometer.
+#define VIAMSONUS_FLAG_FOUND_POT_4    0x40000000  // Found this potentiometer.
+#define VIAMSONUS_FLAG_FOUND_POT_5    0x80000000  // Found this potentiometer.
 
 #define VIAMSONUS_FLAG_RESET_MASK     0x00000000  // Bits to preserve through reset.
 #define VIAMSONUS_FLAG_ALL_DEVS_MASK  0xFE000000  // All devices found.
+
+
+/* InputChannel flags */
+#define VSIC_FLAG_ALLOW_MIX           0x0001  // This channel is safe to mix.
+#define VSIC_FLAG_MONITOR             0x0002  // Monitor this channel via ADC.
 
 
 enum class ViamSonusError : int8_t {
@@ -70,8 +77,7 @@ typedef struct cps_input_channel_t {
   char*    name;       // A name for this input. Not required.
   uint8_t  i_chan;     // The row in the crosspoint switch associated with this input.
   uint8_t  o_chans;    // A flag field indicating which columns are presently bound to this row.
-  uint8_t  deadspace;  // Structure padding.
-  uint8_t  flags;      // Flags on this channel.
+  uint16_t flags;      // Flags on this channel.
 } CPInputChannel;
 
 
@@ -111,6 +117,8 @@ class ViamSonus {
 
     // Save this hardware state into a buffer for later restoration.
     ViamSonusError serialize(uint8_t* buf, unsigned int* len);
+    ViamSonusError preserveOnDestroy(bool);
+    ViamSonusError allowMixing(bool);
 
     void printDebug(StringBuilder*);
     void dumpInputChannel(CPInputChannel* chan, StringBuilder*);
@@ -143,10 +151,13 @@ class ViamSonus {
 
     DS1881* _getPotRef(uint8_t row);
 
+    inline bool _preserve_on_destroy() {
+      return _vs_flag(VIAMSONUS_FLAG_PRESERVE_STATE);
+    };
+
     /* Flag manipulation inlines */
     inline uint32_t _vs_flags() {                return _flags;           };
     inline bool _vs_flag(uint32_t _flag) {       return (_flags & _flag); };
-    inline void _vs_flip_flag(uint32_t _flag) {  _flags ^= _flag;         };
     inline void _vs_clear_flag(uint32_t _flag) { _flags &= ~_flag;        };
     inline void _vs_set_flag(uint32_t _flag) {   _flags |= _flag;         };
     inline void _vs_set_flag(uint32_t _flag, bool nu) {
