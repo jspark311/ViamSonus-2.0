@@ -84,7 +84,7 @@ void setup() {
   // See the advanced usage example for more details.
   // vs.preserveOnDestroy(true);
 
-  vs.init();
+  vs.init(&Wire);
 
   // "Input 1", while descriptive, is also not terribly helpful for keeping
   //   track of what is being routed. So we can name them if we like. Making

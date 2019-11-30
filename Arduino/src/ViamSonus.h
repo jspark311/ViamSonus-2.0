@@ -72,6 +72,23 @@ enum class ViamSonusError : int8_t {
   GEN_SWITCH_FAULT = -10  // A general switch failure.
 };
 
+/*
+* These are operations that happen on timers to facilitate certain use-cases.
+*/
+enum class VSOperation : uint8_t {
+  UNDEFINED        = 0,   // Default uninitialized value.
+  CHAN_VOLUME_SET  = 1,   // Set the channel volume to the value at the operand.
+  CHAN_VOLUME_INC  = 2,   // Bump the channel volume by the amount at the operand.
+  CHAN_VOLUME_DEC  = 3,   // Cut the channel volume by the amount at the operand.
+  GRP_VOLUME_SET   = 4,   // Set the group volume to the value at the operand.
+  GRP_VOLUME_INC   = 5,   // Bump the group volume by the amount at the operand.
+  GRP_VOLUME_DEC   = 6,   // Cut the group volume by the amount at the operand.
+  CHAN_ROUTE       = 7,   // Routes the input channel to the output channel.
+  CHAN_UNROUTE     = 8,   // Unroutes the input channel from the output channel.
+  GRP_ROUTE        = 9,   // Routes the input group to the output group.
+  GRP_UNROUTE      = 10   // Unroutes the input group from the output group.
+};
+
 
 // This struct defines an input pin on the PCB.
 typedef struct cps_input_channel_t {
@@ -103,7 +120,8 @@ class ViamSonus {
     ViamSonus(const uint8_t* buf, const unsigned int len);
     ~ViamSonus();
 
-    ViamSonusError init();
+    inline ViamSonusError init() {  return init(nullptr);  };
+    ViamSonusError init(TwoWire*);
     ViamSonusError reset();
     ViamSonusError refresh();
 

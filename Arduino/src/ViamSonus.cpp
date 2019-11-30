@@ -113,15 +113,15 @@ ViamSonus::~ViamSonus() {
 /*
 * Do all the bus-related init.
 */
-ViamSonusError ViamSonus::init() {
+ViamSonusError ViamSonus::init(TwoWire* bus) {
   ViamSonusError ret = ViamSonusError::ABSENT;
   _vs_clear_flag(VIAMSONUS_FLAG_ALL_DEVS_MASK);
-  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_0, (DIGITALPOT_ERROR::NO_ERROR == pot0.init()));
-  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_1, (DIGITALPOT_ERROR::NO_ERROR == pot1.init()));
-  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_2, (DIGITALPOT_ERROR::NO_ERROR == pot2.init()));
-  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_3, (DIGITALPOT_ERROR::NO_ERROR == pot3.init()));
-  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_4, (DIGITALPOT_ERROR::NO_ERROR == pot4.init()));
-  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_5, (DIGITALPOT_ERROR::NO_ERROR == pot5.init()));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_0, (DIGITALPOT_ERROR::NO_ERROR == pot0.init(bus)));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_1, (DIGITALPOT_ERROR::NO_ERROR == pot1.init(bus)));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_2, (DIGITALPOT_ERROR::NO_ERROR == pot2.init(bus)));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_3, (DIGITALPOT_ERROR::NO_ERROR == pot3.init(bus)));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_4, (DIGITALPOT_ERROR::NO_ERROR == pot4.init(bus)));
+  _vs_set_flag(VIAMSONUS_FLAG_FOUND_POT_5, (DIGITALPOT_ERROR::NO_ERROR == pot5.init(bus)));
 
   // TODO: Migrate this assurance into DS1881 driver.
   if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_0)) {   pot0.setRange(63);   }
@@ -131,7 +131,7 @@ ViamSonusError ViamSonus::init() {
   if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {   pot4.setRange(63);   }
   if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {   pot5.setRange(63);   }
 
-  if (0 == (int8_t) cp_switch.init()) {
+  if (0 == (int8_t) cp_switch.init(bus)) {
     _vs_set_flag(VIAMSONUS_FLAG_FOUND_SWITCH);
     // If we are this far, it means we've successfully refreshed all the device classes
     //   to reflect the state of the hardware. Now to parse that data into structs that
