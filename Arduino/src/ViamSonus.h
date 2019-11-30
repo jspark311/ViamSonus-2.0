@@ -32,7 +32,7 @@ Crosspoint switch is at address 0x70.
 
 
 #define VIAMSONUS_SERIALIZE_VERSION  1
-#define VIAMSONUS_SERIALIZE_SIZE     128
+#define VIAMSONUS_SERIALIZE_SIZE     (5 + ADG2128_SERIALIZE_SIZE + (DS1881_SERIALIZE_SIZE*6))
 
 /* ViamSonus class flags */
 #define VIAMSONUS_FLAG_PRESERVE_STATE 0x01000000  // Preserve hardware states.
@@ -44,8 +44,9 @@ Crosspoint switch is at address 0x70.
 #define VIAMSONUS_FLAG_FOUND_POT_4    0x40000000  // Found this potentiometer.
 #define VIAMSONUS_FLAG_FOUND_POT_5    0x80000000  // Found this potentiometer.
 
-#define VIAMSONUS_FLAG_RESET_MASK     0x00000000  // Bits to preserve through reset.
+#define VIAMSONUS_FLAG_RESET_MASK     0xFE000000  // Bits to preserve through reset.
 #define VIAMSONUS_FLAG_ALL_DEVS_MASK  0xFE000000  // All devices found.
+#define VIAMSONUS_FLAG_SERIAL_MASK    0x01000000  // Only these bits are serialized.
 
 
 /* InputChannel flags */
@@ -99,6 +100,7 @@ typedef struct cps_output_channel_t {
 class ViamSonus {
   public:
     ViamSonus(const uint8_t reset_pin);
+    ViamSonus(const uint8_t* buf, const unsigned int len);
     ~ViamSonus();
 
     ViamSonusError init();
@@ -116,9 +118,8 @@ class ViamSonus {
     int16_t getVolume(uint8_t row);                       // Get the volume of a given input channel.
 
     // Save this hardware state into a buffer for later restoration.
-    ViamSonusError serialize(uint8_t* buf, unsigned int* len);
+    uint32_t serialize(uint8_t* buf, unsigned int len);
     ViamSonusError preserveOnDestroy(bool);
-    ViamSonusError allowMixing(bool);
 
     void printDebug(StringBuilder*);
     void dumpInputChannel(CPInputChannel* chan, StringBuilder*);
@@ -148,8 +149,8 @@ class ViamSonus {
     DS1881  pot4;
     DS1881  pot5;
 
-
     DS1881* _getPotRef(uint8_t row);
+    int8_t _unserialize(const uint8_t* buf, const unsigned int len);
 
     inline bool _preserve_on_destroy() {
       return _vs_flag(VIAMSONUS_FLAG_PRESERVE_STATE);

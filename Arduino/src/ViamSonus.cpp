@@ -405,13 +405,38 @@ DS1881* ViamSonus::_getPotRef(uint8_t row) {
 
 
 /*
-* No bounds-checking.
+* Stores everything about the class in the provided buffer in this format...
+*   Offset                    | Data
+*   --------------------------|------------------------
+*   0                         | Serializer version
+*   1                         | Flags bits 24-31 (MSB)
+*   2                         | Flags bits 16-23
+*   3                         | Flags bits 8-15
+*   4                         | Flags bits 0-7 (LSB)
+*   5                         | ADG2128 data
+*   5+ADG2128_SERIALIZE_SIZE  | DS1881E data x6
+*   TODO: Input channel data
+*   TODO: Output channel data
+*
+* Returns the number of bytes written to the buffer.
 */
-ViamSonusError serialize(uint8_t* buf, unsigned int* len) {
-  ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
-  if (*len >= VIAMSONUS_SERIALIZE_SIZE) {
-
-    ret = ViamSonusError::NO_ERROR;
+uint32_t ViamSonus::serialize(uint8_t* buf, unsigned int len) {
+  uint32_t offset = 0;
+  if (len >= VIAMSONUS_SERIALIZE_SIZE) {
+    uint32_t f = _flags & VIAMSONUS_FLAG_SERIAL_MASK;
+    *(buf + offset++) = VIAMSONUS_SERIALIZE_VERSION;
+    *(buf + offset++) = (uint8_t) 0xFF & (f >> 24);
+    *(buf + offset++) = (uint8_t) 0xFF & (f >> 16);
+    *(buf + offset++) = (uint8_t) 0xFF & (f >> 8);
+    *(buf + offset++) = (uint8_t) 0xFF & f;
+    if (ADG2128_SERIALIZE_SIZE == cp_switch.serialize((buf + offset), len-offset)) {
+      offset += ADG2128_SERIALIZE_SIZE;
+      for (uint8_t i = 0; i < 6; i++) {
+        if (DS1881_SERIALIZE_SIZE == _getPotRef(i)->serialize((buf + offset), len-offset)) {
+          offset += DS1881_SERIALIZE_SIZE;
+        }
+      }
+    }
   }
-  return ret;
+  return offset;
 }

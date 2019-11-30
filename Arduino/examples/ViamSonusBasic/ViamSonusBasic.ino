@@ -141,6 +141,25 @@ void loop() {
         ret = vs.reset();
         output.concatf("reset() returns %s.\n", ViamSonus::errorToStr(ret));
         break;
+      case 'S':   // Save the state into a buffer for later reconstitution.
+        {
+          uint8_t buffer[VIAMSONUS_SERIALIZE_SIZE];
+          unsigned int written = vs.serialize(buffer, VIAMSONUS_SERIALIZE_SIZE);
+          if (VIAMSONUS_SERIALIZE_SIZE == written) {
+            for (unsigned int i = 0; i < VIAMSONUS_SERIALIZE_SIZE; i++) {
+              Serial.print(buffer[i], HEX);
+              Serial.print(((i+1) % 16) ? " " : "\n");
+            }
+            Serial.println();
+          }
+          else {
+            Serial.print("serialize() returns ");
+            Serial.print(written);
+            Serial.print(". Was expecting ");
+            Serial.println(VIAMSONUS_SERIALIZE_SIZE);
+          }
+        }
+        break;
 
       case '0':
       case '1':
