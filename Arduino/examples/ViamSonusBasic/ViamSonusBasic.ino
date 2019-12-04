@@ -20,10 +20,10 @@ ViamSonus 2.0 basic example. This sketch manages the router board as 12 mono
 /*******************************************************************************
 * Pin definitions and hardware constants.
 *******************************************************************************/
-#define SDA_PIN             18
-#define SCL_PIN             19
-#define VS_RESET_PIN        10
-#define LED0_PIN            13
+#define SDA_PIN          18
+#define SCL_PIN          19
+#define VS_RESET_PIN     10  // Optional. Use 255 to inform driver of absence.
+#define LED0_PIN         13
 
 
 /*******************************************************************************

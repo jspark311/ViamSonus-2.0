@@ -490,3 +490,104 @@ int8_t ViamSonus::unserialize(const uint8_t* buf, const unsigned int len) {
   }
   return (expected_sz == offset) ? 0 : -1;
 }
+
+
+/*******************************************************************************
+* VSGroup functions
+*******************************************************************************/
+VSGroup::VSGroup(const ViamSonus* hw) : _VS(hw) {}
+
+
+VSGroup::~VSGroup() {
+  if (nullptr != _name) {
+    free(_name);
+    _name = nullptr;
+  }
+}
+
+
+/*
+* Returns -3 if this group already contains the channel.
+*         -2 if the channel is out-of-range.
+*         -1 on some other error.
+*         Channel position on success.
+*/
+int8_t VSGroup::addChannel(uint8_t chan) {
+  int8_t ret = _add_channel(chan, _next_position());
+  if (0 <= ret) {
+    _count++;
+  }
+  return ret;
+}
+
+
+/*******************************************************************************
+* VSIGroup functions
+*******************************************************************************/
+int8_t VSIGroup::_add_channel(uint8_t chan, int8_t pos) {
+  int8_t ret = -2;
+  if ((0 <= pos) && (pos < 12)) {
+    uint8_t idx = pos >> 1;
+    uint8_t mask = 0x0F << ((pos & 1) << 2);
+    _bind_order[idx] = (_bind_order[idx] & ~mask) | (chan << ((pos & 1) << 2));
+  }
+  return ret;
+}
+
+/*
+* Returns the first open position, or -1 if there are none.
+*/
+int8_t VSIGroup::_next_position() {
+  for (uint8_t i = 0; i < 6; i++) {
+    if (0x0F == ((_bind_order[i] >> 4) & 0x0F)) {   return (2 * i);         }
+    if (0x0F == (_bind_order[i] & 0x0F)) {          return (1 + (2 * i));   }
+  }
+  return -1;
+}
+
+
+int8_t VSIGroup::_channel_at_position(int8_t pos) {
+  int8_t ret = -2;
+  if (pos < 12) {
+    uint8_t temp = (_bind_order[pos >> 1] >> ((pos & 1) ? 4 : 0)) & 0x0F;
+    if (temp != 0xFF) {
+      ret = temp;
+    }
+  }
+  return ret;
+}
+
+
+
+/*******************************************************************************
+* VSOGroup functions
+*******************************************************************************/
+int8_t VSOGroup::_add_channel(uint8_t chan, int8_t pos) {
+  int8_t ret = -2;
+  if ((0 <= pos) && (pos < 8)) {
+    uint32_t mask = 0x0F << (pos << 2);
+    _bind_order = (_bind_order & ~mask) | (chan << (pos << 2));
+  }
+  return ret;
+}
+
+/*
+* Returns the first open position, or -1 if there are none.
+*/
+int8_t VSOGroup::_next_position() {
+  for (uint8_t i = 0; i < 8; i++) {
+    if (0x0F == ((_bind_order >> (4*i)) & 0x0F)) {   return i;     }
+  }
+  return -1;
+}
+
+int8_t VSOGroup::_channel_at_position(int8_t pos) {
+  int8_t ret = -2;
+  if (pos < 8) {
+    uint8_t temp = (_bind_order >> (pos << 2)) & 0x0F;
+    if (temp != 0xFF) {
+      ret = temp;
+    }
+  }
+  return ret;
+}

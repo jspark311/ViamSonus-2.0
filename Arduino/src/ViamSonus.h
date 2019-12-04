@@ -30,6 +30,7 @@ Crosspoint switch is at address 0x70.
 #include <ADG2128.h>
 #include <StringBuilder.h>
 
+class ViamSonus;
 
 #define VIAMSONUS_SERIALIZE_VERSION  1
 #define VIAMSONUS_SERIALIZE_SIZE     (5 + ADG2128_SERIALIZE_SIZE + (DS1881_SERIALIZE_SIZE*6))
@@ -106,6 +107,84 @@ typedef struct cps_output_channel_t {
   uint8_t  o_chan;     // The column in the crosspoint switch associated with this output.
   uint8_t  flags;      // Flags on this channel.
 } CPOutputChannel;
+
+
+/* This pure virtual class represents an grouping of channels. */
+class VSGroup {
+  public:
+    VSGroup(const ViamSonus*);
+    virtual ~VSGroup();
+
+    int8_t addChannel(uint8_t chan);
+
+    inline const char* getName() {   return _name;   };
+    inline uint8_t channelCount() {  return _count;  };
+
+
+  protected:
+    const ViamSonus* _VS;       // Pointer to the responsible hardware.
+    char*    _name  = nullptr;  // A name for this group. Not required.
+    uint8_t  _flags = 0;        // Flags on this group.
+    uint8_t  _count = 0;        // Channel count in this group.
+
+    virtual int8_t _add_channel(uint8_t chan, int8_t pos) =0;
+    virtual int8_t _next_position() =0;
+    virtual int8_t _channel_at_position(int8_t pos) =0;
+
+    /* Flag manipulation inlines */
+    inline uint8_t _grp_flags() {                return _flags;           };
+    inline bool _grp_flag(uint8_t _flag) {       return (_flags & _flag); };
+    inline void _grp_clear_flag(uint8_t _flag) { _flags &= ~_flag;        };
+    inline void _grp_set_flag(uint8_t _flag) {   _flags |= _flag;         };
+    inline void _grp_set_flag(uint8_t _flag, bool nu) {
+      if (nu) _flags |= _flag;
+      else    _flags &= ~_flag;
+    };
+};
+
+
+/* This class represents an input group. */
+class VSIGroup : public VSGroup {
+  public:
+    VSIGroup(const ViamSonus*);
+    VSIGroup(const uint8_t* buf, const unsigned int len);
+    ~VSIGroup();
+
+    int8_t getChannelPosition(uint8_t chan);
+    int8_t getChannelAtPosition(uint8_t pos);
+    int8_t swapChannelPositions(int8_t pos0, int8_t pos1);
+
+
+  protected:
+    int8_t _add_channel(uint8_t chan, int8_t pos);
+    int8_t _next_position();
+    int8_t _channel_at_position(int8_t pos);
+
+  private:
+    uint8_t  _bind_order[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};  // A bit-packed ordered list of channels that compose the group.
+};
+
+
+/* This class represents an output group. */
+class VSOGroup : public VSGroup {
+  public:
+    VSOGroup(const ViamSonus*);
+    VSOGroup(const uint8_t* buf, const unsigned int len);
+    ~VSOGroup();
+
+    int8_t getChannelPosition(uint8_t chan);
+    int8_t getChannelAtPosition(int8_t pos);
+    int8_t swapChannelPositions(int8_t pos0, int8_t pos1);
+
+
+  protected:
+    int8_t _add_channel(uint8_t chan, int8_t pos);
+    int8_t _next_position();
+    int8_t _channel_at_position(int8_t pos);
+
+  private:
+    uint32_t  _bind_order  = 0xFFFFFFFF;   // A bit-packed ordered list of channels that compose the group.
+};
 
 
 
