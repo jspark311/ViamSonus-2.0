@@ -145,6 +145,17 @@ After you've done that, you ought to be able to include the ViamSonus driver.
 
 Fortunately, the Viam Sonus router board doesn't have any interrupt pins, which makes running it in userland fairly easy with existing kernel drivers for i2c and GPIO. The reset pin isn't _strictly_ required. It can be tied high.
 
+Just like the Arduino driver, you will need additional libraries. If you've already done
+the setup for exposing the GPIO pin and i2c character device in your kernel config, you
+ought to be able to do these things...
+
+    git clone https://github.com/jspark311/ViamSonus-2.0.git
+    cd ViamSonus-2.0/linux
+    ./downloadDeps.sh
+    make DEFAULT_I2C_DEV=/dev/i2c-1 DEFAULT_RESET_PIN=/sys/class/gpio/gpio18
+    sudo make install
+
+
 ------------------------
 
 Front | Back
