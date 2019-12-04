@@ -25,7 +25,7 @@ Crosspoint switch is at address 0x70.
 #ifndef __VIAMSONUS_DRIVER_H__
 #define __VIAMSONUS_DRIVER_H__
 
-#include <Arduino.h>
+//#include <Arduino.h>
 #include <DS1881.h>
 #include <ADG2128.h>
 #include <StringBuilder.h>

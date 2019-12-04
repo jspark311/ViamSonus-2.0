@@ -28,13 +28,13 @@ export OUTPUT_PATH   = $(BUILD_ROOT)/build/
 ###########################################################################
 INCLUDES    = -I$(BUILD_ROOT)/.
 INCLUDES   += -I$(BUILD_ROOT)/CppPotpourri/StringBuilder
-INCLUDES   += -I$(BUILD_ROOT)/ADG2128
-INCLUDES   += -I$(BUILD_ROOT)/DS1881
+INCLUDES   += -I$(BUILD_ROOT)/ADG2128/Arduino/src/
+INCLUDES   += -I$(BUILD_ROOT)/DS1881/Arduino/src/
 
-SRCS  = ../ViamSonus/*.cpp i2c-adapter/*.cpp *.cpp
+SRCS  = $(BUILD_ROOT)/../Arduino/src/*.cpp i2c-adapter/*.cpp *.cpp
 SRCS += CppPotpourri/StringBuilder/*.cpp ADG2128/*.cpp DS1881/*.cpp
 
-# Wrap the include paths into the flags...
+CXXFLAGS += $(INCLUDES)
 
 OBJS  = $(SRCS:.cpp=.o)
 
