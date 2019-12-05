@@ -51,6 +51,7 @@ void printHelp() {
   output.concat("I     Reinitialize\n");
   output.concat("S     Store device settings in flash\n");
   output.concat("R     Reset\n");
+  output.concat("P     Setup 8-channel pass-though\n");
 
   output.concat("!     Bind selected input to output 0\n");
   output.concat("@     Bind selected input to output 1\n");
@@ -64,6 +65,24 @@ void printHelp() {
 }
 
 
+/*******************************************************************************
+* Demonstration fxns
+*******************************************************************************/
+/*
+* You can use unserialize after init to impart a configuration in a single call.
+* This one makes the router pass the first 8 inputs to the 8 outputs with no
+*   volume attenuation.
+*/
+int8_t eight_chan_passthrough() {
+  const uint8_t VS_CONF_BLOB[] = {
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x70, 0x0A, 0x00, 0x00, 0x01, 0x02,
+    0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x01, 0x28,
+    0x00, 0x00, 0x40, 0x06, 0x01, 0x29, 0x00, 0x00, 0x40, 0x06, 0x01, 0x2A,
+    0x00, 0x00, 0x00, 0x06, 0x01, 0x2B, 0x00, 0x00, 0x00, 0x06, 0x01, 0x2C,
+    0x00, 0x3F, 0x3F, 0x06, 0x01, 0x2D, 0x00, 0x3F, 0x3F, 0x06
+  };
+  return vs.unserialize(VS_CONF_BLOB, sizeof(VS_CONF_BLOB));
+}
 
 /*******************************************************************************
 * Setup function
@@ -141,14 +160,19 @@ void loop() {
         ret = vs.reset();
         output.concatf("reset() returns %s.\n", ViamSonus::errorToStr(ret));
         break;
+      case 'P':
+        output.concatf("eight_chan_passthrough() returns %d.\n", eight_chan_passthrough());
+        break;
+
       case 'S':   // Save the state into a buffer for later reconstitution.
         {
           uint8_t buffer[VIAMSONUS_SERIALIZE_SIZE];
           unsigned int written = vs.serialize(buffer, VIAMSONUS_SERIALIZE_SIZE);
           if (VIAMSONUS_SERIALIZE_SIZE == written) {
             for (unsigned int i = 0; i < VIAMSONUS_SERIALIZE_SIZE; i++) {
+              Serial.print((buffer[i] > 0x0F) ? "0x" : "0x0");
               Serial.print(buffer[i], HEX);
-              Serial.print(((i+1) % 16) ? " " : "\n");
+              Serial.print(((i+1) % 12) ? " " : "\n");
             }
             Serial.println();
           }

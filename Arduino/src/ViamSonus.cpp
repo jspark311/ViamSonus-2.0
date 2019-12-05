@@ -456,7 +456,7 @@ uint32_t ViamSonus::serialize(uint8_t* buf, unsigned int len) {
     if (ADG2128_SERIALIZE_SIZE == cp_switch.serialize((buf + offset), len-offset)) {
       offset += ADG2128_SERIALIZE_SIZE;
       for (uint8_t i = 0; i < 6; i++) {
-        if (DS1881_SERIALIZE_SIZE == _getPotRef(i)->serialize((buf + offset), len-offset)) {
+        if (DS1881_SERIALIZE_SIZE == _getPotRef(i <<1 )->serialize((buf + offset), len-offset)) {
           offset += DS1881_SERIALIZE_SIZE;
         }
       }
@@ -475,17 +475,21 @@ int8_t ViamSonus::unserialize(const uint8_t* buf, const unsigned int len) {
     switch (*(buf + offset++)) {
       case VIAMSONUS_SERIALIZE_VERSION:
         expected_sz = VIAMSONUS_SERIALIZE_SIZE;
+        offset += 4;  // We'll have already constructed with _ADDR.
+        if (0 != cp_switch.unserialize((buf + offset), len-offset)) {
+          return -3;
+        }
         offset += ADG2128_SERIALIZE_SIZE;  // We'll have already constructed with _ADDR.
         _flags = (_flags & ~VIAMSONUS_FLAG_SERIAL_MASK) | (f & VIAMSONUS_FLAG_SERIAL_MASK);
         for (uint8_t i = 0; i < 6; i++) {
-          if (0 != _getPotRef(i)->unserialize((buf + offset), len-offset)) {
+          if (0 != _getPotRef(i << 1)->unserialize((buf + offset), len-offset)) {
             return -4;
           }
           offset += DS1881_SERIALIZE_SIZE;
         }
         break;
       default:  // Unhandled serializer version.
-        return -3;
+        return -2;
     }
   }
   return (expected_sz == offset) ? 0 : -1;
