@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /*******************************************************************************
 * VSGroup
 *******************************************************************************/
-VSGroup::VSGroup(const ViamSonus* hw) : _VS(hw) {}
+VSGroup::VSGroup(const ViamSonus* hw, const uint8_t bs) : _VS(hw), _BASE_SER_SIZE(bs) {}
 
 
 VSGroup::~VSGroup() {
@@ -84,11 +84,75 @@ void VSGroup::printDebug(StringBuilder* output) {
 }
 
 
+uint32_t VSGroup::serialize(uint8_t* buf, unsigned int len) {
+  const uint32_t FULLSIZE = serialized_len();
+  if (FULLSIZE <= len) {
+    memset(buf, 0, FULLSIZE);
+    uint8_t offset = _serialize(buf, len);
+    *(buf + offset++) = (uint8_t) 0xFF & (_flags >> 8);
+    *(buf + offset++) = (uint8_t) 0xFF & _flags;
+
+    for (uint32_t i = 0; i < (FULLSIZE - offset); i++) {
+      *(buf + offset++) = *(_name + i);
+    }
+    return FULLSIZE;
+  }
+  return 0;
+}
+
+
+/*
+* Returns the full length required to store this channel group.
+*/
+uint32_t VSGroup::serialized_len() {
+  // +1 for group type byte.
+  // +2 for flags.
+  // +1 for null-term of empty string.
+  uint32_t ret   = _BASE_SER_SIZE + VSCG_FIXED_SER_SIZE;
+  uint8_t  s_len = 0;
+  if (nullptr != _name) {
+    while ((VSCG_MAX_NAME_LENGTH > s_len) && (0 != *(_name + s_len))) {
+      s_len++;
+    }
+  }
+  return ret + s_len;
+}
+
+
+/*
+* No buffer bounds checking is done here. It is assumed it will be done in the
+*  constructor.
+*/
+uint8_t VSGroup::_unserialize_top(const uint8_t* buf, const unsigned int len) {
+  uint8_t offset = _unserialize(buf+1, len-1);
+  _flags = (*(buf + offset + 1) << 8) + *(buf + offset + 2);
+  offset += 3;  // Account for type code and flags.
+  uint8_t s_len = 0;
+  while ((VSCG_MAX_NAME_LENGTH > s_len) && (0 != *(buf + offset + s_len))) {
+    s_len++;
+  }
+  _name = (char*) malloc(s_len + 1);
+  if (nullptr != _name) {
+    memcpy(_name, (buf + offset), s_len);
+    *(_name + s_len) = 0;
+    return offset + s_len + 1;
+  }
+  return 0;
+}
+
+
 
 /*******************************************************************************
 * VSIGroup
 *******************************************************************************/
-VSIGroup::VSIGroup(const ViamSonus* hw) : VSGroup(hw) {}
+VSIGroup::VSIGroup(const ViamSonus* hw) : VSGroup(hw, VSIG_FIXED_SER_SIZE) {}
+
+VSIGroup::VSIGroup(const ViamSonus* hw, const uint8_t* buf, const unsigned int len) : VSIGroup(hw) {
+  if ((VSCG_FIXED_SER_SIZE + VSIG_FIXED_SER_SIZE) <= len) {
+    _unserialize_top(buf, len);
+  }
+}
+
 
 
 int8_t VSIGroup::_add_channel(uint8_t chan, int8_t pos) {
@@ -216,11 +280,39 @@ int8_t VSIGroup::_apply_to_hardware(bool defer) {
 }
 
 
+uint8_t VSIGroup::_serialize(uint8_t* buf, unsigned int len) {
+  uint8_t offset = 0;
+  *(buf + offset++) = 'I';  // Marks this as an input channel.
+  for (uint8_t i = 0; i < 6; i++) {
+    *(buf + offset++) = _bind_order[i];
+  }
+  return offset;
+}
+
+
+uint8_t VSIGroup::_unserialize(const uint8_t* buf, const unsigned int len) {
+  int8_t ret = 0;
+  if (len >= VSIG_FIXED_SER_SIZE) {
+    for (uint8_t i = 0; i < 6; i++) {
+      _bind_order[i] = *(buf + i);
+    }
+    ret = VSIG_FIXED_SER_SIZE;
+  }
+  return ret;
+}
+
+
 
 /*******************************************************************************
 * VSOGroup functions
 *******************************************************************************/
-VSOGroup::VSOGroup(const ViamSonus* hw) : VSGroup(hw) {}
+VSOGroup::VSOGroup(const ViamSonus* hw) : VSGroup(hw, VSOG_FIXED_SER_SIZE) {}
+
+VSOGroup::VSOGroup(const ViamSonus* hw, const uint8_t* buf, const unsigned int len) : VSOGroup(hw) {
+  if ((VSCG_FIXED_SER_SIZE + VSOG_FIXED_SER_SIZE) <= len) {
+    _unserialize_top(buf, len);
+  }
+}
 
 
 int8_t VSOGroup::_add_channel(uint8_t chan, int8_t pos) {
@@ -296,6 +388,27 @@ bool VSOGroup::_dirty() {
 int8_t VSOGroup::_apply_to_hardware(bool defer) {
   int8_t ret = -1;
   for (uint8_t i = 0; i < _count; i++) {
+  }
+  return ret;
+}
+
+
+uint8_t VSOGroup::_serialize(uint8_t* buf, unsigned int len) {
+  uint8_t offset = 0;
+  *(buf + offset++) = 'O';  // Marks this as an output channel.
+  *(buf + offset++) = (uint8_t) 0xFF & (_bind_order >> 24);
+  *(buf + offset++) = (uint8_t) 0xFF & (_bind_order >> 16);
+  *(buf + offset++) = (uint8_t) 0xFF & (_bind_order >> 8);
+  *(buf + offset++) = (uint8_t) 0xFF & _bind_order;
+  return offset;
+}
+
+
+uint8_t VSOGroup::_unserialize(const uint8_t* buf, const unsigned int len) {
+  int8_t ret = 0;
+  if (len >= VSOG_FIXED_SER_SIZE) {
+    _bind_order = (*(buf + 0) << 24) | (*(buf + 1) << 16) | (*(buf + 2) << 8) | *(buf + 3);
+    ret = VSOG_FIXED_SER_SIZE;
   }
   return ret;
 }

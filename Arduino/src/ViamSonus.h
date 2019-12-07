@@ -25,7 +25,6 @@ Crosspoint switch is at address 0x70.
 #ifndef __VIAMSONUS_DRIVER_H__
 #define __VIAMSONUS_DRIVER_H__
 
-//#include <Arduino.h>
 #include <DS1881.h>
 #include <ADG2128.h>
 #include <StringBuilder.h>
@@ -36,8 +35,15 @@ class ViamSonus;
 #define VIAMSONUS_SERIALIZE_VERSION  1
 #define VIAMSONUS_SERIALIZE_SIZE     (5 + ADG2128_SERIALIZE_SIZE + (DS1881_SERIALIZE_SIZE*6))
 
+/* Values that set limits on channel storage requirements. */
+#define VSIG_FIXED_SER_SIZE    6
+#define VSOG_FIXED_SER_SIZE    4
+#define VSCG_FIXED_SER_SIZE    4
+#define VSCG_MAX_NAME_LENGTH  32
+
 /* ViamSonus class flags */
 #define VIAMSONUS_FLAG_PRESERVE_STATE 0x00000001  // Preserve hardware states.
+
 #define VIAMSONUS_FLAG_FOUND_SWITCH   0x02000000  // Found the switch.
 #define VIAMSONUS_FLAG_FOUND_POT_0    0x04000000  // Found this potentiometer.
 #define VIAMSONUS_FLAG_FOUND_POT_1    0x08000000  // Found this potentiometer.
@@ -112,8 +118,12 @@ typedef struct cps_output_channel_t {
 } CPOutputChannel;
 
 
+/* This class is used to schedule class operations. */
 class VSPendingOperation {
   public:
+    uint32_t    at_ms          = 0;
+    uint8_t     recycle_count  = 0;
+    uint8_t     recycle_period = 0;
     VSOpcode op = VSOpcode::UNDEFINED;
 };
 
@@ -127,24 +137,32 @@ class VSGroup {
     virtual void printDebug(StringBuilder*);
     //int8_t apply();
 
+    uint32_t serialize(uint8_t* buf, unsigned int len);
+    uint32_t serialized_len();
+
     inline const char* getName() {   return _name;   };
     inline uint8_t channelCount() {  return _count;  };
 
 
   protected:
-    const ViamSonus* _VS;       // Pointer to the responsible hardware.
-    char*    _name  = nullptr;  // A name for this group. Not required.
-    uint8_t  _flags = 0;        // Flags on this group.
-    uint8_t  _count = 0;        // Channel count in this group.
+    const ViamSonus* _VS;         // Pointer to the responsible hardware.
+    const uint8_t _BASE_SER_SIZE; // Constant for the fixed size of serialization.
+    uint8_t  _count = 0;          // Channel count in this group.
+    uint16_t _flags = 0;          // Flags on this group.
+    char*    _name  = nullptr;    // A name for this group. Not required.
 
-    VSGroup(const ViamSonus*);
+    VSGroup(const ViamSonus*, const uint8_t);
     virtual ~VSGroup();
 
-    virtual int8_t _add_channel(uint8_t chan, int8_t pos) =0;
-    virtual int8_t _next_position() =0;
-    virtual int8_t _channel_at_position(int8_t pos) =0;
-    virtual int8_t _apply_to_hardware(bool defer) =0;
-    virtual bool   _dirty() =0;
+    uint8_t _unserialize_top(const uint8_t* buf, const unsigned int len);
+
+    virtual uint8_t _serialize(uint8_t* buf, unsigned int len) =0;
+    virtual uint8_t _unserialize(const uint8_t* buf, const unsigned int len) =0;
+    virtual int8_t  _add_channel(uint8_t chan, int8_t pos) =0;
+    virtual int8_t  _next_position() =0;
+    virtual int8_t  _channel_at_position(int8_t pos) =0;
+    virtual int8_t  _apply_to_hardware(bool defer) =0;
+    virtual bool    _dirty() =0;
 
     /* Flag manipulation inlines */
     inline uint8_t _grp_flags() {                return _flags;           };
@@ -174,11 +192,13 @@ class VSIGroup : public VSGroup {
 
 
   protected:
-    int8_t _add_channel(uint8_t chan, int8_t pos);
-    int8_t _next_position();
-    int8_t _channel_at_position(int8_t pos);
-    int8_t _apply_to_hardware(bool defer);
-    bool   _dirty();
+    uint8_t _serialize(uint8_t* buf, unsigned int len);
+    uint8_t _unserialize(const uint8_t* buf, const unsigned int len);
+    int8_t  _add_channel(uint8_t chan, int8_t pos);
+    int8_t  _next_position();
+    int8_t  _channel_at_position(int8_t pos);
+    int8_t  _apply_to_hardware(bool defer);
+    bool    _dirty();
 
   private:
     // A bit-packed ordered list of channels that compose the group.
@@ -200,11 +220,13 @@ class VSOGroup : public VSGroup {
 
 
   protected:
-    int8_t _add_channel(uint8_t chan, int8_t pos);
-    int8_t _next_position();
-    int8_t _channel_at_position(int8_t pos);
-    int8_t _apply_to_hardware(bool defer);
-    bool   _dirty();
+    uint8_t _serialize(uint8_t* buf, unsigned int len);
+    uint8_t _unserialize(const uint8_t* buf, const unsigned int len);
+    int8_t  _add_channel(uint8_t chan, int8_t pos);
+    int8_t  _next_position();
+    int8_t  _channel_at_position(int8_t pos);
+    int8_t  _apply_to_hardware(bool defer);
+    bool    _dirty();
 
   private:
     uint32_t  _bind_order   = 0xFFFFFFFF;   // A bit-packed ordered list of channels that compose the group.
@@ -228,7 +250,14 @@ class ViamSonus {
     ViamSonusError init(TwoWire*);
     ViamSonusError reset();
     ViamSonusError refresh();
+    ViamSonusError preserveOnDestroy(bool);
+    void printDebug(StringBuilder*);
 
+    /* API level-1. Dealing with groups of channels. */
+    VSOGroup* createOutputGroup(const char*);
+    VSIGroup* createInputGroup(const char*);
+
+    /* API level-0. Dealing with discrete channels directly. */
     ViamSonusError route(uint8_t col, uint8_t row);       // Establish a route to the given output from the given input.
     ViamSonusError unroute(uint8_t col, uint8_t row);     // Disconnect the given output from the given input.
     ViamSonusError unroute(uint8_t col);                  // Disconnect the given output from all inputs.
@@ -239,18 +268,17 @@ class ViamSonus {
     ViamSonusError setVolume(uint8_t row, uint8_t vol);   // Set the volume of a given input channel.
     int16_t getVolume(uint8_t row);                       // Get the volume of a given input channel.
 
-    // Save this hardware state into a buffer for later restoration.
-    uint32_t serialize(uint8_t* buf, unsigned int len);
-    int8_t   unserialize(const uint8_t* buf, const unsigned int len);
-    ViamSonusError preserveOnDestroy(bool);
+    inline CPInputChannel*  getInputByRow(uint8_t row) {   return &inputs[row % 12];     };
+    inline CPOutputChannel* getOutputByCol(uint8_t col) {  return &outputs[col & 0x07];  };
 
-    void printDebug(StringBuilder*);
     void dumpInputChannel(CPInputChannel* chan, StringBuilder*);
     void dumpInputChannel(uint8_t chan, StringBuilder*);
     void dumpOutputChannel(uint8_t chan, StringBuilder*);
 
-    inline CPInputChannel*  getInputByRow(uint8_t row) {   return &inputs[row % 12];     };
-    inline CPOutputChannel* getOutputByCol(uint8_t col) {  return &outputs[col & 0x07];  };
+    // Save this hardware state into a buffer for later restoration.
+    uint32_t serialize(uint8_t* buf, unsigned int len);
+    int8_t   unserialize(const uint8_t* buf, const unsigned int len);
+
 
     inline bool allDevsFound() {
       return (VIAMSONUS_FLAG_ALL_DEVS_MASK == (_flags & VIAMSONUS_FLAG_ALL_DEVS_MASK));
@@ -260,8 +288,8 @@ class ViamSonus {
 
 
   private:
-    CPInputChannel  inputs[12];
-    CPOutputChannel outputs[8];
+    CPInputChannel  inputs[12];  // TODO: These are on borrowed time.
+    CPOutputChannel outputs[8];  // TODO: These are on borrowed time.
     uint32_t _flags = 0;
     ADG2128  cp_switch;
     DS1881   pot0;
@@ -271,6 +299,10 @@ class ViamSonus {
     DS1881   pot4;
     DS1881   pot5;
     PriorityQueue<VSPendingOperation*> _pending_ops;
+    PriorityQueue<VSOGroup*> _outputs;
+    PriorityQueue<VSIGroup*> _inputs;
+    uint16_t _input_claims  = 0;
+    uint8_t  _output_claims = 0;
 
     DS1881* _getPotRef(uint8_t row);
 

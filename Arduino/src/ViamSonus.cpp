@@ -464,6 +464,27 @@ uint32_t ViamSonus::serialize(uint8_t* buf, unsigned int len) {
         }
       }
     }
+
+    if ((VIAMSONUS_SERIALIZE_SIZE == offset) && (0 < (len - offset))) {
+      // If we packed the basics with success, and still have space left in
+      //   the buffer, we start looking for definitions of channel groups.
+      int c_count = _outputs.size();
+      for (int i = 0; i < c_count; i++) {
+        VSOGroup* c = _outputs.get(i);
+        if (c->serialized_len() > (len - offset)) {
+          return 0;
+        }
+        offset += c->serialize((buf + offset), (len - offset));
+      }
+      c_count = _inputs.size();
+      for (int i = 0; i < c_count; i++) {
+        VSIGroup* c = _inputs.get(i);
+        if (c->serialized_len() > (len - offset)) {
+          return 0;
+        }
+        offset += c->serialize((buf + offset), (len - offset));
+      }
+    }
   }
   return offset;
 }
@@ -471,8 +492,9 @@ uint32_t ViamSonus::serialize(uint8_t* buf, unsigned int len) {
 
 
 int8_t ViamSonus::unserialize(const uint8_t* buf, const unsigned int len) {
-  uint8_t offset = 0;
-  uint32_t expected_sz = 255;
+  uint32_t offset = 0;
+  uint32_t expected_sz = 0xFFFFFFFF;
+  int8_t ret = -1;
   if (len >= VIAMSONUS_SERIALIZE_SIZE) {  // The minimum length.
     uint32_t f = (*(buf + 1) << 24) | (*(buf + 2) << 16) | (*(buf + 3) << 8) | *(buf + 4);
     switch (*(buf + offset++)) {
@@ -490,10 +512,15 @@ int8_t ViamSonus::unserialize(const uint8_t* buf, const unsigned int len) {
           }
           offset += DS1881_SERIALIZE_SIZE;
         }
+        ret = (expected_sz == offset) ? 0 : -5;
         break;
       default:  // Unhandled serializer version.
         return -2;
     }
   }
-  return (expected_sz == offset) ? 0 : -1;
+  if ((0 == ret) && (1 < (len - offset))) {
+    // If we took apart the basics with success, and still have space left in
+    //   the buffer, we start looking for definitions of channel groups.
+  }
+  return ret;
 }
