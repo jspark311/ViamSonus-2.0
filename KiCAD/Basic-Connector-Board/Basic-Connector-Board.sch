@@ -1817,4 +1817,66 @@ F 6 "CUI Devices" H 8700 3200 50  0001 C CNN "Manu_Name"
 	1    8700 3200
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J16
+U 1 1 5DEE27FF
+P 6850 650
+F 0 "J16" H 6930 692 50  0000 L CNN
+F 1 "Conn_01x01" H 6930 601 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_ISO14580_Pad" H 6850 650 50  0001 C CNN
+F 3 "~" H 6850 650 50  0001 C CNN
+	1    6850 650 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J17
+U 1 1 5DEE2AA3
+P 6850 800
+F 0 "J17" H 6930 842 50  0000 L CNN
+F 1 "Conn_01x01" H 6930 751 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_ISO14580_Pad" H 6850 800 50  0001 C CNN
+F 3 "~" H 6850 800 50  0001 C CNN
+	1    6850 800 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J18
+U 1 1 5DEE2B61
+P 6850 950
+F 0 "J18" H 6930 992 50  0000 L CNN
+F 1 "Conn_01x01" H 6930 901 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_ISO14580_Pad" H 6850 950 50  0001 C CNN
+F 3 "~" H 6850 950 50  0001 C CNN
+	1    6850 950 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J19
+U 1 1 5DEE2C21
+P 6850 1100
+F 0 "J19" H 6930 1142 50  0000 L CNN
+F 1 "Conn_01x01" H 6930 1051 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_ISO14580_Pad" H 6850 1100 50  0001 C CNN
+F 3 "~" H 6850 1100 50  0001 C CNN
+	1    6850 1100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 1100 6600 1100
+Wire Wire Line
+	6600 1100 6600 950 
+Wire Wire Line
+	6600 650  6650 650 
+Wire Wire Line
+	6650 800  6600 800 
+Connection ~ 6600 800 
+Wire Wire Line
+	6600 800  6600 650 
+Wire Wire Line
+	6650 950  6600 950 
+Connection ~ 6600 950 
+Wire Wire Line
+	6600 950  6600 800 
+Text Label 6600 950  1    39   ~ 0
+GND
 $EndSCHEMATC

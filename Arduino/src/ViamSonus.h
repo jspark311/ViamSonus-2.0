@@ -29,6 +29,7 @@ Crosspoint switch is at address 0x70.
 #include <DS1881.h>
 #include <ADG2128.h>
 #include <StringBuilder.h>
+#include <PriorityQueue.h>
 
 class ViamSonus;
 
@@ -36,7 +37,7 @@ class ViamSonus;
 #define VIAMSONUS_SERIALIZE_SIZE     (5 + ADG2128_SERIALIZE_SIZE + (DS1881_SERIALIZE_SIZE*6))
 
 /* ViamSonus class flags */
-#define VIAMSONUS_FLAG_PRESERVE_STATE 0x01000000  // Preserve hardware states.
+#define VIAMSONUS_FLAG_PRESERVE_STATE 0x00000001  // Preserve hardware states.
 #define VIAMSONUS_FLAG_FOUND_SWITCH   0x02000000  // Found the switch.
 #define VIAMSONUS_FLAG_FOUND_POT_0    0x04000000  // Found this potentiometer.
 #define VIAMSONUS_FLAG_FOUND_POT_1    0x08000000  // Found this potentiometer.
@@ -47,7 +48,7 @@ class ViamSonus;
 
 #define VIAMSONUS_FLAG_RESET_MASK     0xFE000000  // Bits to preserve through reset.
 #define VIAMSONUS_FLAG_ALL_DEVS_MASK  0xFE000000  // All devices found.
-#define VIAMSONUS_FLAG_SERIAL_MASK    0x01000000  // Only these bits are serialized.
+#define VIAMSONUS_FLAG_SERIAL_MASK    0x000000FF  // Only these bits are serialized.
 
 
 /* InputChannel flags */
@@ -74,20 +75,22 @@ enum class ViamSonusError : int8_t {
 };
 
 /*
-* These are operations that happen on timers to facilitate certain use-cases.
+* These are operations that happen on timers to facilitate certain use-cases,
+*   ease peak resource usage, or implement UI features.
 */
-enum class VSOperation : uint8_t {
+enum class VSOpcode : uint8_t {
   UNDEFINED        = 0,   // Default uninitialized value.
   CHAN_VOLUME_SET  = 1,   // Set the channel volume to the value at the operand.
   CHAN_VOLUME_INC  = 2,   // Bump the channel volume by the amount at the operand.
   CHAN_VOLUME_DEC  = 3,   // Cut the channel volume by the amount at the operand.
-  GRP_VOLUME_SET   = 4,   // Set the group volume to the value at the operand.
-  GRP_VOLUME_INC   = 5,   // Bump the group volume by the amount at the operand.
-  GRP_VOLUME_DEC   = 6,   // Cut the group volume by the amount at the operand.
-  CHAN_ROUTE       = 7,   // Routes the input channel to the output channel.
-  CHAN_UNROUTE     = 8,   // Unroutes the input channel from the output channel.
+  CHAN_ROUTE       = 4,   // Routes the input channel to the output channel.
+  CHAN_UNROUTE     = 5,   // Unroutes the input channel from the output channel.
+  GRP_VOLUME_SET   = 6,   // Set the group volume to the value at the operand.
+  GRP_VOLUME_INC   = 7,   // Bump the group volume by the amount at the operand.
+  GRP_VOLUME_DEC   = 8,   // Cut the group volume by the amount at the operand.
   GRP_ROUTE        = 9,   // Routes the input group to the output group.
-  GRP_UNROUTE      = 10   // Unroutes the input group from the output group.
+  GRP_UNROUTE      = 10,  // Unroutes the input group from the output group.
+  ADC_READ         = 11   // Reads an ADC associated with a channel.
 };
 
 
@@ -109,6 +112,12 @@ typedef struct cps_output_channel_t {
 } CPOutputChannel;
 
 
+class VSPendingOperation {
+  public:
+    VSOpcode op = VSOpcode::UNDEFINED;
+};
+
+
 /* This pure virtual class represents an grouping of channels. */
 class VSGroup {
   public:
@@ -116,6 +125,10 @@ class VSGroup {
     virtual ~VSGroup();
 
     int8_t addChannel(uint8_t chan);
+    int8_t reverseChannelOrder();
+    virtual int8_t swapChannelPositions(int8_t pos0, int8_t pos1) =0;
+    virtual void printDebug(StringBuilder*);
+    //int8_t apply();
 
     inline const char* getName() {   return _name;   };
     inline uint8_t channelCount() {  return _count;  };
@@ -130,6 +143,8 @@ class VSGroup {
     virtual int8_t _add_channel(uint8_t chan, int8_t pos) =0;
     virtual int8_t _next_position() =0;
     virtual int8_t _channel_at_position(int8_t pos) =0;
+    virtual int8_t _apply_to_hardware(bool defer) =0;
+    virtual bool   _dirty() =0;
 
     /* Flag manipulation inlines */
     inline uint8_t _grp_flags() {                return _flags;           };
@@ -150,19 +165,28 @@ class VSIGroup : public VSGroup {
     VSIGroup(const uint8_t* buf, const unsigned int len);
     ~VSIGroup();
 
-    int8_t getChannelPosition(uint8_t chan);
-    int8_t getChannelAtPosition(uint8_t pos);
     int8_t swapChannelPositions(int8_t pos0, int8_t pos1);
+    void printDebug(StringBuilder*);
+
+    /* Input-specific API */
+    bool allowMix();
+    int8_t volumeAtPosition(int8_t pos);
 
 
   protected:
     int8_t _add_channel(uint8_t chan, int8_t pos);
     int8_t _next_position();
     int8_t _channel_at_position(int8_t pos);
+    int8_t _apply_to_hardware(bool defer);
+    bool   _dirty();
 
   private:
-    uint8_t  _bind_order[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};  // A bit-packed ordered list of channels that compose the group.
+    // A bit-packed ordered list of channels that compose the group.
+    uint8_t  _bind_order[6]   = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+    uint8_t  _bind_order_q[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+    uint8_t  _chan_vol_q[12]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };
+
 
 
 /* This class represents an output group. */
@@ -172,8 +196,6 @@ class VSOGroup : public VSGroup {
     VSOGroup(const uint8_t* buf, const unsigned int len);
     ~VSOGroup();
 
-    int8_t getChannelPosition(uint8_t chan);
-    int8_t getChannelAtPosition(int8_t pos);
     int8_t swapChannelPositions(int8_t pos0, int8_t pos1);
 
 
@@ -181,9 +203,12 @@ class VSOGroup : public VSGroup {
     int8_t _add_channel(uint8_t chan, int8_t pos);
     int8_t _next_position();
     int8_t _channel_at_position(int8_t pos);
+    int8_t _apply_to_hardware(bool defer);
+    bool   _dirty();
 
   private:
-    uint32_t  _bind_order  = 0xFFFFFFFF;   // A bit-packed ordered list of channels that compose the group.
+    uint32_t  _bind_order   = 0xFFFFFFFF;   // A bit-packed ordered list of channels that compose the group.
+    uint32_t  _bind_order_q = 0xFFFFFFFF;   // A bit-packed ordered list of channels that compose the group.
 };
 
 
@@ -245,6 +270,7 @@ class ViamSonus {
     DS1881   pot3;
     DS1881   pot4;
     DS1881   pot5;
+    PriorityQueue<VSPendingOperation*> _pending_ops;
 
     DS1881* _getPotRef(uint8_t row);
 
