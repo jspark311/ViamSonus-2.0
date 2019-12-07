@@ -253,11 +253,11 @@ class ViamSonus {
     ViamSonusError preserveOnDestroy(bool);
     void printDebug(StringBuilder*);
 
-    /* API level-1. Dealing with groups of channels. */
+    /* API level-1: Dealing with groups of channels. */
     VSOGroup* createOutputGroup(const char*);
     VSIGroup* createInputGroup(const char*);
 
-    /* API level-0. Dealing with discrete channels directly. */
+    /* API level-0: Dealing with discrete channels directly. */
     ViamSonusError route(uint8_t col, uint8_t row);       // Establish a route to the given output from the given input.
     ViamSonusError unroute(uint8_t col, uint8_t row);     // Disconnect the given output from the given input.
     ViamSonusError unroute(uint8_t col);                  // Disconnect the given output from all inputs.

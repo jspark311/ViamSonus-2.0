@@ -27,11 +27,13 @@ This is an example program that shows the basic operation of ViamSonus. It is
 */
 
 
-#include "ViamSonus/ViamSonus.h"
-#include "i2c-adapter/i2c-adapter.h"
+#include <ViamSonus.h>
+#include <Wire.h>
 
-I2CAdapter *i2c = NULL;
-AudioRouter *vs = NULL;
+#define VERSION_STRING "v1.0"
+
+TwoWire* i2c  = nullptr;
+ViamSonus* vs = nullptr;
 
 
 #include <stdint.h>
@@ -114,7 +116,7 @@ int main(int argc, char *argv[]) {
 		}
 		else if (argc - i >= 2) {    // Compound arguments go in this case block...
 			if (strcasestr(argv[i], "--i2c-dev")) {
-				i2c = new I2CAdapter(atoi(argv[++i]));          // Fire up the i2c interface...
+				i2c = new TwoWire(argv[++i]);          // Fire up the i2c interface...
 				i2c->setDebug(true);
 			}
 			else if (strcasestr(argv[i], "--volume") || ((argv[i][0] == '-') && (argv[i][1] == 'v'))) {
@@ -174,15 +176,15 @@ int main(int argc, char *argv[]) {
 	}
 
 
-	if ((i2c != NULL) && (i2c->busOnline())) {
-		vs = new ViamSonus(SWITCH_ADDR, POT_0_ADDR, POT_1_ADDR);
+	if ((nullptr != i2c) && (i2c->busOnline())) {
+		vs = new ViamSonus(255);
 		// Since this program will do its job and exit immediately (taking the
 		//   state of the switch with it), we need to instruct the class to not
 		//   disable the hardware when the program exits.
 		vs->preserveOnDestroy(true);
+		vs->init(i2c);
 
-		int8_t result = 0;
-		char *temp_str;
+		ViamSonusError result = ViamSonusError::NO_ERROR;
 		switch (operation) {
 			case 'r':
 				result = vs->route(output_chan, input_chan);
@@ -195,17 +197,6 @@ int main(int argc, char *argv[]) {
 					result = vs->unroute(output_chan, input_chan);
 				}
 				break;
-			case 's':
-				temp_str = (char*) alloca(1024);
-				result = vs->status(temp_str);
-				printf("%s\n", temp_str);
-				break;
-			case 'e':
-				result = vs->enable();
-				break;
-			case 'd':
-				result = vs->disable();
-				break;
 			case 'v':
 				if (output_chan == 255) {
 					for (int i = 0; i < 8; i++) {
@@ -215,12 +206,6 @@ int main(int argc, char *argv[]) {
 				else {
 					result = vs->setVolume(output_chan, volume);
 				}
-				break;
-			case 'x':
-				//if (vs->enabled()) {
-					vs->disable();
-				//}
-				result = vs->enable();
 				break;
 			case '.':
 				// No operation selected.
@@ -249,7 +234,7 @@ int main(int argc, char *argv[]) {
 				printf("Error: Failed to unroute the given channels.\n");
 				break;
 			default:
-				printf("Unhandled case: (%d).\n", result);
+				printf("Unhandled case: (%s).\n", ViamSonus::errorToStr(result));
 				break;
 		}
 	}

@@ -28,11 +28,17 @@ export OUTPUT_PATH   = $(BUILD_ROOT)/build/
 ###########################################################################
 INCLUDES    = -I$(BUILD_ROOT)/.
 INCLUDES   += -I$(BUILD_ROOT)/CppPotpourri/StringBuilder
+INCLUDES   += -I$(BUILD_ROOT)/CppPotpourri/DataStructures
 INCLUDES   += -I$(BUILD_ROOT)/ADG2128/Arduino/src/
 INCLUDES   += -I$(BUILD_ROOT)/DS1881/Arduino/src/
+INCLUDES   += -I$(BUILD_ROOT)/i2c-adapter
+INCLUDES   += -I$(BUILD_ROOT)/../Arduino/src
 
-SRCS  = $(BUILD_ROOT)/../Arduino/src/*.cpp i2c-adapter/*.cpp *.cpp
-SRCS += CppPotpourri/StringBuilder/*.cpp ADG2128/*.cpp DS1881/*.cpp
+SRCS  = $(BUILD_ROOT)/../Arduino/src/*.cpp *.cpp
+SRCS += i2c-adapter/*.cpp
+SRCS += CppPotpourri/StringBuilder/*.cpp
+SRCS += ADG2128/Arduino/src/*.cpp
+SRCS += DS1881/Arduino/src/*.cpp
 
 CXXFLAGS += $(INCLUDES)
 

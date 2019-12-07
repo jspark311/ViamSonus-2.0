@@ -36,12 +36,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <fcntl.h>
 
 
-class I2CAdapter {
+class TwoWire {
   public:
     bool bus_error;
 
-    I2CAdapter(const char*);  // Constructor takes a bus path as an argument.
-    ~I2CAdapter();            // Destructor
+    TwoWire(const char*);  // Constructor takes a bus path as an argument.
+    ~TwoWire();            // Destructor
 
     bool busIdle();          // Returns true if the bus is ready to service a transaction right now.
     bool busOnline();
@@ -60,7 +60,8 @@ class I2CAdapter {
     bool debug;
     uint8_t last_used_bus_addr;
     int open_bus_descriptor;
-
+    int writeX(uint8_t dev_addr, uint8_t sub_addr, uint16_t byte_count, uint8_t *buf);
+    int readX(uint8_t, uint8_t, uint8_t, uint8_t*);
     bool switch_device(uint8_t);      // Call this to switch to another i2c device on the bus.
 };
 
