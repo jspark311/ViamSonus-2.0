@@ -8,3 +8,4 @@ linux/CppPotpourri
 *.kicad_pcb-bak
 *.net
 KiCAD/ViamSonus2.0-parts.bck
+.bom_parse_cookies

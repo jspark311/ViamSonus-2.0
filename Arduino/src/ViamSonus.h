@@ -121,9 +121,6 @@ class VSPendingOperation {
 /* This pure virtual class represents an grouping of channels. */
 class VSGroup {
   public:
-    VSGroup(const ViamSonus*);
-    virtual ~VSGroup();
-
     int8_t addChannel(uint8_t chan);
     int8_t reverseChannelOrder();
     virtual int8_t swapChannelPositions(int8_t pos0, int8_t pos1) =0;
@@ -139,6 +136,9 @@ class VSGroup {
     char*    _name  = nullptr;  // A name for this group. Not required.
     uint8_t  _flags = 0;        // Flags on this group.
     uint8_t  _count = 0;        // Channel count in this group.
+
+    VSGroup(const ViamSonus*);
+    virtual ~VSGroup();
 
     virtual int8_t _add_channel(uint8_t chan, int8_t pos) =0;
     virtual int8_t _next_position() =0;
@@ -162,7 +162,7 @@ class VSGroup {
 class VSIGroup : public VSGroup {
   public:
     VSIGroup(const ViamSonus*);
-    VSIGroup(const uint8_t* buf, const unsigned int len);
+    VSIGroup(const ViamSonus*, const uint8_t* buf, const unsigned int len);
     ~VSIGroup();
 
     int8_t swapChannelPositions(int8_t pos0, int8_t pos1);
@@ -193,7 +193,7 @@ class VSIGroup : public VSGroup {
 class VSOGroup : public VSGroup {
   public:
     VSOGroup(const ViamSonus*);
-    VSOGroup(const uint8_t* buf, const unsigned int len);
+    VSOGroup(const ViamSonus*, const uint8_t* buf, const unsigned int len);
     ~VSOGroup();
 
     int8_t swapChannelPositions(int8_t pos0, int8_t pos1);
