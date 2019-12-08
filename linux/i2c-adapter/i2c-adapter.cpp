@@ -67,7 +67,7 @@ bool TwoWire::busOnline(void) {
 
 
 void TwoWire::setDebug(bool x) {
-	debug = x;
+  debug = x;
 }
 
 
@@ -148,12 +148,12 @@ int TwoWire::writeX(uint8_t dev_addr, uint8_t sub_addr, uint16_t byte_count, uin
             bus_error = false;
             return_value = 1;
             if (debug) {
-            	char *temp = (char*) alloca(((byte_count+1)*3)+1);
-            	memset(temp, 0x00, ((byte_count+1)*3)+1);
-            	for (int i = 0; i < (byte_count+1)*3; i++) {
-            		sprintf((temp+i*3), "%02x ", buffer[i]);
-            	}
-            	printf("Wrote (%s) to %02x\n", temp, dev_addr);
+              char *temp = (char*) alloca(((byte_count+1)*3)+1);
+              memset(temp, 0x00, ((byte_count+1)*3)+1);
+              for (int i = 0; i < (byte_count+1)*3; i++) {
+                sprintf((temp+i*3), "%02x ", buffer[i]);
+              }
+              printf("Wrote (%s) to %02x\n", temp, dev_addr);
             }
         }
         else {
@@ -189,4 +189,121 @@ int TwoWire::readX(uint8_t dev_addr, uint8_t sub_addr, uint8_t len, uint8_t *buf
         bus_in_use = false;
     }
     return return_value;
+}
+
+
+
+/*
+* GPIO manipulation code taken from here and modified.
+* TODO: Doesn't bother checking if the pin is I or O.
+* https://www.ics.com/blog/how-control-gpio-hardware-c-or-c
+*/
+void digitalWrite(uint8_t pin, uint8_t val) {
+  const int TMP_STR_LEN = 128;
+  char temp_pin_buf[TMP_STR_LEN];
+
+  switch (val) {
+    case LOW:
+    case HIGH:
+      break;
+    default:
+      printf("Unknown value code: %d\n", val);
+      exit(1);
+  }
+
+  if (pin != 255) {
+    memset(temp_pin_buf, 0, TMP_STR_LEN);
+    sprintf(temp_pin_buf, "/sys/class/gpio/gpio%u/value", pin);
+    int fd = open(temp_pin_buf, O_WRONLY);
+    if (fd == -1) {
+      printf("Unable to open %s\n", temp_pin_buf);
+      exit(1);
+    }
+
+    if (::write(fd, (LOW == val) ? "0" : "1", 1) != 1) {
+        printf("Error writing to %s.\n", temp_pin_buf);
+        exit(1);
+    }
+    close(fd);
+  }
+}
+
+
+/*
+* GPIO manipulation code taken from here and modified.
+* https://www.ics.com/blog/how-control-gpio-hardware-c-or-c
+*/
+void pinMode(uint8_t pin, uint8_t io) {
+  const int TMP_STR_LEN = 128;
+  char temp_pin_buf[TMP_STR_LEN];
+  int val_len = 0;
+  char* io_string = nullptr;
+
+  switch (io) {
+    case OUTPUT:
+      io_string = (char*) "out";
+      break;
+    case INPUT:
+      io_string = (char*) "in";
+      break;
+    default:
+      printf("Unknown value code: %d\n", io);
+      exit(1);
+  }
+
+  if (pin != 255) {
+    int fd = open("/sys/class/gpio/export", O_WRONLY);
+    if (fd == -1) {
+      printf("Unable to open /sys/class/gpio/export\n");
+      exit(1);
+    }
+    memset(temp_pin_buf, 0, TMP_STR_LEN);
+    sprintf(temp_pin_buf, "%u", pin);
+    val_len = strlen(temp_pin_buf);
+    if (::write(fd, temp_pin_buf, val_len) != val_len) {
+      perror("Error writing to /sys/class/gpio/export");
+      exit(1);
+    }
+    close(fd);
+
+    memset(temp_pin_buf, 0, TMP_STR_LEN);
+    sprintf(temp_pin_buf, "/sys/class/gpio/gpio%u/direction", pin);
+    val_len = strlen(temp_pin_buf);
+
+    fd = open(temp_pin_buf, O_WRONLY);
+    if (fd == -1) {
+      printf("Failed to open %s for direction assignment.\n", temp_pin_buf);
+      exit(1);
+    }
+
+    val_len = strlen(io_string);
+    if (::write(fd, io_string, val_len) != val_len) {
+      printf("Error writing to %s.\n", temp_pin_buf);
+      exit(1);
+    }
+    close(fd);
+  }
+}
+
+
+void delay(unsigned long val) {
+  // TODO: Should delay with a signal rather than burn clocks? How accurate
+  //   should I expect this to be? usleep() for now.
+  // Option 0: Burn the clock.
+  //unsigned long start = millis();
+  //while ((start + val) > millis()) {
+  //}
+  // Option 1: signals. Much more complicated. Let's the OS burn the clock.
+  // Option 3:
+  usleep(val * 1000);
+}
+
+
+/*
+* Not provided elsewhere on a linux platform.
+*/
+unsigned long millis() {
+  struct timespec ts;
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+  return (ts.tv_sec * 1000 + ts.tv_nsec / 1000000L);
 }

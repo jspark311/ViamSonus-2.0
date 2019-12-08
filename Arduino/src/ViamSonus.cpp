@@ -350,13 +350,17 @@ int16_t ViamSonus::getVolume(uint8_t row) {
 
 void ViamSonus::printDebug(StringBuilder* output) {
   output->concat("ViamSonus 2.0\n");
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_SWITCH)) {  cp_switch.printDebug();  }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_0)) {   pot0.printDebug();       }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_1)) {   pot1.printDebug();       }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_2)) {   pot2.printDebug();       }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_3)) {   pot3.printDebug();       }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {   pot4.printDebug();       }
-  if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {   pot5.printDebug();       }
+  #if defined(ADG2128_DEBUG)
+    if (_vs_flag(VIAMSONUS_FLAG_FOUND_SWITCH)) {  cp_switch.printDebug(output);  }
+  #endif  // ADG2128_DEBUG
+  #if defined(DS1881_DEBUG)
+    if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_0)) {   pot0.printDebug(output);       }
+    if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_1)) {   pot1.printDebug(output);       }
+    if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_2)) {   pot2.printDebug(output);       }
+    if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_3)) {   pot3.printDebug(output);       }
+    if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {   pot4.printDebug(output);       }
+    if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {   pot5.printDebug(output);       }
+  #endif  // DS1881_DEBUG
   for (uint8_t i = 0; i < 8; i++) {
     dumpOutputChannel(i, output);
   }

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 */
 
-#ifndef I2C_ABSTRACTION_LAYER         // This is meant to prevent double-inclusion.
-#define I2C_ABSTRACTION_LAYER
+#ifndef ARDUINO_ABSTRACTION_LAYER
+#define ARDUINO_ABSTRACTION_LAYER
 
 #include <sys/types.h>
 #include <stdint.h>
@@ -34,6 +34,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <iostream>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+
+#if !defined(INPUT)
+  #define INPUT       0  // TODO: Arbitrary. Read more...
+#endif
+#if !defined(OUTPUT)
+  #define OUTPUT      1  // TODO: Arbitrary. Read more...
+#endif
+#if !defined(LOW)
+  #define LOW         0  // TODO: Arbitrary. Read more...
+#endif
+#if !defined(HIGH)
+  #define HIGH        1  // TODO: Arbitrary. Read more...
+#endif
+
 
 
 class TwoWire {
@@ -65,4 +80,10 @@ class TwoWire {
     bool switch_device(uint8_t);      // Call this to switch to another i2c device on the bus.
 };
 
-#endif
+
+void digitalWrite(uint8_t, uint8_t);
+void pinMode(uint8_t, uint8_t);
+void delay(unsigned long);
+unsigned long millis();
+
+#endif   // ARDUINO_ABSTRACTION_LAYER

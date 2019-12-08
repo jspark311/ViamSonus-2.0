@@ -15,8 +15,9 @@ PROGRAM_NAME   = viamsonus
 CPP_STANDARD = gnu++11
 
 CXX       = gcc
+SZ        = size
 CXXFLAGS  = -Wall -fsingle-precision-constant -Wdouble-promotion -D_GNU_SOURCE
-CXXFLAGS += -Wl,--gc-sections -O2 -fno-rtti -fno-exceptions
+CXXFLAGS += -Wl,--gc-sections -O2 -fno-rtti -fno-exceptions -fpic
 LIBS	    = -lstdc++
 
 export BUILD_ROOT    = $(shell pwd)
@@ -34,13 +35,19 @@ INCLUDES   += -I$(BUILD_ROOT)/DS1881/Arduino/src/
 INCLUDES   += -I$(BUILD_ROOT)/i2c-adapter
 INCLUDES   += -I$(BUILD_ROOT)/../Arduino/src
 
-SRCS  = $(BUILD_ROOT)/../Arduino/src/*.cpp *.cpp
-SRCS += i2c-adapter/*.cpp
-SRCS += CppPotpourri/StringBuilder/*.cpp
-SRCS += ADG2128/Arduino/src/*.cpp
-SRCS += DS1881/Arduino/src/*.cpp
+SRCS  = $(BUILD_ROOT)/ViamSonus.cpp
+SRCS += $(BUILD_ROOT)/../Arduino/src/ViamSonus.cpp
+SRCS += $(BUILD_ROOT)/../Arduino/src/VSGroup.cpp
+SRCS += $(BUILD_ROOT)/../Arduino/src/VSIGroup.cpp
+SRCS += $(BUILD_ROOT)/../Arduino/src/VSOGroup.cpp
+SRCS += $(BUILD_ROOT)/i2c-adapter/i2c-adapter.cpp
+SRCS += $(BUILD_ROOT)/CppPotpourri/StringBuilder/StringBuilder.cpp
+SRCS += $(BUILD_ROOT)/ADG2128/Arduino/src/ADG2128.cpp
+SRCS += $(BUILD_ROOT)/DS1881/Arduino/src/DS1881.cpp
 
 CXXFLAGS += $(INCLUDES)
+CXXFLAGS += -DDS1881_DEBUG=1 -DADG2128_DEBUG=1
+
 
 OBJS  = $(SRCS:.cpp=.o)
 

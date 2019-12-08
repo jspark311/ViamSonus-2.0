@@ -187,7 +187,7 @@ class VSIGroup : public VSGroup {
     void printDebug(StringBuilder*);
 
     /* Input-specific API */
-    bool allowMix();
+    //bool allowMix();
     int8_t volumeAtPosition(int8_t pos);
 
 

@@ -30,7 +30,7 @@ This is an example program that shows the basic operation of ViamSonus. It is
 #include <ViamSonus.h>
 #include <Wire.h>
 
-#define VERSION_STRING "v1.0"
+#define VERSION_STRING "v1.1"
 
 TwoWire* i2c  = nullptr;
 ViamSonus* vs = nullptr;

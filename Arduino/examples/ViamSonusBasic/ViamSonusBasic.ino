@@ -7,6 +7,7 @@ ViamSonus 2.0 basic example. This sketch manages the router board as 12 mono
   inputs into 8 mono outputs with no mix capability.
 */
 
+
 #include <Wire.h>
 #include <ViamSonus.h>
 #include <StringBuilder.h>
@@ -14,7 +15,7 @@ ViamSonus 2.0 basic example. This sketch manages the router board as 12 mono
 #define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
 #define CPU_RESTART_VAL 0x5FA0004
 
-#define TEST_PROG_VERSION "v1.0"
+#define TEST_PROG_VERSION "v1.1"
 
 
 /*******************************************************************************
@@ -44,15 +45,15 @@ void printHelp() {
   output.concat("i     Viam Sonus info\n");
   output.concat("Q     Reboot\n");
 
+  output.concat("\n---< Low-level >-----------\n");
+  output.concat("x     Refresh register shadows\n");
+  output.concat("I     Reinitialize\n");
+  output.concat("S     Serialize state\n");
+  output.concat("R     Reset\n");
+
   output.concat("\n---< Input Manipulation >-----------\n");
   output.concat("[0-B] Select input channel\n");
   output.concat("[+/-] (In/de)crease volume on selected channel\n");
-  output.concat("x     Refresh register shadows\n");
-  output.concat("I     Reinitialize\n");
-  output.concat("S     Store device settings in flash\n");
-  output.concat("R     Reset\n");
-  output.concat("P     Setup 8-channel pass-though\n");
-
   output.concat("!     Bind selected input to output 0\n");
   output.concat("@     Bind selected input to output 1\n");
   output.concat("#     Bind selected input to output 2\n");
@@ -61,6 +62,10 @@ void printHelp() {
   output.concat("^     Bind selected input to output 5\n");
   output.concat("&     Bind selected input to output 6\n");
   output.concat("*     Bind selected input to output 7\n");
+
+  output.concat("\n---< Configuration macros >-----------\n");
+  output.concat("P     Setup 8-channel pass-though\n");
+
   Serial.println((char*) output.string());
 }
 
