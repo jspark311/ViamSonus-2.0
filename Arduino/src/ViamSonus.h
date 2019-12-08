@@ -58,8 +58,9 @@ class ViamSonus;
 
 
 /* InputChannel flags */
-#define VSIC_FLAG_ALLOW_MIX           0x0001  // This channel is safe to mix.
-#define VSIC_FLAG_MONITOR             0x0002  // Monitor this channel via ADC.
+#define VSCG_FLAG_ALLOW_MIX           0x0001  // This channel is safe to mix.
+#define VSCG_FLAG_MONITOR             0x0002  // Monitor this channel via ADC.
+#define VSCG_FLAG_AUTO_APPLY          0x0004  // This group should apply to hardware on every change.
 
 
 enum class ViamSonusError : int8_t {
@@ -140,8 +141,13 @@ class VSGroup {
     uint32_t serialize(uint8_t* buf, unsigned int len);
     uint32_t serialized_len();
 
+    void setName(const char*);
+
     inline const char* getName() {   return _name;   };
     inline uint8_t channelCount() {  return _count;  };
+
+    inline bool autoApply() {        return _grp_flag(VSCG_FLAG_AUTO_APPLY);      };
+
 
 
   protected:
@@ -188,7 +194,9 @@ class VSIGroup : public VSGroup {
 
     /* Input-specific API */
     //bool allowMix();
-    int8_t volumeAtPosition(int8_t pos);
+    uint8_t getVolume();
+    int8_t  setVolume(uint8_t);
+    int8_t  volumeAtPosition(int8_t pos);
 
 
   protected:

@@ -9,6 +9,11 @@ ViamSonus 2.0 advanced example. This sketch manages the router board as...
   - 3 stereo outputs
   - 2 mono outputs with contingent mix capability
 
+
+
+This sketch does not demonstate discrete channel manipulation.
+See the Basic example for that.
+
 Class init is done from a serialized state save.
 */
 
@@ -34,7 +39,7 @@ Class init is done from a serialized state save.
 /*******************************************************************************
 * Globals
 *******************************************************************************/
-const uint8_t VS_CONF_BLOB = {
+const uint8_t VS_CONF_BLOB[] = {
   0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x70, VS_RESET_PIN, 0x00, 0x00, 0x01, 0x02,
   0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x01, 0x28,
   0x00, 0x00, 0x40, 0x06, 0x01, 0x29, 0x00, 0x00, 0x40, 0x06, 0x01, 0x2A,
@@ -45,6 +50,10 @@ const uint8_t VS_CONF_BLOB = {
 // Construct the router with all the config defined. Will be applied on init().
 ViamSonus vs(VS_CONF_BLOB, VIAMSONUS_SERIALIZE_SIZE);
 
+VSIGroup* inputs[7] = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
+VSOGroup* outputs[5] = {nullptr, nullptr, nullptr, nullptr, nullptr};
+
+VSIGroup* selected_input = nullptr;
 
 /*******************************************************************************
 * Functions to output things to the console
@@ -62,10 +71,13 @@ void printHelp() {
   output.concat("I     Reinitialize\n");
   output.concat("S     Serialize state\n");
   output.concat("R     Reset\n");
+  output.concat("A     Apply all groups to hardware\n");
 
   output.concat("\n---< Input Manipulation >-----------\n");
-  output.concat("[0-5] Select input group\n");
+  output.concat("[0-6] Select input group\n");
   output.concat("[+/-] (In/de)crease volume on selected group\n");
+  output.concat("s     Swap channel order in selected group\n");
+  output.concat("a     Apply selected group to hardware\n");
 
   output.concat("!     Bind selected input to Stereo 0\n");
   output.concat("@     Bind selected input to Stereo 1\n");
@@ -94,7 +106,59 @@ void setup() {
   //   rebuilt after a power loss or reset(), the state will need to be
   //   serialized and initialized later with the resuling buffer.
   // vs.preserveOnDestroy(true);
-  vs.init(&Wire);
+  ViamSonusError err = vs.init(&Wire);
+  if (ViamSonusError::NO_ERROR == err) {
+    // Add input channel groups.
+    // The order of channel addition is important. Two like-cardinality groups
+    //   being routed together will have their routes applied by like indicies.
+    //   That is, for a stereo signal:
+    //     INPUT.0 --> OUTPUT.0
+    //     INPUT.1 --> OUTPUT.1
+    inputs[0] = vs.createInputGroup("Aux In");
+    inputs[0]->addChannel(0);
+    inputs[0]->addChannel(1);
+
+    inputs[1] = vs.createInputGroup("Phone speakers");
+    inputs[1]->addChannel(2);
+    inputs[1]->addChannel(3);
+
+    inputs[2] = vs.createInputGroup("Bluetooth receiver");
+    inputs[2]->addChannel(4);
+    inputs[2]->addChannel(5);
+
+    inputs[3] = vs.createInputGroup("Computer 0 line out");
+    inputs[3]->addChannel(6);
+    inputs[3]->addChannel(7);
+
+    inputs[4] = vs.createInputGroup("Computer 1 line out");
+    inputs[4]->addChannel(8);
+    inputs[4]->addChannel(9);
+
+    inputs[5] = vs.createInputGroup("Microphone");
+    inputs[5]->addChannel(10);
+
+    inputs[6] = vs.createInputGroup("Teensy DAC");
+    inputs[6]->addChannel(11);
+
+    // Add output channel groups.
+    outputs[0] = vs.createOutputGroup("Amplifier");
+    outputs[0]->addChannel(0);
+    outputs[0]->addChannel(1);
+
+    outputs[1] = vs.createOutputGroup("Headphones");
+    outputs[1]->addChannel(2);
+    outputs[1]->addChannel(3);
+
+    outputs[2] = vs.createOutputGroup("Stereo 0");
+    outputs[2]->addChannel(4);
+    outputs[2]->addChannel(5);
+
+    outputs[3] = vs.createOutputGroup("Phone mic");
+    outputs[3]->addChannel(6);
+
+    outputs[4] = vs.createOutputGroup("PA amplifier");
+    outputs[4]->addChannel(7);
+  }
 }
 
 
@@ -111,7 +175,7 @@ void loop() {
       case 'i':
         vs.printDebug(&output);
         output.concat("Presently selected input channel:\n");
-        vs.dumpInputChannel(in_chan, &output);
+        selected_input->printDebug(&output);
         break;
       case 'I':
         ret = vs.init();
@@ -126,14 +190,29 @@ void loop() {
         output.concatf("reset() returns %s.\n", ViamSonus::errorToStr(ret));
         break;
 
+      case 'S':   // Save the state into a buffer for later reconstitution.
+        {
+          uint8_t buffer[512];
+          unsigned int written = vs.serialize(buffer, 512);
+          if (VIAMSONUS_SERIALIZE_SIZE <= written) {
+            StringBuilder::printBuffer(&output, buffer, written, "\t");
+            output.concat("\n");
+          }
+          else {
+            output.concatf("serialize() returns %u. Was expecting %u.\n", written, VIAMSONUS_SERIALIZE_SIZE);
+          }
+        }
+        break;
+
       case '0':
       case '1':
       case '2':
       case '3':
       case '4':
       case '5':
-        in_chan = vs.getInputByRow((c < 'A') ? (c - 0x30) : (c - 0x37));
-        vs.dumpInputChannel(in_chan, &output);
+      case '6':
+        selected_input = inputs[(c - 0x30)];
+        selected_input->printDebug(&output);
         break;
 
       case '!':
@@ -141,7 +220,7 @@ void loop() {
       case '#':
       case '$':
       case '%':
-        if (nullptr != in_chan) {
+        if (nullptr != selected_input) {
           uint8_t out_num = 4;
           switch (c) {
             case '!':  out_num--;
@@ -150,33 +229,50 @@ void loop() {
             case '$':  out_num--;
             case '%':  break;
           }
-          ret = vs.route(out_num, in_chan->i_chan);
+          // TODO: Route to output group
           if (ViamSonusError::NO_ERROR != ret) {
             output.concatf("route() returns %s.\n", ViamSonus::errorToStr(ret));
           }
           else {
-            output.concatf("Channel %u is now routed to output %u.\n", in_chan->i_chan, out_num);
+            output.concatf("Group is now routed to output %u.\n", out_num);
           }
         }
         else {
-          output.concat("No input channel selected.\n");
+          output.concat("No input group selected.\n");
         }
         break;
 
       case '+':
       case '-':
-        if (nullptr != in_chan) {
-          uint8_t vol = vs.getVolume(in_chan->i_chan) + ((c == '+') ? -1 : 1);
-          ret = vs.setVolume(in_chan->i_chan, vol);
-          if (ViamSonusError::NO_ERROR != ret) {
-            output.concatf("setVolume() returns %s.\n", ViamSonus::errorToStr(ret));
+        if (nullptr != selected_input) {
+          uint8_t vol = selected_input->getVolume() + ((c == '+') ? -1 : 1);
+          int8_t err = selected_input->setVolume(vol);
+
+          if (0 != err) {
+            output.concatf("setVolume() returns %d.\n", err);
           }
           else {
-            output.concatf("Channel %u volume is now %u.\n", in_chan->i_chan, vs.getVolume(in_chan->i_chan));
+            output.concatf("Volume on group is now %u.\n", selected_input->getVolume());
           }
         }
         else {
-          output.concat("No input channel selected.\n");
+          output.concat("No input group selected.\n");
+        }
+        break;
+
+      case 's':
+        if (nullptr != selected_input) {
+          int8_t err = selected_input->reverseChannelOrder();
+
+          if (0 != err) {
+            output.concatf("reverseChannelOrder() returns %d.\n", err);
+          }
+          else {
+            output.concat("Channel order reversed for group.\n");
+          }
+        }
+        else {
+          output.concat("No input group selected.\n");
         }
         break;
 

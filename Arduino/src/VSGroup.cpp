@@ -119,6 +119,20 @@ uint32_t VSGroup::serialized_len() {
 }
 
 
+void VSGroup::setName(const char* n) {
+  if (nullptr != _name) {
+    free(_name);
+    _name = nullptr;
+  }
+  int len = strlen(n) + 1;
+  _name = (char*) malloc(len);
+  if (nullptr != _name) {
+    *(_name + len) = 0;
+    memcpy(_name, n, len);
+  }
+}
+
+
 /*
 * No buffer bounds checking is done here. It is assumed it will be done in the
 *  constructor.

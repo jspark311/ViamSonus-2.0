@@ -85,6 +85,7 @@ void printUsage() {
 	printf("-v  --version   Print the version and exit.\n");
 	printf("-h  --help      Print this output and exit.\n");
 	printf("-s  --status    Read and print the present condition of the PCB.\n");
+	printf("-S  --serialize Pack the hardware state into a buffer.\n");
 	printf("    --reset     Reset the PCB back to it's power-on state.\n");
 	printf("    --enable    Enable a PCB that was previously disabled.\n");
 	printf("    --disable   Disable the PCB. Opens all switches and mutes all outputs.\n");
@@ -161,9 +162,12 @@ int main(int argc, char *argv[]) {
 			operation = 'r';
 		}
 		else if (strcasestr(argv[i], "--status") || ((argv[i][0] == '-') && (argv[i][1] == 's'))) {
-
 			operation = 's';
 		}
+		else if (strcasestr(argv[i], "--serialize") || ((argv[i][0] == '-') && (argv[i][1] == 'S'))) {
+			operation = 'S';
+		}
+
 		else if (strcasestr(argv[i], "--unroute") || ((argv[i][0] == '-') && (argv[i][1] == 'u'))) {
 			operation = 'u';
 		}

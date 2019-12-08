@@ -110,6 +110,13 @@ ViamSonus::~ViamSonus() {
       free(outputs[i].name);
     }
   }
+
+  while (_inputs.size() > 0) {
+    delete _inputs.dequeue();
+  }
+  while (_outputs.size() > 0) {
+    delete _outputs.dequeue();
+  }
 }
 
 
@@ -525,6 +532,30 @@ int8_t ViamSonus::unserialize(const uint8_t* buf, const unsigned int len) {
   if ((0 == ret) && (1 < (len - offset))) {
     // If we took apart the basics with success, and still have space left in
     //   the buffer, we start looking for definitions of channel groups.
+  }
+  return ret;
+}
+
+
+/*******************************************************************************
+* VSGroup handling
+*******************************************************************************/
+
+VSOGroup* ViamSonus::createOutputGroup(const char* n) {
+  VSOGroup* ret = new VSOGroup((const ViamSonus*) this);
+  if (nullptr != ret) {
+    ret->setName(n);
+    _outputs.insert(ret);
+  }
+  return ret;
+}
+
+
+VSIGroup* ViamSonus::createInputGroup(const char* n) {
+  VSIGroup* ret = new VSIGroup((const ViamSonus*) this);
+  if (nullptr != ret) {
+    ret->setName(n);
+    _inputs.insert(ret);
   }
   return ret;
 }
