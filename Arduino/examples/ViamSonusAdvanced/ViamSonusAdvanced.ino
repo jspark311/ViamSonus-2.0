@@ -50,6 +50,7 @@ const uint8_t VS_CONF_BLOB[] = {
 // Construct the router with all the config defined. Will be applied on init().
 ViamSonus vs(VS_CONF_BLOB, VIAMSONUS_SERIALIZE_SIZE);
 
+
 VSIGroup* inputs[7] = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
 VSOGroup* outputs[5] = {nullptr, nullptr, nullptr, nullptr, nullptr};
 
@@ -84,9 +85,32 @@ void printHelp() {
   output.concat("#     Bind selected input to Stereo 2\n");
   output.concat("$     Bind selected input to Mono 0\n");
   output.concat("%     Bind selected input to Mono 1\n");
+
+  output.concat("\n---< Configuration macros >-----------\n");
+  output.concat("P     Setup 8-channel pass-though\n");
+
   Serial.println((char*) output.string());
 }
 
+
+/*******************************************************************************
+* Demonstration fxns
+*******************************************************************************/
+/*
+* You can use unserialize after init to impart a configuration in a single call.
+* This one makes the router pass the first 8 inputs to the 8 outputs with no
+*   volume attenuation.
+*/
+int8_t eight_chan_passthrough() {
+  const uint8_t VS_CONF_BLOB[] = {
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x70, 0x0A, 0x00, 0x00, 0x01, 0x02,
+    0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x01, 0x28,
+    0x00, 0x00, 0x40, 0x06, 0x01, 0x29, 0x00, 0x00, 0x40, 0x06, 0x01, 0x2A,
+    0x00, 0x00, 0x00, 0x06, 0x01, 0x2B, 0x00, 0x00, 0x00, 0x06, 0x01, 0x2C,
+    0x00, 0x3F, 0x3F, 0x06, 0x01, 0x2D, 0x00, 0x3F, 0x3F, 0x06
+  };
+  return vs.unserialize(VS_CONF_BLOB, sizeof(VS_CONF_BLOB));
+}
 
 
 /*******************************************************************************
@@ -188,6 +212,9 @@ void loop() {
       case 'R':
         ret = vs.reset();
         output.concatf("reset() returns %s.\n", ViamSonus::errorToStr(ret));
+        break;
+      case 'P':
+        output.concatf("eight_chan_passthrough() returns %d.\n", eight_chan_passthrough());
         break;
 
       case 'S':   // Save the state into a buffer for later reconstitution.

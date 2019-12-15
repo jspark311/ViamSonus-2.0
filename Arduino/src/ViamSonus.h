@@ -31,9 +31,12 @@ Crosspoint switch is at address 0x70.
 #include <PriorityQueue.h>
 
 class ViamSonus;
+class VSOGroup;
+class VSIGroup;
 
 #define VIAMSONUS_SERIALIZE_VERSION  1
 #define VIAMSONUS_SERIALIZE_SIZE     (5 + ADG2128_SERIALIZE_SIZE + (DS1881_SERIALIZE_SIZE*6))
+
 
 /* Values that set limits on channel storage requirements. */
 #define VSIG_FIXED_SER_SIZE    6
@@ -145,6 +148,9 @@ class VSGroup {
 
     inline const char* getName() {   return _name;   };
     inline uint8_t channelCount() {  return _count;  };
+    inline int8_t  channelAtPosition(int8_t pos) {
+      return _channel_at_position(pos);
+    };
 
     inline bool autoApply() {        return _grp_flag(VSCG_FLAG_AUTO_APPLY);      };
 
@@ -197,6 +203,8 @@ class VSIGroup : public VSGroup {
     uint8_t getVolume();
     int8_t  setVolume(uint8_t);
     int8_t  volumeAtPosition(int8_t pos);
+    int8_t  attachGroup(VSOGroup*);
+    int8_t  detachGroup(VSOGroup*);
 
 
   protected:
@@ -209,6 +217,7 @@ class VSIGroup : public VSGroup {
     bool    _dirty();
 
   private:
+    PriorityQueue<VSOGroup*> _bound_groups;
     // A bit-packed ordered list of channels that compose the group.
     uint8_t  _bind_order[6]   = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
     uint8_t  _bind_order_q[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
@@ -225,6 +234,8 @@ class VSOGroup : public VSGroup {
     ~VSOGroup();
 
     int8_t swapChannelPositions(int8_t pos0, int8_t pos1);
+    int8_t  attachGroup(VSIGroup*);
+    int8_t  detachGroup(VSIGroup*);
 
 
   protected:
@@ -237,6 +248,7 @@ class VSOGroup : public VSGroup {
     bool    _dirty();
 
   private:
+    PriorityQueue<VSIGroup*> _bound_groups;
     uint32_t  _bind_order   = 0xFFFFFFFF;   // A bit-packed ordered list of channels that compose the group.
     uint32_t  _bind_order_q = 0xFFFFFFFF;   // A bit-packed ordered list of channels that compose the group.
 };

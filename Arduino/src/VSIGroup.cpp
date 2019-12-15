@@ -224,3 +224,28 @@ uint8_t VSIGroup::_unserialize(const uint8_t* buf, const unsigned int len) {
   }
   return ret;
 }
+
+
+
+/*******************************************************************************
+* Group relationship functions
+*******************************************************************************/
+
+int8_t  VSIGroup::attachGroup(VSOGroup* og) {
+  int8_t ret = -1;
+  if (!_bound_groups.contains(og)) {
+    _bound_groups.insert(og);
+    ret = og->attachGroup(this);
+  }
+  return ret;
+}
+
+
+int8_t  VSIGroup::detachGroup(VSOGroup* og) {
+  int8_t ret = -1;
+  if (_bound_groups.contains(og)) {
+    _bound_groups.remove(og);
+    ret = og->detachGroup(this);
+  }
+  return ret;
+}

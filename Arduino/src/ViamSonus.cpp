@@ -71,7 +71,7 @@ ViamSonus::ViamSonus(const uint8_t reset_pin) :
 * Constructor. Here is all of the setup work. Takes the i2c addresses of the hardware as arguments.
 */
 ViamSonus::ViamSonus(const uint8_t* buf, const unsigned int len) :
-  cp_switch((buf+5), (len-5)),
+  cp_switch(0x70, *(buf+6)),
   pot0(0x28), pot1(0x29), pot2(0x2A), pot3(0x2B), pot4(0x2C), pot5(0x2D)
 {
   for (uint8_t i = 0; i < 12; i++) {   // Setup our input channels.
@@ -147,7 +147,7 @@ ViamSonusError ViamSonus::init(TwoWire* bus) {
     //   to reflect the state of the hardware. Now to parse that data into structs that
     //   mean something to us at this level...
     for (uint8_t i = 0; i < 12; i++) {  // Routes...
-      uint8_t temp_byte = cp_switch.getValue(inputs[i].i_chan);
+      uint8_t temp_byte = cp_switch.getCols(inputs[i].i_chan);
       for (uint8_t j = 0; j < 8; j++) {
         if (0x01 & temp_byte) {
           CPOutputChannel* temp_output = getOutputByCol(j);

@@ -111,6 +111,8 @@ bool VSOGroup::_dirty() {
 int8_t VSOGroup::_apply_to_hardware(bool defer) {
   int8_t ret = -1;
   for (uint8_t i = 0; i < _count; i++) {
+    // TODO: Traverse bound_groups list and store the channel lists locally.
+    //   then make sure the swap gets pushed into hardware.
   }
   return ret;
 }
@@ -132,6 +134,34 @@ uint8_t VSOGroup::_unserialize(const uint8_t* buf, const unsigned int len) {
   if (len >= VSOG_FIXED_SER_SIZE) {
     _bind_order = (*(buf + 0) << 24) | (*(buf + 1) << 16) | (*(buf + 2) << 8) | *(buf + 3);
     ret = VSOG_FIXED_SER_SIZE;
+  }
+  return ret;
+}
+
+
+/*******************************************************************************
+* Group relationship functions
+*******************************************************************************/
+
+int8_t  VSOGroup::attachGroup(VSIGroup* ig) {
+  int8_t ret = -1;
+  return ret;
+}
+
+
+int8_t  VSOGroup::detachGroup(VSIGroup* ig) {
+  int8_t ret = -1;
+  if (_bound_groups.remove(ig)) {
+    // We had the group. Reflect the changes in hardware by unsetting the routes.
+    // TODO: We can't assume the channel cardinality is the same.
+    for (uint8_t i = 0; i < _count; i++) {
+      uint8_t ochan = _channel_at_position(i);
+      uint8_t ichan = ig->channelAtPosition(i);
+      ret = (int8_t) ((ViamSonus*)_VS)->unroute(ochan, ichan);
+      if (0 != ret) {
+        return ret;
+      }
+    }
   }
   return ret;
 }
