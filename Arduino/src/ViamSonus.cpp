@@ -183,6 +183,62 @@ ViamSonusError ViamSonus::reset() {
 }
 
 
+ViamSonusError ViamSonus::poll() {
+  ViamSonusError ret = ViamSonusError::NO_ERROR;
+  if (0 < _pending_ops.size()) {
+    uint32_t n_mils = (uint32_t) _pending_ops.getPriority(0);
+    bool run_loop = (n_mils <= millis());
+    while (run_loop) {
+      VSPendingOperation* vspo = _pending_ops.dequeue();
+      switch (vspo->op) {
+        case VSOpcode::CHAN_VOLUME_SET:
+          break;
+        case VSOpcode::CHAN_VOLUME_INC:
+          break;
+        case VSOpcode::CHAN_VOLUME_DEC:
+          break;
+        case VSOpcode::CHAN_ROUTE:
+          break;
+        case VSOpcode::CHAN_UNROUTE:
+          break;
+        case VSOpcode::GRP_VOLUME_SET:
+          break;
+        case VSOpcode::GRP_VOLUME_INC:
+          break;
+        case VSOpcode::GRP_VOLUME_DEC:
+          break;
+        case VSOpcode::GRP_ROUTE:
+          break;
+        case VSOpcode::GRP_UNROUTE:
+          break;
+        case VSOpcode::ADC_READ:
+          break;
+        case VSOpcode::UNDEFINED:
+        default:
+          break;
+      }
+      if (0 < vspo->recycle_count) {
+        vspo->recycle_count--;
+        vspo->at_ms += vspo->recycle_period;
+        _pending_ops.insert(vspo, vspo->at_ms);
+      }
+      else {
+        delete vspo;
+      }
+
+      if (0 < _pending_ops.size()) {
+        n_mils = (uint32_t) _pending_ops.getPriority(0);
+        run_loop = (n_mils <= millis());
+      }
+      else {
+        run_loop = false;
+      }
+    }
+  }
+  return ret;
+}
+
+
 ViamSonusError ViamSonus::preserveOnDestroy(bool preserve) {
   ViamSonusError ret = ViamSonusError::GEN_SWITCH_FAULT;
   cp_switch.preserveOnDestroy(preserve);

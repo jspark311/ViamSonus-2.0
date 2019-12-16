@@ -269,6 +269,7 @@ class ViamSonus {
     inline ViamSonusError init() {  return init(nullptr);  };
     ViamSonusError init(TwoWire*);
     ViamSonusError reset();
+    ViamSonusError poll();
     ViamSonusError refresh();
     ViamSonusError preserveOnDestroy(bool);
     void printDebug(StringBuilder*);
