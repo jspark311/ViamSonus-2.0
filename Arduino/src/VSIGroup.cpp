@@ -49,6 +49,7 @@ int8_t VSIGroup::_add_channel(uint8_t chan, int8_t pos) {
     uint8_t idx = pos >> 1;
     uint8_t mask = 0x0F << ((pos & 1) << 2);
     _bind_order[idx] = (_bind_order[idx] & ~mask) | (chan << ((pos & 1) << 2));
+    ret = 0;
   }
   return ret;
 }
@@ -58,8 +59,8 @@ int8_t VSIGroup::_add_channel(uint8_t chan, int8_t pos) {
 */
 int8_t VSIGroup::_next_position() {
   for (uint8_t i = 0; i < 6; i++) {
-    if (0x0F == ((_bind_order[i] >> 4) & 0x0F)) {   return (2 * i);         }
-    if (0x0F == (_bind_order[i] & 0x0F)) {          return (1 + (2 * i));   }
+    if (0x0F == (_bind_order[i] & 0x0F)) {          return (2 * i);         }
+    if (0x0F == ((_bind_order[i] >> 4) & 0x0F)) {   return (1 + (2 * i));   }
   }
   return -1;
 }

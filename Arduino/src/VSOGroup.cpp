@@ -43,6 +43,7 @@ int8_t VSOGroup::_add_channel(uint8_t chan, int8_t pos) {
   if ((0 <= pos) && (pos < 8)) {
     uint32_t mask = 0x0F << (pos << 2);
     _bind_order = (_bind_order & ~mask) | (chan << (pos << 2));
+    ret = 0;
   }
   return ret;
 }

@@ -66,6 +66,9 @@ void printHelp() {
   output.concatf("%s\n---< Meta >-------------------------\n", TEST_PROG_VERSION);
   output.concat("?     This output\n");
   output.concat("i     Viam Sonus info\n");
+  output.concat("h     Hardware info\n");
+  output.concat("c     Dump channels\n");
+  output.concat("g     Dump groups\n");
   output.concat("Q     Reboot\n");
 
   output.concat("\n---< Low-level >-----------\n");
@@ -139,50 +142,50 @@ void setup() {
     //   That is, for a stereo signal:
     //     INPUT.0 --> OUTPUT.0
     //     INPUT.1 --> OUTPUT.1
-    //inputs[0] = vs.createInputGroup("Aux In");
-    //inputs[0]->addChannel(0);
-    //inputs[0]->addChannel(1);
+    inputs[0] = vs.createInputGroup("Aux In");
+    inputs[0]->addChannel(0);
+    inputs[0]->addChannel(1);
 
-    //inputs[1] = vs.createInputGroup("Phone speakers");
-    //inputs[1]->addChannel(2);
-    //inputs[1]->addChannel(3);
+    inputs[1] = vs.createInputGroup("Phone speakers");
+    inputs[1]->addChannel(2);
+    inputs[1]->addChannel(3);
 
-    //inputs[2] = vs.createInputGroup("Bluetooth receiver");
-    //inputs[2]->addChannel(4);
-    //inputs[2]->addChannel(5);
+    inputs[2] = vs.createInputGroup("Bluetooth receiver");
+    inputs[2]->addChannel(4);
+    inputs[2]->addChannel(5);
 
-    //inputs[3] = vs.createInputGroup("Computer 0 line out");
-    //inputs[3]->addChannel(6);
-    //inputs[3]->addChannel(7);
+    inputs[3] = vs.createInputGroup("Computer 0 line out");
+    inputs[3]->addChannel(6);
+    inputs[3]->addChannel(7);
 
-    //inputs[4] = vs.createInputGroup("Computer 1 line out");
-    //inputs[4]->addChannel(8);
-    //inputs[4]->addChannel(9);
+    inputs[4] = vs.createInputGroup("Computer 1 line out");
+    inputs[4]->addChannel(8);
+    inputs[4]->addChannel(9);
 
-    //inputs[5] = vs.createInputGroup("Microphone");
-    //inputs[5]->addChannel(10);
+    inputs[5] = vs.createInputGroup("Microphone");
+    inputs[5]->addChannel(10);
 
-    //inputs[6] = vs.createInputGroup("Teensy DAC");
-    //inputs[6]->addChannel(11);
+    inputs[6] = vs.createInputGroup("Teensy DAC");
+    inputs[6]->addChannel(11);
 
-    //// Add output channel groups.
-    //outputs[0] = vs.createOutputGroup("Amplifier");
-    //outputs[0]->addChannel(0);
-    //outputs[0]->addChannel(1);
+    // Add output channel groups.
+    outputs[0] = vs.createOutputGroup("Amplifier");
+    outputs[0]->addChannel(0);
+    outputs[0]->addChannel(1);
 
-    //outputs[1] = vs.createOutputGroup("Headphones");
-    //outputs[1]->addChannel(2);
-    //outputs[1]->addChannel(3);
+    outputs[1] = vs.createOutputGroup("Headphones");
+    outputs[1]->addChannel(2);
+    outputs[1]->addChannel(3);
 
-    //outputs[2] = vs.createOutputGroup("Stereo 0");
-    //outputs[2]->addChannel(4);
-    //outputs[2]->addChannel(5);
+    outputs[2] = vs.createOutputGroup("Stereo 0");
+    outputs[2]->addChannel(4);
+    outputs[2]->addChannel(5);
 
-    //outputs[3] = vs.createOutputGroup("Phone mic");
-    //outputs[3]->addChannel(6);
+    outputs[3] = vs.createOutputGroup("Phone mic");
+    outputs[3]->addChannel(6);
 
-    //outputs[4] = vs.createOutputGroup("PA amplifier");
-    //outputs[4]->addChannel(7);
+    outputs[4] = vs.createOutputGroup("PA amplifier");
+    outputs[4]->addChannel(7);
   }
 }
 
@@ -197,6 +200,15 @@ void loop() {
   if (Serial.available()) {
     char c = Serial.read();
     switch (c) {
+      case 'h':
+        vs.printHardware(&output);
+        break;
+      case 'c':
+        vs.printChannels(&output);
+        break;
+      case 'g':
+        vs.printGroups(&output);
+        break;
       case 'i':
         vs.printDebug(&output);
         output.concat("Presently selected input channel:\n");

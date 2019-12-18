@@ -110,13 +110,8 @@ ViamSonus::~ViamSonus() {
       free(outputs[i].name);
     }
   }
-
-  while (_inputs.size() > 0) {
-    delete _inputs.dequeue();
-  }
-  while (_outputs.size() > 0) {
-    delete _outputs.dequeue();
-  }
+  _clear_o_groups();
+  _clear_i_groups();
 }
 
 
@@ -410,8 +405,33 @@ int16_t ViamSonus::getVolume(uint8_t row) {
 }
 
 
-
 void ViamSonus::printDebug(StringBuilder* output) {
+  output->concat("ViamSonus 2.0\n");
+}
+
+
+void ViamSonus::printGroups(StringBuilder* output) {
+  for (uint8_t i = 0; i < 8; i++) {
+    if (nullptr != ogroups[i]) {
+      ogroups[i]->printDebug(output);
+    }
+  }
+  for (uint8_t i = 0; i < 12; i++) {
+    if (nullptr != igroups[i]) {
+      igroups[i]->printDebug(output);
+    }
+  }
+}
+
+
+void ViamSonus::printChannels(StringBuilder* output) {
+  for (uint8_t i = 0; i < 8; i++) {
+    dumpOutputChannel(i, output);
+  }
+}
+
+
+void ViamSonus::printHardware(StringBuilder* output) {
   output->concat("ViamSonus 2.0\n");
   #if defined(ADG2128_DEBUG)
     if (_vs_flag(VIAMSONUS_FLAG_FOUND_SWITCH)) {  cp_switch.printDebug(output);  }
@@ -424,9 +444,6 @@ void ViamSonus::printDebug(StringBuilder* output) {
     if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_4)) {   pot4.printDebug(output);       }
     if (_vs_flag(VIAMSONUS_FLAG_FOUND_POT_5)) {   pot5.printDebug(output);       }
   #endif  // DS1881_DEBUG
-  for (uint8_t i = 0; i < 8; i++) {
-    dumpOutputChannel(i, output);
-  }
 }
 
 
@@ -535,21 +552,21 @@ uint32_t ViamSonus::serialize(uint8_t* buf, unsigned int len) {
     if ((VIAMSONUS_SERIALIZE_SIZE == offset) && (0 < (len - offset))) {
       // If we packed the basics with success, and still have space left in
       //   the buffer, we start looking for definitions of channel groups.
-      int c_count = _outputs.size();
-      for (int i = 0; i < c_count; i++) {
-        VSOGroup* c = _outputs.get(i);
-        if (c->serialized_len() > (len - offset)) {
-          return 0;
+      for (uint8_t i = 0; i < 8; i++) {
+        if (nullptr != ogroups[i]) {
+          if (ogroups[i]->serialized_len() > (len - offset)) {
+            return 0;
+          }
+          offset += ogroups[i]->serialize((buf + offset), (len - offset));
         }
-        offset += c->serialize((buf + offset), (len - offset));
       }
-      c_count = _inputs.size();
-      for (int i = 0; i < c_count; i++) {
-        VSIGroup* c = _inputs.get(i);
-        if (c->serialized_len() > (len - offset)) {
-          return 0;
+      for (uint8_t i = 0; i < 12; i++) {
+        if (nullptr != igroups[i]) {
+          if (igroups[i]->serialized_len() > (len - offset)) {
+            return 0;
+          }
+          offset += igroups[i]->serialize((buf + offset), (len - offset));
         }
-        offset += c->serialize((buf + offset), (len - offset));
       }
     }
   }
@@ -588,6 +605,37 @@ int8_t ViamSonus::unserialize(const uint8_t* buf, const unsigned int len) {
   if ((0 == ret) && (1 < (len - offset))) {
     // If we took apart the basics with success, and still have space left in
     //   the buffer, we start looking for definitions of channel groups.
+    uint8_t nu_ogrp_idx = 0;
+    uint8_t nu_igrp_idx = 0;
+    _clear_o_groups();
+    _clear_i_groups();
+    while ((0 == ret) && (1 < (len - offset))) {
+      switch (*(buf + offset)) {
+        case 'I':
+          igroups[nu_igrp_idx] = new VSIGroup((const ViamSonus*) this, (buf + offset), len-offset);
+          if (nullptr != igroups[nu_igrp_idx]) {
+            offset += igroups[nu_igrp_idx]->serialized_len();
+            nu_igrp_idx++;
+          }
+          else {
+            ret = -6;
+          }
+          break;
+        case 'O':
+          ogroups[nu_ogrp_idx] = new VSOGroup((const ViamSonus*) this, (buf + offset), len-offset);
+          if (nullptr != ogroups[nu_ogrp_idx]) {
+            offset += ogroups[nu_ogrp_idx]->serialized_len();
+            nu_ogrp_idx++;
+          }
+          else {
+            ret = -7;
+          }
+          break;
+        default:
+          ret = -5;
+          break;
+      }
+    }
   }
   return ret;
 }
@@ -598,20 +646,54 @@ int8_t ViamSonus::unserialize(const uint8_t* buf, const unsigned int len) {
 *******************************************************************************/
 
 VSOGroup* ViamSonus::createOutputGroup(const char* n) {
-  VSOGroup* ret = new VSOGroup((const ViamSonus*) this);
-  if (nullptr != ret) {
-    ret->setName(n);
-    _outputs.insert(ret);
+  VSOGroup* ret = nullptr;
+  uint8_t nu_grp_idx = 0;
+  while ((nu_grp_idx < 8) && (nullptr != ogroups[nu_grp_idx])) {
+    nu_grp_idx++;
+  }
+  if (nu_grp_idx < 8) {
+    ret = new VSOGroup((const ViamSonus*) this);
+    if (nullptr != ret) {
+      ret->setName(n);
+      ogroups[nu_grp_idx] = ret;
+    }
   }
   return ret;
 }
 
 
 VSIGroup* ViamSonus::createInputGroup(const char* n) {
-  VSIGroup* ret = new VSIGroup((const ViamSonus*) this);
-  if (nullptr != ret) {
-    ret->setName(n);
-    _inputs.insert(ret);
+  VSIGroup* ret = nullptr;
+  uint8_t nu_grp_idx = 0;
+  while ((nu_grp_idx < 12) && (nullptr != igroups[nu_grp_idx])) {
+    nu_grp_idx++;
+  }
+  if (nu_grp_idx < 12) {
+    ret = new VSIGroup((const ViamSonus*) this);
+    if (nullptr != ret) {
+      ret->setName(n);
+      igroups[nu_grp_idx] = ret;
+    }
   }
   return ret;
+}
+
+
+void ViamSonus::_clear_o_groups() {
+  for (uint8_t i = 0; i < 8; i++) {
+    if (nullptr != ogroups[i]) {
+      delete ogroups[i];
+      ogroups[i] = nullptr;
+    }
+  }
+}
+
+
+void ViamSonus::_clear_i_groups() {
+  for (uint8_t i = 0; i < 12; i++) {
+    if (nullptr != igroups[i]) {
+      delete igroups[i];
+      igroups[i] = nullptr;
+    }
+  }
 }

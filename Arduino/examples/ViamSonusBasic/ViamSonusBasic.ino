@@ -43,6 +43,9 @@ void printHelp() {
   output.concatf("%s\n---< Meta >-------------------------\n", TEST_PROG_VERSION);
   output.concat("?     This output\n");
   output.concat("i     Viam Sonus info\n");
+  output.concat("h     Hardware info\n");
+  output.concat("c     Dump channels\n");
+  output.concat("g     Dump groups\n");
   output.concat("Q     Reboot\n");
 
   output.concat("\n---< Low-level >-----------\n");
@@ -148,6 +151,15 @@ void loop() {
   if (Serial.available()) {
     char c = Serial.read();
     switch (c) {
+      case 'h':
+        vs.printHardware(&output);
+        break;
+      case 'c':
+        vs.printChannels(&output);
+        break;
+      case 'g':
+        vs.printGroups(&output);
+        break;
       case 'i':
         vs.printDebug(&output);
         output.concat("Presently selected input channel:\n");

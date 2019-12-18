@@ -71,16 +71,16 @@ void VSGroup::printDebug(StringBuilder* output) {
   if (nullptr != _name) {
     output->concatf("    Assigned name:   %s\n", _name);
   }
+  output->concatf("    Dirty:           %c\n", _dirty() ? 'y' : 'n');
   if (0 < _count) {
     output->concat("    Bound channels:  { ");
     for (uint8_t i = 0; i < _count; i++) {
       output->concatf("%d %s",
-      _channel_at_position(i),
-      ((i == (_count-1)) ? " }\n" : ", ")
-    );
+        _channel_at_position(i),
+        ((i == (_count-1)) ? " }\n" : ", ")
+      );
+    }
   }
-  }
-  output->concatf("    Dirty:           %c\n", _dirty() ? 'y' : 'n');
 }
 
 

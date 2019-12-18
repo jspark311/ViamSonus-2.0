@@ -272,7 +272,11 @@ class ViamSonus {
     ViamSonusError poll();
     ViamSonusError refresh();
     ViamSonusError preserveOnDestroy(bool);
+
     void printDebug(StringBuilder*);
+    void printGroups(StringBuilder*);
+    void printChannels(StringBuilder*);
+    void printHardware(StringBuilder*);
 
     /* API level-1: Dealing with groups of channels. */
     VSOGroup* createOutputGroup(const char*);
@@ -311,6 +315,8 @@ class ViamSonus {
   private:
     CPInputChannel  inputs[12];  // TODO: These are on borrowed time.
     CPOutputChannel outputs[8];  // TODO: These are on borrowed time.
+    VSIGroup*       igroups[12];
+    VSOGroup*       ogroups[8];
     uint32_t _flags = 0;
     ADG2128  cp_switch;
     DS1881   pot0;
@@ -320,12 +326,13 @@ class ViamSonus {
     DS1881   pot4;
     DS1881   pot5;
     PriorityQueue<VSPendingOperation*> _pending_ops;
-    PriorityQueue<VSOGroup*> _outputs;
-    PriorityQueue<VSIGroup*> _inputs;
     uint16_t _input_claims  = 0;
     uint8_t  _output_claims = 0;
 
     DS1881* _getPotRef(uint8_t row);
+
+    void _clear_o_groups();
+    void _clear_i_groups();
 
     inline bool _preserve_on_destroy() {
       return _vs_flag(VIAMSONUS_FLAG_PRESERVE_STATE);
