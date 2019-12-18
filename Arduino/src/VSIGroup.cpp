@@ -69,7 +69,7 @@ int8_t VSIGroup::_next_position() {
 int8_t VSIGroup::_channel_at_position(int8_t pos) {
   int8_t ret = -2;
   if (pos < 12) {
-    uint8_t temp = (_bind_order[pos >> 1] >> ((pos & 1) ? 4 : 0)) & 0x0F;
+    uint8_t temp = (_bind_order[pos >> 1] >> ((pos & 1) << 2)) & 0x0F;
     if (temp < 12) {
       // Any number outside the input channel max index results in an error.
       ret = temp;
@@ -92,14 +92,19 @@ int8_t VSIGroup::swapChannelPositions(int8_t pos0, int8_t pos1) {
   if ((chan0 >= 0) && (chan0 < 12)) {
     ret = -1;
     if ((chan1 >= 0) && (chan1 < 12)) {
-      uint8_t mask0 = 0x0F << ((pos0 & 1) << 2);
-      uint8_t mask1 = 0x0F << ((pos1 & 1) << 2);
-      uint8_t nbo0  = _bind_order[pos0 >> 1] & ~mask0;
-      uint8_t nbo1  = _bind_order[pos1 >> 1] & ~mask1;
-      nbo0 |= chan1 << ((pos0 & 1) << 2);
-      nbo1 |= chan0 << ((pos1 & 1) << 2);
-      _bind_order_q[pos0 >> 1] = nbo0;
-      _bind_order_q[pos1 >> 1] = nbo1;
+      if ((pos0 >> 1) == (pos1 >> 1)) {
+        _bind_order_q[pos0 >> 1] = (chan1 << ((pos0 & 1) << 2)) | (chan0 << ((pos1 & 1) << 2));
+      }
+      else {
+        uint8_t mask0 = 0x0F << ((pos0 & 1) << 2);
+        uint8_t mask1 = 0x0F << ((pos1 & 1) << 2);
+        uint8_t nbo0  = _bind_order[pos0 >> 1] & ~mask0;
+        uint8_t nbo1  = _bind_order[pos1 >> 1] & ~mask1;
+        nbo0 |= chan1 << ((pos0 & 1) << 2);
+        nbo1 |= chan0 << ((pos1 & 1) << 2);
+        _bind_order_q[pos0 >> 1] = nbo0;
+        _bind_order_q[pos1 >> 1] = nbo1;
+      }
       uint8_t tmp_vol = _chan_vol_q[pos0];
       _chan_vol_q[pos0] = _chan_vol_q[pos1];
       _chan_vol_q[pos1] = tmp_vol;
@@ -116,7 +121,7 @@ int8_t VSIGroup::swapChannelPositions(int8_t pos0, int8_t pos1) {
 *   group volume. This is not correct.
 */
 uint8_t VSIGroup::getVolume() {
-  uint8_t ret = -1;
+  uint8_t ret = 0;
   for (uint8_t i = 0; i < _count; i++) {
     int8_t chan = _channel_at_position(i);
     if ((chan < 0) && (chan >= 12)) {

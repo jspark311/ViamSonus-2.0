@@ -55,7 +55,9 @@ ViamSonus vs(VS_RESET_PIN);
 VSIGroup* inputs[7] = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
 VSOGroup* outputs[5] = {nullptr, nullptr, nullptr, nullptr, nullptr};
 
-VSIGroup* selected_input = nullptr;
+VSIGroup* selected_input  = nullptr;
+VSOGroup* selected_output = nullptr;
+
 
 /*******************************************************************************
 * Functions to output things to the console
@@ -76,10 +78,11 @@ void printHelp() {
   output.concat("I     Reinitialize\n");
   output.concat("S     Serialize state\n");
   output.concat("R     Reset\n");
-  output.concat("A     Apply all groups to hardware\n");
+  output.concat("w     Apply all groups to hardware\n");
 
   output.concat("\n---< Input Manipulation >-----------\n");
   output.concat("[0-6] Select input group\n");
+  output.concat("[A-E] Select output group\n");
   output.concat("[+/-] (In/de)crease volume on selected group\n");
   output.concat("s     Swap channel order in selected group\n");
   output.concat("a     Apply selected group to hardware\n");
@@ -256,6 +259,17 @@ void loop() {
         selected_input = inputs[(c - 0x30)];
         if (nullptr != selected_input) {
           selected_input->printDebug(&output);
+        }
+        break;
+
+      case 'A':
+      case 'B':
+      case 'C':
+      case 'D':
+      case 'E':
+        selected_output = outputs[(c - 65)];
+        if (nullptr != selected_output) {
+          selected_output->printDebug(&output);
         }
         break;
 

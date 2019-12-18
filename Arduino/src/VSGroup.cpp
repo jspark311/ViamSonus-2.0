@@ -57,11 +57,11 @@ int8_t VSGroup::reverseChannelOrder() {
   int8_t ret = 0;
   uint8_t i = 0;
   while ((0 == ret) & (i < (_count >> 1))) {
-    ret = swapChannelPositions(i, _count - i);
+    ret = swapChannelPositions(i, (_count-1) - i);
     i++;
   }
   if (0 == ret) {
-    ret = _apply_to_hardware(false);
+    //ret = _apply_to_hardware(false);
   }
   return ret;
 }
@@ -75,7 +75,7 @@ void VSGroup::printDebug(StringBuilder* output) {
   if (0 < _count) {
     output->concat("    Bound channels:  { ");
     for (uint8_t i = 0; i < _count; i++) {
-      output->concatf("%d %s",
+      output->concatf("%d%s",
         _channel_at_position(i),
         ((i == (_count-1)) ? " }\n" : ", ")
       );
