@@ -12,10 +12,7 @@ ViamSonus 2.0 basic example. This sketch manages the router board as 12 mono
 #include <ViamSonus.h>
 #include <StringBuilder.h>
 
-#define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
-#define CPU_RESTART_VAL 0x5FA0004
-
-#define TEST_PROG_VERSION "v1.1"
+#define TEST_PROG_VERSION "v1.2"
 
 
 /*******************************************************************************
@@ -46,7 +43,6 @@ void printHelp() {
   output.concat("h     Hardware info\n");
   output.concat("c     Dump channels\n");
   output.concat("g     Dump groups\n");
-  output.concat("Q     Reboot\n");
 
   output.concat("\n---< Low-level >-----------\n");
   output.concat("x     Refresh register shadows\n");
@@ -268,7 +264,6 @@ void loop() {
         }
         break;
 
-      case 'Q': (*CPU_RESTART_ADDR = CPU_RESTART_VAL);   break;
       case '?': printHelp();  break;
     }
   }
